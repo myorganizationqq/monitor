@@ -169,7 +169,7 @@ public class RoleManagerServiceImpl implements IRoleManagerService{
 	public List<TbCommonRole> getRoleListByUserIdAndOrgId(Long userId,Long orgId) {
 		// TODO Auto-generated method stub
 		String hql="select r from TbCommonRole r where r.id in"
-				+ " (select roleId from TbCommonUserRole where userId="+userId+" and orgId="+orgId+")";
+				+ " (select roleId from TbCommonUserRole where userId="+userId+" )";
 
 		List<TbCommonRole> roleList=(List<TbCommonRole>)this.hibernateDao.queryForList(hql, new Object[]{}, null);
 
