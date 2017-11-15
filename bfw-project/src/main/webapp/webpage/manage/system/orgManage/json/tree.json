@@ -1,0 +1,1 @@
+[{"id":1,"text":"内容管理","state":"closed","children":[{"id":2,"text":"视频管理"},{"id":3,"text":"图库管理"},{"id":4,"text":"专题管理"}]},{"id":5,"text":"维护管理","state":"closed","children":[{"id":6,"text":"栏目内容维护"},{"id":7,"text":"终端内容维护"},{"id":8,"text":"系统信息维护"}]}]

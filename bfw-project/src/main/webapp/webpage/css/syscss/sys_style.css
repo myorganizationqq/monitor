@@ -1,0 +1,242 @@
+﻿body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {  margin:0; padding:0; outline: 0; }   
+body {line-height: 1.5;font-family: Arial, Helvetica, sans-serif;"宋体"; font-size:12px}   
+table{ border-collapse: collapse; border-spacing: 0; *padd:  expression(this.cellPadding=0); font-size:12px}
+h1,h2,h3,h4,h5,h6,address,caption,cite,code,dfn,em,strong,th,var,font { font-style:normal; font-size:100%;}  
+ol,ul {list-style:none;}   
+:focus {outline: 0;}   
+blockquote:before, blockquote:after,q:before, q:after { content: ''; content: none; }   
+fieldset,img,abbr,acronym { border:0;}   icon-lookins {text-decoration: none;}   
+del {text-decoration: line-through;}   
+caption,th { text-align:left; }
+img{border:0px; vertical-align: middle;}
+input, select ,img{vertical-align: middle;}
+
+/**  CSS layout*/  
+body{font-size:12px;color:#333333;line-height:21px; padding:0px; z-index:0;} 
+/****** other ******/
+.fr{float:right;}
+.fl{float:left;}
+.clear{ clear: both; overflow:hidden; height:0px; margin:0 auto}
+.clearer{clear: both; font-size:1px; line-height:1px; height:1px; visibility: hidden;}
+/* Clear Fix */ 
+.clearfix:after { content:".";display:block; height:0; clear:both; visibility:hidden; } 
+.clearfix { display:inline-block; } 
+/* Hide from IE Mac \*/ 
+.clearfix {display:block;} 
+.hidden {display: none;}
+
+/* Font color */
+.red{color:red}
+.gred{color:#AA4E17;}
+.bule{color:#1e50a2;}
+.org,a.org{color:#FF6600}
+.color_2679b1{color:#2679b1}
+
+/* Link Elements */
+a{color:#006699;text-decoration:none; cursor:pointer}
+a:hover{ color:#006699;cursor:pointer }
+
+
+
+/*font*/
+.gray,a.gray{color:#ccc}
+a.black,.black{ color:#333}
+.fontb14{font-size:14px;color:#444;}
+.fnt14{font-size:14px; color:#996600}
+.fnt12{font-size:12px}
+.fnt11{font-size:11px}
+
+/*body*/
+* {PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px}
+IFRAME {BACKGROUND-COLOR: white}
+input, select,img{vertical-align: middle;}
+.w100{width:99%;overflow:hidden;}
+.w840{width:840px;overflow:hidden;margin:auto;}
+.w370{width:370px}
+.w370b{width:370px;}
+.mag10{padding-top:10px;}
+a.blueline{color:#0f63be;text-decoration: underline;}
+.green{color:#5fa207;}
+.blue{color:#3c74bf;}
+#sidebar {width: 226px;position: relative;}
+#mainFrame{overflow-x:hidden;}
+
+/*header css*/
+#header { height:52px; position:relative; background:url(../../image/sysimages/headbg.jpg) repeat-x; }
+.nav{ width:100%}
+.logo{float:left; margin-top:9px; margin-right:10px; margin-left:10px}
+.menus{float:left;}
+.SetBord{ margin-top:3px;float:right; position:relative;  height:46px;  margin-right:0px; padding-left:0px; }
+a.exit{ display:block; float:right; padding-left:25px; margin-top:15px; height:22px; line-height:22px; font-size:12px;}
+.oldNetSite{ position:absolute; z-index:1; right:0px}
+.oldNetSite a{color:#999}
+.crumb{ padding:0 35px;height:31px; line-height:31px; }
+
+
+/*top*/
+.m_left10{float:left;margin-left:10px;}
+.m_left5{margin-left:5px}
+.m_right{float:right;margin-right:10px;text-align:right;}
+.m_bottom10{margin-bottom:10px}
+.ptb10{padding:10px 0px}
+.ptb5{padding:5px 0px}
+.m_top10{margin-top:10px}
+.m_top20{margin-top:20px}
+.m_top5{margin-top:5px}
+.m_left5{margin-left:5px}
+.m_righ10{margin-right:10px}
+.m_left20{margin-left:20px}
+.p_left10{ padding-left:10px}
+.p_lr{ padding:0 10px}
+
+
+
+/*leftmenu*/
+.menu_box{OVERFLOW-y:hidden;overflow-x:auto; font-size:14px; height: 100%;float:left;}
+.menu_box a{color:#1e5494;}
+.menu_box a:hover{color:#333;}
+.ico_img{margin-left:15px;}
+a.clea_gray {color:#a7a5a5;float:right;}
+.menu_box div.Row{ height:32px; padding:0 10px; line-height:32px;  position:relative  }
+.menu_box  div.sort{ height:39px; overflow:hidden; line-height:39px}
+.subdiv p{ height:30px; line-height:30px; font-size:12px; width:224px; overflow:hidden; text-indent:45px; background:url(../../image/sysimages/line.jpg) center bottom no-repeat}
+.sort_list{ height:100%;width:224px}
+.menu_box  a{ display:block; overflow:hidden; font-weight:bold; color:#323232}
+.subdiv a{color:#000000; font-weight:normal;}
+.subdiv a.c_on{ color:#006699}
+.menu_box  a.website_dest{ padding-left:0px;}
+.b01{float:left;margin-left:10px;width:50%;}
+.b02{float:right;margin-right:10px;width:20%;}
+ 
+
+/*main center*/
+.control_center{ display:block; overflow:hidden; position:absolute; z-index:9; left:235px}
+.useArea{ margin-top:15px; float:right; padding-right:10px}
+ .main{width:99.6%;}
+.panel-title{ text-indent:10px; height:37px; line-height:37px}
+.layout-panel-north{border-left:solid 1px #c0c1c3;}
+#footer{ height:25px; line-height:25px; color:#777777; text-align:center; background-color:#EFEFEF; width:98%}
+.main .easyui-tree li .tree-node{ background: url(../../image/sysimages/easyui/tbar.gif) repeat-x; color: #323232; padding-left:10px;   font-size: 13px;  height: 25px; line-height: 25px;}
+.layout-panel-west .layout-body{ height:100%!important; overflow-y:auto}
+
+.main .easyui-tree li div.tree-node .tree-title{ font-family:"MicroSoft Yahei"; font-size:13px; color:#000}
+.main .easyui-tree li ul div.tree-node .tree-title a{  color:#333}
+.main .easyui-tree li ul li ul li div.tree-node .tree-title a{ font-size:12px; font-weight:normal; color:#666}
+.layout-panel-west .panel-header{background: url(../../image/sysimages/easyui/menbg.jpg) repeat-x ; text-align:left; font-size:15px;color:#fff;}
+.layout-panel-west .panel-header .panel-title{background: url(../../image/sysimages/menus_07.png) left center no-repeat ;font-family:"MicroSoft Yahei"; height:37px; line-height:32px;color:#323232;  }
+.tbar{ border-bottom:solid 1px #ddd;}
+.tree-title a{color:#333}
+
+
+.CenterMain{/* padding:10px;*/ font-family:Simsun; width:1000px; overflow:auto }
+.LeftTxt{ float:left;}
+.linkbutton{ padding:0 15px; color:#333; font-size:12px; background-color:#f7f7f7; border:solid 1px #e1e1e1; line-height:25px; height:25px; display:inline-block}
+.linkbutton:hover{color:#333}
+.OrgManage .orgsoso{ font-size:14px; height:30px; line-height:30px; padding:20px 0px 5px}
+.demo-info{padding:0 0 12px 0;}
+.demo-tip{display:none;}
+.inputText{ border:solid 1px #ddd; height:27px; display:inline-block}
+.inputText .inputtxtstyle{ border:none; height:20px; line-height:20px}
+.icon-look{ background: url(../../image/sysimages/easyui/icon-look.png) left center no-repeat;}
+.whiteIcon .icon-look{ background: url(../../image/sysimages/easyui/icon-look-white.png) left center no-repeat; }
+.icon-mod{ background: url(../../image/sysimages/modification.png) left center no-repeat;}
+.whiteIcon{ padding:1px 0px}
+.icon-delete{background: url(../../image/sysimages/delete.png) right center no-repeat;}
+.icon-orgTree{background: url(../../image/sysimages/tree.png) right center no-repeat;}
+.icon-notice{background: url(../../image/sysimages/notice.png) right center no-repeat;}
+.icon-reload{background: url(../../image/sysimages/refresh.png) right center no-repeat;}
+.l-btn-plain:hover { background: #b7d2ff;color: #000000;border: 1px solid #b7d2ff;}
+.whiteIcon .l-btn-icon-left .l-btn-text{ color:#fff}
+.OrgManage .panel .panel-body-noheader{background-color:#f8f9fa; margin-top:10px}
+tr.datagrid-header-row td{ padding: 6px 0;  text-align: center;  font-size: 12px;}
+.datagrid-header-inner{   border-left: 1px solid #ddd; border-top: 1px solid #ddd;}
+.datagrid-body { border-left: 1px solid #ddd;}
+
+.newAddOrg  td{ padding:5px 2px; font-size:13px}
+.newAddOrg .textbox-invalid{ background:none; border:solid 1px #ddd;}
+.newAddOrg .textbox{  border-radius: 0px;}
+.newAddOrg .textbox .textbox-text{ border-radius: 0px;}
+.newAddOrg .validatebox-invalid{background-color:inherit}
+.newAddOrg  .textbox{border:solid 1px #ddd;}
+.submitBtn{ padding:5px; }
+.submitBtn{}
+.submitBtn .l-btn-left{ color:#333}
+.submitBtn .easyui-linkbutton span{ display:inline-block;}
+.submitBtn .l-btn{border:none; border-radius:0px;background: url(../../image/sysimages/graybtn.png) repeat-x;}
+.addnewbtn{ border:solid 1px #d2d2d2!important}
+.submitBtn .l-btn-left{line-height:40px!important; height:40px!important; margin-top:0px!important;padding-left:3px;}
+.submitBtn .l-btn-left .l-btn-text{line-height:40px!important; height:40px!important; margin-top:0px!important; margin:0px!important; padding-left:63px; font-size:14px; padding-right:66px;}
+.submitBtn .blackButton .l-btn-left{line-height:40px!important; height:40px!important; margin-top:0px!important;background: url(../../image/sysimages/bluebtn.png) left center  repeat-x; padding-left:3px;}
+.submitBtn .blackButton  .l-btn-left .l-btn-text{line-height:40px!important; height:40px!important; margin-top:0px!important; margin:0px!important; color:#fff;padding-left:63px; font-size:14px; padding-right:66px;}
+.tipmsg{width:448px; text-align:right; color:#666; font-size:13px}
+.selectArrow .combo-arrow{background: url(../../image/sysimages/addionc.jpg) 5px center no-repeat;}
+.uploadfilebox .textbox{ border:none!important; }
+.uploadfilebox .textbox-text{width:80px!important; height:80px!important}
+.OrgManage .tabs-header .tabs-selected .tabs-inner .tabs-title{ color: #fff;display: block;font-size: 14px;line-height:38px;height: 38px;padding-left: 20px;padding-right: 25px;}	
+.OrgManage .tabs-header .tabs-selected .tabs-inner{   border:none;display: block;float: left;height: 38px;line-height: 38px;padding-left: 3px;}
+a.tabs-inner{border:none}
+.tabs li a.tabs-inner.tabs li a.tabs-inner {border-radius: 0;border-style:none;border-width: 0px;display: inline-block;margin: 0;text-align: center;text-decoration: none;white-space: nowrap;}	
+.tabs-close{   top: 20%; right:2px;}
+.tree li ul{width:100%}
+.welcome{text-align:center}
+.text_required{color:red}
+
+
+
+
+/*org-userManager  */
+.rowList{ clear:both; font-size:14px; overflow:hidden;}
+.tahoma_font{ font-family:tahoma;}
+.tahoma_font lable{ vertical-align:middle}
+.tahoma_font input{ vertical-align:middle}
+.LName{float:left; width:80px}
+.Rinput{float:left}
+.useManage{margin-top:15px}
+.tableStyle td{ padding:2px 8px}
+.tableStyle_5_0 td{ padding:2px 0px; font-family:Simsun}
+.useManage .panel-title{ text-align:left; padding:0 10px}
+.panel-title{ border: 1px solid #95b8e7;  cursor: pointer;display: block; height:30px; line-height:30px;text-decoration: none;}
+.Custom_icon .header{ background:#f8f9fa; height:30px; margin-top:5px;}
+.useManage td div.datagrid-cell{ overflow:hidden}
+
+
+/*--org-userAudit--*/
+.useOrgRegidtTime{margin-top:4px; padding:0px 0px 0px}
+.useOrgRegidtTime  .accordion .accordion-header-selected, .useOrgRegidtTime .panel-header{ background:none}
+.useOrgRegidtTime .panel-title, .useOrgRegidtTime .accordion{ border:none}
+.useOrgRegidtTime .panel-title{ height:16px; line-height:16px; text-align:right; font-weight:normal; font-size:12px; padding-right:35px}
+.ac_arrow_down{ background: url(../../image/sysimages/easyui/accordion_arrows.png) no-repeat -16px 0; display: inline-block; height: 16px;margin: 0 0 0 2px; opacity: 0.6; vertical-align:middle;width: 16px;}
+.ac_arrow_up{ background: url(../../image/sysimages/easyui/accordion_arrows.png) no-repeat 0px 0; display: inline-block; height: 16px;margin: 0 0 0 2px; opacity: 0.6; vertical-align:middle;width: 16px;}
+.layout-panel-west .panel-tool .layout-button-left{}
+.bg{height:52px; position:relative; background:url(../../image/sysimages/headbg.jpg) repeat-x;}
+.TdRow td{ border-bottom:dashed 1px #eee; padding:6px 0px}
+td.p_right10{padding-right:10px}
+.centerMain .panel-noscroll{overflow:visible}
+span.filebox a span.l-btn-left, span.filebox a span.l-btn-text{ line-height:22px!important;}
+.orgstyle td{ padding:10px 2px}
+.lookOrgAcount .p_right10{ padding-right:15px;}
+.lookOrgAcount tr:last-child td{ border:none; font-size:14px}
+.lookOrgAcount td{font-size:13px; padding-top:8px; padding-bottom:8px}
+.line{ border-bottom:solid 1px #ddd;}
+
+
+
+
+
+
+/*弹窗*/
+#backgroundPopup { background: none repeat scroll 0 0 #000000; border: 1px solid #cecece; left: 0; position: fixed; top: 0;width: 100%; z-index: 3;}
+.windowBox { background: #f2ece0; color:#fff; display:none; height: 510px; width: 881px; z-index: 999; position:absolute; left:0px; top:0px;}
+.tdstyle table{ border-left:solid 1px #ddd; border-top:solid 1px #ddd}
+.tdstyle  td{ border-bottom:solid 1px #ddd; padding-left:8px; border-right:solid 1px #ddd;}
+
+
+
+
+
+
+
+
+
+
+ 

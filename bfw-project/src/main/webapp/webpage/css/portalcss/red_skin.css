@@ -1,0 +1,41 @@
+#header{  background:#f0f1f3 url(../../image/portalimages/headerbottom.png) 60% -5px no-repeat;} 
+#common_topbar {background: url(../../image/portalimages/jlp_02.png) repeat-x bottom ;}
+#navbox{ background:url(../../image/portalimages/nav_03.png) repeat-x;}
+.subNav li{background:url(../../image/portalimages/line2..png) no-repeat right center; overflow:hidden;}
+.subNav li span.on{  background:url(../../image/portalimages/nav_06.png) no-repeat left top;}
+.subNav li span.on a{ background:url(../../image/portalimages/nav_06.png) no-repeat right -27px; }
+.searchInput input.s_i{ border: 2px solid #d80c18;}
+.searchbtn{ background:url(../../image/portalimages/searchbnt.png) no-repeat; }
+.subNav li span.on a{color:#e03835}
+.subNav li a{color:#fff;}
+.sort_r a.on{color:#fff; background-color:#e73c31;}
+.zt li i.num_2{background:url(../../image/portalimages/zt_13.png); }
+.zt li i.num_3{background:url(../../image/portalimages/zt_18.png); }
+.zt li i.num_4{background:url(../../image/portalimages/zt_24.png); }
+.zt li i.num_5{background:url(../../image/portalimages/zt_26.png); }
+.zt li i.num_6{background:url(../../image/portalimages/v_07.png); }
+.zt li i.num_7{background:url(../../image/portalimages/v_11.png); }
+.zt li i.num_8{background:url(../../image/portalimages/v_14.png); }
+.zt li i.num_9{background:url(../../image/portalimages/v_16.png); }
+.sub_blk  .sort_l{ border-bottom:solid 2px #e03835; }
+.Triangle_gray{border-color:#bababa transparent transparent transparent; transition: all 0.2s ease-in-out 0s;  }
+.Triangle_red{  border-color:#e03835 transparent transparent transparent; }
+.Triangle_gray_up{border-color: transparent transparent #bababa transparent;  }
+ .graybg{ background-color:#f2f2f2}
+ .whitebg{ background-color:#fff}
+.topgraybg{background-color:#f2f2f2; }
+.r_v .sort_l{ padding:5px 10px; font-size:20px; display:inline-block;}
+.red{color:#e03837}
+.s_red{color:#FC0685}
+a.z_red,.z_red{ color:#B63300}
+.subject{ background-color:#f7f7f7;  }
+.v_b_infor dt{ background-color:#d20000; color:#fff; }
+.title_bottom_border{   border-bottom: 2px solid #d20000; }
+.post .rednum{background:url(../../image/portalimages/conn_10.jpg) no-repeat left 0px;}
+.p_btn{ color:#fff;  background-color:#d30915}
+.commend .sort_l{ border-bottom:solid 2px #ea3a37; }
+.anybodyCommend .scoreTxt{  color:#ff6600; }
+.searchResulit .enter_btn{ background-color:#d70b17; color:#fff;}
+.v_b_infor dt{ color:#fff; }
+a.c_btn{ background:url(../../image/portalimages/p_15.png) no-repeat left 0px;}
+a.c_btn:hover{  display:inline-block;background:url(../../image/portalimages/p_18.png) no-repeat left 0px;}

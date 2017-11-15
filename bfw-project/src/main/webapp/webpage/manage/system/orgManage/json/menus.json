@@ -1,0 +1,221 @@
+[
+    {
+        "id": 1,
+        "text": "我的信息",
+        "state": "closed",
+        "children": [
+            {
+                "id": 2,
+                "text": "个人信息",
+                "state": "open",
+                "children": [],
+                "attributes": {
+                    "id": 2,
+                    "menuTitle": "个人信息",
+                    "menuUrl": "www.baidu.com",
+                    "description": "自定义菜单",
+                    "childMenus": [],
+                    "menuOrder": 1,
+                    "enable": 0,
+                    "menuLevel": 1,
+                    "clazz": "levelClass1",
+                    "menuName": "个人信息"
+                }
+            },
+            {
+                "id": 3,
+                "text": "个人操作",
+                "state": "open",
+                "children": [],
+                "attributes": {
+                    "id": 3,
+                    "menuTitle": "个人操作",
+                    "menuUrl": "www.baidu.com",
+                    "description": "自定义菜单",
+                    "childMenus": [],
+                    "menuOrder": 2,
+                    "enable": 0,
+                    "menuLevel": 1,
+                    "clazz": "levelClass1",
+                    "menuName": "个人操作"
+                }
+            },
+            {
+                "id": 4,
+                "text": "我的历史",
+                "state": "closed",
+                "children": [
+                    {
+                        "id": 5,
+                        "text": "我的登录历史",
+                        "state": "open",
+                        "children": [],
+                        "attributes": {
+                            "id": 5,
+                            "menuTitle": "我的登录历史",
+                            "menuUrl": "www.baidu.com",
+                            "description": "自定义菜单",
+                            "childMenus": [],
+                            "menuOrder": 1,
+                            "enable": 0,
+                            "menuLevel": 1,
+                            "clazz": "levelClass1",
+                            "menuName": "我的登录历史"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "text": "我的操作历史",
+                        "state": "open",
+                        "children": [],
+                        "attributes": {
+                            "id": 6,
+                            "menuTitle": "我的操作历史",
+                            "menuUrl": "www.baidu.com",
+                            "description": "自定义菜单",
+                            "childMenus": [],
+                            "menuOrder": 2,
+                            "enable": 0,
+                            "menuLevel": 1,
+                            "clazz": "levelClass1",
+                            "menuName": "我的操作历史"
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "text": "我的查看历史",
+                        "state": "closed",
+                        "children": [
+                            {
+                                "id": 11,
+                                "text": "信息查看历史",
+                                "state": "open",
+                                "children": [],
+                                "attributes": {
+                                    "id": 11,
+                                    "menuTitle": "信息查看历史",
+                                    "menuUrl": "webmail.126.com",
+                                    "description": "自定义菜单",
+                                    "childMenus": [],
+                                    "menuOrder": 1,
+                                    "enable": 0,
+                                    "menuLevel": 1,
+                                    "clazz": "levelClass1",
+                                    "menuName": "信息查看历史"
+                                }
+                            },
+                            {
+                                "id": 12,
+                                "text": "计费查看历史",
+                                "state": "open",
+                                "children": [],
+                                "attributes": {
+                                    "id": 12,
+                                    "menuTitle": "计费查看历史",
+                                    "menuUrl": "webmail.189.cn",
+                                    "description": "自定义菜单",
+                                    "childMenus": [],
+                                    "menuOrder": 2,
+                                    "enable": 0,
+                                    "menuLevel": 1,
+                                    "clazz": "levelClass1",
+                                    "menuName": "计费查看历史"
+                                }
+                            }
+                        ],
+                        "attributes": {
+                            "id": 7,
+                            "menuTitle": "我的查看历史",
+                            "menuUrl": "www.baidu.com",
+                            "description": "自定义菜单",
+                            "childMenus": [],
+                            "menuOrder": 3,
+                            "enable": 0,
+                            "menuLevel": 1,
+                            "clazz": "levelClass1",
+                            "menuName": "我的查看历史"
+                        }
+                    }
+                ],
+                "attributes": {
+                    "id": 4,
+                    "menuTitle": "我的历史",
+                    "menuUrl": "www.baidu.com",
+                    "description": "自定义菜单",
+                    "childMenus": [],
+                    "menuOrder": 3,
+                    "enable": 0,
+                    "menuLevel": 1,
+                    "clazz": "levelClass1",
+                    "menuName": "我的历史"
+                }
+            },
+            {
+                "id": 8,
+                "text": "关于我们",
+                "state": "open",
+                "children": [],
+                "attributes": {
+                    "id": 8,
+                    "menuTitle": "关于我们",
+                    "menuUrl": "www.baidu.com",
+                    "description": "自定义菜单",
+                    "childMenus": [],
+                    "menuOrder": 4,
+                    "enable": 0,
+                    "menuLevel": 1,
+                    "clazz": "levelClass1",
+                    "menuName": "关于我们"
+                }
+            }
+        ],
+        "attributes": {
+            "id": 1,
+            "menuTitle": "我的信息",
+            "menuUrl": "www.baidu.com",
+            "description": "自定义菜单",
+            "childMenus": [],
+            "menuOrder": 1,
+            "enable": 0,
+            "menuLevel": 0,
+            "clazz": "levelClass0",
+            "menuName": "我的信息"
+        }
+    },
+    {
+        "id": 9,
+        "text": "信息发布",
+        "state": "closed",
+        "children": [],
+        "attributes": {
+            "id": 9,
+            "menuTitle": "信息发布",
+            "menuUrl": "www.baidu.com",
+            "description": "自定义菜单",
+            "childMenus": [],
+            "menuOrder": 2,
+            "enable": 0,
+            "menuLevel": 0,
+            "clazz": "levelClass0",
+            "menuName": "信息发布"
+        }
+    },
+    {
+        "id": 10,
+        "text": "统计管理",
+        "state": "closed",
+        "children": [],
+        "attributes": {
+            "id": 10,
+            "menuTitle": "统计管理",
+            "menuUrl": "www.baidu.com",
+            "description": "自定义菜单",
+            "childMenus": [],
+            "menuOrder": 3,
+            "enable": 0,
+            "menuLevel": 0,
+            "clazz": "levelClass0",
+            "menuName": "统计管理"
+        }
+    }
+]

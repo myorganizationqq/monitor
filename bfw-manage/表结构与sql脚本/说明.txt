@@ -1,0 +1,5 @@
+dictionary.sql:字典表的创建和初始化
+
+sequence.sql:序列的创建
+
+housch.sql：其他业务表的创建

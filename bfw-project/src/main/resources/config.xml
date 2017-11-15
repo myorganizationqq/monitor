@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <header>
+    <result delimiterParsingDisabled="true" forceReloadCheck="true">
+      <expressionEngine config-class="org.apache.commons.configuration.tree.xpath.XPathExpressionEngine"/>
+    </result>
+  </header>
+  <override>
+     
+    <properties fileName="config.properties" throwExceptionOnMissing="false"
+      config-name="config" config-optional="true">
+      <reloadingStrategy refreshDelay="30000"
+      config-class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"/>
+    </properties>
+    
+    <properties fileName="system_zh.properties" throwExceptionOnMissing="false"
+      config-name="system_zh" config-optional="true">
+      <reloadingStrategy refreshDelay="30000"
+      config-class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"/>
+    </properties>
+	
+	<properties fileName="cache.properties" throwExceptionOnMissing="false"
+      config-name="cache" config-optional="true">
+      <reloadingStrategy refreshDelay="30000"
+      config-class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"/>
+    </properties>
+    
+    <properties fileName="ftp.properties" throwExceptionOnMissing="false"
+      config-name="ftp" config-optional="true">
+      <reloadingStrategy refreshDelay="30000"
+      config-class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"/>
+    </properties>
+	
+    <!--xml fileName="test.xml" config-name="xml"/-->
+  </override>
+</configuration>

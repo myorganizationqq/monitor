@@ -1,0 +1,6 @@
+[{"id":152,"text":"岑村小学","state":"open", 
+"children":
+[{"id":2,"text":"学生处","state":"closed","children":[{"id":21,"text":"学生处部门1"},{"id":22,"text":"学生处部门2"}]},
+{"id":3,"text":"教务处"},
+{"id":4,"text":"财务处"}]
+}]
