@@ -1,18 +1,17 @@
 package com.bluedon.bfw.system.controller.system;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.bluedon.bfw.common.util.StringUtil;
+import com.bluedon.bfw.common.util.encrypt.Encrypt3DesUtil;
+import com.bluedon.bfw.system.entity.*;
+import com.bluedon.bfw.system.model.system.LoginUserModel;
+import com.bluedon.bfw.system.model.util.CurrentUserInfo;
+import com.bluedon.bfw.system.model.util.OperResult;
+import com.bluedon.bfw.system.service.system.*;
+import com.bluedon.bfw.system.util.ConstantUtil;
+import com.bluedon.bfw.system.util.NumberComparator;
+import com.bluedon.bfw.system.util.ToolUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,27 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bluedon.bfw.common.util.StringUtil;
-import com.bluedon.bfw.common.util.encrypt.Encrypt3DesUtil;
-import com.bluedon.bfw.system.entity.TbCommonDepart;
-import com.bluedon.bfw.system.entity.TbCommonFunction;
-import com.bluedon.bfw.system.entity.TbCommonOrg;
-import com.bluedon.bfw.system.entity.TbCommonRole;
-import com.bluedon.bfw.system.entity.TbCommonUser;
-import com.bluedon.bfw.system.entity.TbCommonUserOrg;
-import com.bluedon.bfw.system.model.system.LoginUserModel;
-import com.bluedon.bfw.system.model.util.CurrentUserInfo;
-import com.bluedon.bfw.system.model.util.OperResult;
-import com.bluedon.bfw.system.service.common.ILoginLogService;
-import com.bluedon.bfw.system.service.system.IDepartManagerService;
-import com.bluedon.bfw.system.service.system.IFunctionManagerService;
-import com.bluedon.bfw.system.service.system.IOrgManagerService;
-import com.bluedon.bfw.system.service.system.IRoleManagerService;
-import com.bluedon.bfw.system.service.system.IUserManagerService;
-import com.bluedon.bfw.system.service.system.IUserOrgManagerService;
-import com.bluedon.bfw.system.util.ConstantUtil;
-import com.bluedon.bfw.system.util.NumberComparator;
-import com.bluedon.bfw.system.util.ToolUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /** 
  * @author :yangdandan 
@@ -105,15 +87,9 @@ public class LoginController {
 			result=false;
 			msg="输入的用户名不存在！";			
 		}else{			
-			//param.setCheckType(ConstantUtil.CHECK_LOGINPWS);//密码校验
-			//param.setPassword(Encrypt3DesUtil.getEncString(param.getPassword()));//加密
-			//userList=this.userManagerService.getUserListByParam(param);
-			TbCommonUser u = new TbCommonUser();
-			u.setId(1L);
-			u.setIsValid(1);
-			u.setLoginName("admin");
-			u.setPassword("123456");
-			u.setRealName("admin");
+			param.setCheckType(ConstantUtil.CHECK_LOGINPWS);//密码校验
+			param.setPassword(Encrypt3DesUtil.getEncString(param.getPassword()));//加密
+			userList=this.userManagerService.getUserListByParam(param);
 
 			if(userList.size()==1){
 				TbCommonUser user=userList.get(0);
