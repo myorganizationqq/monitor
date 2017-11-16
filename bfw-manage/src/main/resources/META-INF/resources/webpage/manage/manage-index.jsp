@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>家校通</title>
+<title>Monitor</title>
 <jsp:include page="header.jsp"></jsp:include> 
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/amsWindow.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
