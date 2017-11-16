@@ -62,7 +62,7 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 参数填充方法
 	 * @param query
 	 * 	待填充查询对象
-	 * @param params
+	 * @param map
 	 * 	待填充参数列表
 	 */
 	private void setQueryParams(Query query, Map<String,Object> map) {
@@ -105,7 +105,7 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过HQL获取记录总数
 	 * @param hql
 	 * 	待查询HQL语句
-	 * @param params[可选]
+	 * @param params [可选]
 	 * 	查询条件
 	 * @return
 	 */
@@ -123,9 +123,9 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过QBC方式查询记录总数
 	 * @param clazz
 	 * 	待查询class对象
-	 * @param criterions[可选]
+	 * @param criterions [可选]
 	 * 	查询条件
-	 * @param projectionp[可选]
+	 * @param projection [可选]
 	 * 	预测条件
 	 * @return
 	 */
@@ -153,9 +153,9 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过HQL语句查询集合信息
 	 * @param hql
 	 * 	待查询语句
-	 * @param params[可选]
+	 * @param params [可选]
 	 * 	查询条件
-	 * @param maxResults[可选]
+	 * @param maxResults [可选]
 	 * 	返回最大记录数
 	 * @return
 	 */
@@ -173,9 +173,9 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过HQL语句查询集合信息
 	 * @param hql
 	 * 	待查询语句
-	 * @param params[可选]
+	 * @param params [可选]
 	 * 	查询条件
-	 * @param maxResults[可选]
+	 * @param maxResults [可选]
 	 * 	返回最大记录数
 	 * @return
 	 */
@@ -192,13 +192,13 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过QBC方式查询集合,此方式支持属性进行排序和高级预测功能
 	 * @param clazz
 	 * 	待查询class对象
-	 * @param list[可选]
+	 * @param list [可选]
 	 * 	条件集合
-	 * @param maxResults[可选]
+	 * @param maxResults [可选]
 	 * 	返回结果记录数
-	 * @param orders[可选]
+	 * @param orders [可选]
 	 * 	排序条件
-	 * @param projection[可选]
+	 * @param projection [可选]
 	 * 	预测功能条件
 	 * @return
 	 */
@@ -265,11 +265,11 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过HQL查询分页
 	 * @param hql
 	 * 	待查询HQL语句
-	 * @param params[可选]
+	 * @param params [可选]
 	 * 	参数object数组
-	 * @param firstResult[可选]
+	 * @param firstResult [可选]
 	 * 	首记录开始位置
-	 * @param maxResult[可选]
+	 * @param maxResult [可选]
 	 * 	最大查询记录数
 	 * @return
 	 */
@@ -291,15 +291,15 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * 通过QBC进行分页查询记录，包含字段排序功能
 	 * @param clazz
 	 * 	需要查询的class对象
-	 * @param criterions[可选]
+	 * @param criterions [可选]
 	 * 	查询条件
-	 * @param firstRecord[可选]
+	 * @param firstRecord [可选]
 	 * 	首记录位置
 	 * @param maxResult	[可选]
 	 * 	最大查询记录数
-	 * @param orders[可选]
+	 * @param orders [可选]
 	 * 	排序条件
-	 * @param projection[可选]
+	 * @param projection [可选]
 	 * 	预测条件
 	 * @return
 	 */
