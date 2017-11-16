@@ -1,11 +1,11 @@
 ﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.bluedon.bfw</groupId>
-	<artifactId>bfw-root</artifactId>
+	<groupId>com.bluedon.monitor</groupId>
+	<artifactId>monitor-root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>bfw-root</name>
+	<name>monitor-root</name>
 
 	<!-- 版本库配置 -->
 	<repositories>
@@ -85,8 +85,8 @@
 		</pluginManagement>
 	</build>
 	<modules>
-		<module>bfw-common</module>
-		<module>bfw-project</module>
-		<module>bfw-manage</module>
+		<module>monitor-common</module>
+		<module>monitor-project</module>
+		<module>monitor-manage</module>
 	</modules>
 </project>
