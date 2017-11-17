@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bluedon.monitor.system.entity.TbCommonRole;
+import com.bluedon.monitor.system.entity.TbCommonUser;
 import com.bluedon.monitor.system.entity.TbCommonUserRole;
 import com.bluedon.monitor.system.model.system.RoleManagerModel;
 import com.bluedon.monitor.system.service.system.IRoleManagerService;

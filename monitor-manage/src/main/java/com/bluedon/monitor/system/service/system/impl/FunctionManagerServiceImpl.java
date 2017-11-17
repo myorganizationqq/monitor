@@ -121,13 +121,13 @@ public class FunctionManagerServiceImpl  implements IFunctionManagerService{
 			for(TbCommonRoleFunction rf : roleFuncRel){
 				roleFuncIds.add(rf.getId());
 			}
-			hibernateDao.batchDelete(roleFuncIds, "TbCommonRoleFunction", "id");
+			hibernateDao.batchDeleteByProperty(roleFuncIds, "TbCommonRoleFunction", "id");
 
 			//删除按钮
-			hibernateDao.batchDelete(functionIds, "TbCommonOperation", "functionId");
+			hibernateDao.batchDeleteByProperty(functionIds, "TbCommonOperation", "functionId");
 			
 			//删除菜单
-			hibernateDao.batchDelete(functionIds, "TbCommonFunction", "id");
+			hibernateDao.batchDeleteByProperty(functionIds, "TbCommonFunction", "id");
 			
 			return true;
 		}else{
@@ -359,7 +359,7 @@ public class FunctionManagerServiceImpl  implements IFunctionManagerService{
 			}
 
 			//删除旧的角色菜单关系
-			hibernateDao.batchDelete(listIds, "TbCommonRoleFunction", "id");
+			hibernateDao.batchDeleteByProperty(listIds, "TbCommonRoleFunction", "id");
 			
 		} else {
 			//准备要更新的关系
