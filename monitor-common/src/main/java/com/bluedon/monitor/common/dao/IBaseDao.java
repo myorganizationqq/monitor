@@ -220,5 +220,25 @@ public interface IBaseDao<T> {
 	 * @param entityName   删除实体名
 	 * @param propertyName 删除条件（属性名）
 	 */
-	public void batchDelete(List<Long> ids, String entityName, String propertyName);
+	public void batchDeleteByProperty(List<Long> ids, String entityName, String propertyName);
+
+	/**
+	 * 批量插入
+	 * @param list
+	 * @param commitSize 每次提交数
+	 */
+
+	public void batchInsert(List <T> list, int commitSize);
+
+	/**
+	 * 批量删除
+	 * @param list
+	 */
+	public void batchDelete(List<T> list, int commitSize);
+
+	/**
+	 * 批量更新
+	 * @param list
+	 */
+	public void batchUpdate(List<T> list, int commitSize);
 }

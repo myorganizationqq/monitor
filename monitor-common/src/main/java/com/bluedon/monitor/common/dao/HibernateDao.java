@@ -7,10 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.bluedon.monitor.common.util.StringUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
@@ -39,6 +36,10 @@ public class HibernateDao<T> implements IBaseDao<T>{
 
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
+	}
+
+	private Session openSession() {
+		return this.sessionFactory.openSession();
 	}
 
 	/**
@@ -429,8 +430,8 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * @param propertyName 删除条件（属性名）
 	 */
 	@Override
-	public void batchDelete(List<Long> ids, String entityName,
-			String propertyName) {
+	public void batchDeleteByProperty(List<Long> ids, String entityName,
+									  String propertyName) {
 		if (!StringUtil.isEmpty(entityName) && !StringUtil.isEmpty(propertyName) && ids!=null && ids.size()>0){
 			StringBuffer hql = new StringBuffer();
 			for(int i=0;i<ids.size();i++) {
@@ -444,6 +445,117 @@ public class HibernateDao<T> implements IBaseDao<T>{
 			Session session= this.getSession();
 			Query q= session.createQuery(sql);
 			q.executeUpdate();
+		}
+	}
+
+	/**
+	 * 批量插入
+	 *
+	 * @param list
+	 * @param commitSize 每次提交数
+	 */
+	@Override
+	public void batchInsert(List <T> list, int commitSize) {
+
+		// 获取Session
+		Session session = this.openSession();
+
+		try {
+			// 开启事务
+			Transaction transaction = session.beginTransaction();
+
+			T t = null;
+			for (int i = 0; i < list.size(); i++) {
+				t = list.get(i);
+				// 保存对象
+				session.save(t);
+				// 批插入的对象立即写入数据库并释放内存
+				if (i % commitSize == 0) {
+					session.flush();
+					session.clear();
+				}
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			// 打印错误信息
+			e.printStackTrace();
+			// 出错将回滚事物
+			session.getTransaction().rollback();
+		} finally {
+			// 关闭Session
+			session.close();
+		}
+	}
+
+	/**
+	 * 批量删除
+	 *
+	 * @param list
+	 */
+	@Override
+	public void batchDelete(List <T> list, int commitSize) {
+		// 获取Session
+		Session session = this.openSession();
+		try {
+			// 开启事务
+			Transaction transaction = session.beginTransaction();
+
+			T t = null;
+			for (int i = 0; i < list.size(); i++) {
+				t = list.get(i);
+				// 删除对象
+				session.delete(t);
+				// 批插入的对象立即写入数据库并释放内存
+				if (i % commitSize == 0) {
+					session.flush();
+					session.clear();
+				}
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			// 打印错误信息
+			e.printStackTrace();
+			// 出错将回滚事物
+			session.getTransaction().rollback();
+		} finally {
+			// 关闭Session
+			session.close();
+		}
+	}
+
+	/**
+	 * 批量更新
+	 *
+	 * @param list
+	 */
+	@Override
+	public void batchUpdate(List <T> list, int commitSize) {
+		// 获取Session
+		Session session = this.openSession();
+		try {
+			// 开启事务
+			Transaction transaction = session.beginTransaction();
+
+			T t = null;
+			for (int i = 0; i < list.size(); i++) {
+				t = list.get(i);
+				// 更新
+				session.update(t);
+				// 批插入的对象立即写入数据库并释放内存
+				if (i % commitSize == 0) {
+					session.flush();
+					session.clear();
+				}
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			// 打印错误信息
+			e.printStackTrace();
+			// 出错将回滚事物
+			session.getTransaction().rollback();
+		} finally {
+			// 关闭Session
+			session.close();
 		}
 	}
 }
