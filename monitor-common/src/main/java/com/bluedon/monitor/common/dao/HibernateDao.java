@@ -379,7 +379,7 @@ public class HibernateDao<T> implements IBaseDao<T>{
 	 * @param entityClass
 	 * @param id
 	 */
-	public <T> void delete(Class<T> entityClass, Integer id) {
+	public <T> void delete(Class<T> entityClass, Serializable id) {
 		getSession().delete(loadById(entityClass, id));
 
 	}

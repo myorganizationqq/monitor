@@ -189,7 +189,7 @@ public interface IBaseDao<T> {
 	 * @param entityClass
 	 * @param id
 	 */
-	public <T> void delete(Class<T> entityClass, Integer id);
+	public <T> void delete(Class<T> entityClass, Serializable id);
 	
 	/**
 	 * 通过SQL语句进行查询操作
