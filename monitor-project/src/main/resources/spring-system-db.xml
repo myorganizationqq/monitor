@@ -76,6 +76,7 @@
 			<list>
 				<value>com.bluedon.monitor.common.entity</value>
 				<value>com.bluedon.monitor.system.entity</value>
+				<value>com.bluedon.monitor.project.entity</value>
 			</list>
 		</property>
 		
