@@ -85,53 +85,12 @@ public class UserManagerServiceImpl extends BaseServiceImpl implements IUserMana
 		pageUtil.setTotalRecordNumber(count);
 		//计算分页数据
 		if(pageUtil.fetchPaging()){
-			String hql = "select new UserAndOrgAnddepart(u.id,u.loginName,u.password,u.realName,u.departId,u.orgId,u.userType,u.isValid"
-					+ ",(select d.departName from TbCommonDepart d where u.departId=d.id) as departName"
-					+ ",(select o.orgName from TbCommonOrg o where u.orgId = o.id) as orgName)"
-					+ " from TbCommonUser u where 1=1 ";
-			System.out.println("++++++++++++++++++++++++" + paramList.toString());
-			for (Object p : paramList.toArray()) {
-				if (!StringUtil.isEmpty(p.toString())) {
-					hql += " and u." + p;
-				}
-			}
+			String hql = "select  u from TbCommonUser u where 1=1 ";
+
 			//开始获取分页数据
-			List<UserAndOrgAnddepart> resultList = this.hibernateDao.findByPage(hql , new Object[]{}, (pageUtil.getPage() - 1) * pageUtil.getRows(), pageUtil.getRows());
-			String idArr = "";
-			for (UserAndOrgAnddepart userAndOrgAnddepart : resultList) {
-				idArr += userAndOrgAnddepart.getId() + ",";
-			}
-			idArr = idArr.contains(",") ? idArr.substring(0, idArr.length()-1) : idArr;
-			if (!StringUtil.isEmpty(idArr)) {
-				List<UserAndOrgAnddepart> roleNameList = getListRoleName(idArr);
-				
-				for (UserAndOrgAnddepart userAndOrgAnddepart : resultList) {
-					String roleName = "";
-					for (UserAndOrgAnddepart uod : roleNameList) {
-						if (uod.getId() == userAndOrgAnddepart.getId()) {
-							roleName += uod.getRoleName() + ",";
-						}
-					}
-					if (roleName.contains(",")) {
-						roleName = roleName.substring(0, roleName.length()-1);
-					}
-					userAndOrgAnddepart.setRoleName(roleName);
-					//用户类型
-					if(userAndOrgAnddepart.getUserType()!=null){
-						userAndOrgAnddepart.setUserTypeStr(ConstantUtil.USER_TYPE.get(userAndOrgAnddepart.getUserType()));
-					}else{
-						userAndOrgAnddepart.setUserTypeStr(ConstantUtil.USER_TYPE.get(5));//其他
-					}
-					
-					//是否有效
-					if(userAndOrgAnddepart.getUserType()!=null){
-						userAndOrgAnddepart.setIsValidStr(ConstantUtil.IS_VAILD.get(userAndOrgAnddepart.getIsValid()));
-					}else{
-						userAndOrgAnddepart.setIsValidStr(ConstantUtil.IS_VAILD.get(0));//无效
-					}
-				}
-			}
-			
+			List<TbCommonUser> resultList = this.hibernateDao.findByPage(TbCommonUser.class,paramList, (pageUtil.getPage()-1)*pageUtil.getRows(), pageUtil.getRows(),null,null);
+
+
 			if(resultList!=null&&resultList.size()>0){				
 				pageUtil.setResultList(resultList);
 			}
