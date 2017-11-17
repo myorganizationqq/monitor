@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.bluedon.monitor.system.service.communication.LogRecdsendService;
 
 @Component("scheduledManager")
-@Lazy(value = false)
+@Lazy(value = true)
 public class ScheduledManager {
 	// 日志记录对象
 	private static final Logger log = Logger.getLogger(ScheduledManager.class);
