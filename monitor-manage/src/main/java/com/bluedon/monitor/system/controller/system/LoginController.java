@@ -88,8 +88,11 @@ public class LoginController {
 			msg="输入的用户名不存在！";			
 		}else{			
 			param.setCheckType(ConstantUtil.CHECK_LOGINPWS);//密码校验
-			param.setPassword(Encrypt3DesUtil.getEncString(param.getPassword()));//加密
+			//param.setPassword(Encrypt3DesUtil.getEncString(param.getPassword()));//加密
+			param.setPassword(param.getPassword());//加密
 			userList=this.userManagerService.getUserListByParam(param);
+
+
 
 			if(userList.size()==1){
 				TbCommonUser user=userList.get(0);
