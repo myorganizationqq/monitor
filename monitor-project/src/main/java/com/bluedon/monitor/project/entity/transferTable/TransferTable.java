@@ -11,7 +11,7 @@ import javax.persistence.*;
  * on 2017/11/10.
  */
 @Entity
-@Table(name = "TRANSFER_TABLE")
+@Table(name = "transfer_table")
 @DynamicInsert
 @DynamicUpdate
 public class TransferTable extends BaseEntity{
@@ -74,6 +74,7 @@ public class TransferTable extends BaseEntity{
         this.tableColumn = tableColumn;
     }
 
+    @Transient
     public int getColumnNum() {
         return columnNum;
     }
