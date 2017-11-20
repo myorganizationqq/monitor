@@ -148,7 +148,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date strToDate(String date, String pattern) {
-		if (!StringUtil.isEmpty(date) || pattern == null) {
+		if (StringUtil.isEmpty(date) || pattern == null) {
 			return null;
 		}
 
@@ -198,5 +198,35 @@ public class DateUtil {
 		return DateUtil.dateToString(tmpDate, pattern);
 	}
 
-	
+	/**
+	 * 加 天数
+	 * @param date
+	 * @param n 天数量
+	 * @return
+	 */
+	public static Date addDay(Date date, int n) {
+		return addTime(date, Calendar.DATE, n);
+	}
+
+	/**
+	 * @param date
+	 * @param type 类型 Calendar.{年/月/日/时}
+	 * @param n 累加量
+	 * @return
+	 */
+	private static Date addTime(Date date, int type, int n) {
+		Calendar time = Calendar.getInstance();
+		time.setTime(date);
+		time.add(type, n);
+		return time.getTime();
+	}
+	/**
+	 * 加 小时
+	 * @param date
+	 * @param n 天数量
+	 * @return
+	 */
+	public static Date addHour(Date date, int n) {
+		return addTime(date, Calendar.HOUR, n);
+	}
 }	

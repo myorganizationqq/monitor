@@ -11,7 +11,7 @@
 	</context-param>
 	<listener>
 		<description>spring监听器</description>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.bluedon.monitor.project.listener.StartupListener</listener-class>
 	</listener>
 	<!-- spring framework end -->
 
