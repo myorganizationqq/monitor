@@ -22,7 +22,6 @@ public class TbCommonUserRole extends BaseEntity {
 	private Long id;
 	private Long roleId;
 	private Long userId;
-	private Long orgId;
 
 	public TbCommonUserRole() {
 	}
@@ -59,13 +58,7 @@ public class TbCommonUserRole extends BaseEntity {
 	}
 
 	
-	@Column(name="ORG_ID")
-	public Long getOrgId() {
-		return orgId;
-	}
 
-	public void setOrgId(Long orgId) {
-		this.orgId = orgId;
-	}
+
 
 }

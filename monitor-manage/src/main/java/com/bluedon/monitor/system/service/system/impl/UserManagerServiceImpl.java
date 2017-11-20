@@ -308,7 +308,7 @@ public class UserManagerServiceImpl extends BaseServiceImpl implements IUserMana
 	public TbCommonUser getUserByLoginName(String loginname) {
 		String hql="select u from TbCommonUser u where u.loginName=?";
 		List<TbCommonUser> list = this.hibernateDao.queryForList(hql, new Object[]{loginname}, null);
-		return list != null ? list.get(0) : null;
+		return (list != null && list.size()!=0) ? list.get(0) : null;
 	}
 
 	

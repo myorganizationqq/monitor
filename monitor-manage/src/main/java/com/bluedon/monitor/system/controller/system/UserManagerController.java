@@ -150,19 +150,20 @@ public class UserManagerController {
 			result = userManagerService.updateUser(model);
 		}else{//新增
 			TbCommonUser tempUser = this.userManagerService.getUserByLoginName(model.getLoginName());
-			if (tempUser == null) {
-				log.debug("操作：新增");
+				if (tempUser == null) {
 				//设置默认密码
+					log.debug("操作：新增");
 				String defaultPw=ConfigReader.getProperty("config", "default_password");
 				//加密
 				String pw=Encrypt3DesUtil.getEncString(defaultPw);
-				model.setPassword(pw);			
-				result = true;//userManagerService.saveUser(model);	
+				model.setPassword(pw);
+				userManagerService.saveUser(model);
+				result = true;
 			} else {
 				rs.setMsg("登录名已存在！");
 			}
-			
-		}		
+
+		}
 		log.debug("=========保存结果========="+result);
         if(result){
         	rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
