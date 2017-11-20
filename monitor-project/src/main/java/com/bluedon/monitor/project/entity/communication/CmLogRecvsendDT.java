@@ -2,8 +2,6 @@ package com.bluedon.monitor.project.entity.communication;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -22,7 +20,6 @@ import com.bluedon.monitor.common.entity.BaseEntity;
 @DynamicUpdate(true)
 public class CmLogRecvsendDT extends BaseEntity {
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String waterNo;
 	private String recdDatetime;
 	private String linkIp;
@@ -40,14 +37,6 @@ public class CmLogRecvsendDT extends BaseEntity {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId() {
-		return this.id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Column(name="WATER_NO")
 	public String getWaterNo() {
 		return waterNo;
