@@ -1,13 +1,9 @@
 package com.bluedon.monitor.project.entity.communication;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -30,7 +26,7 @@ public class CmLogFtpDT extends BaseEntity {
 	private String operCode;
 	private String fileName;
 	private int fileSize;
-	private Date startDatetime;
+	private String startDatetime;
 	private int spendDatetime;
 	private String result;
 
@@ -86,12 +82,11 @@ public class CmLogFtpDT extends BaseEntity {
 		this.fileSize = fileSize;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="START_DATETIME")
-	public Date getStartDatetime() {
+	public String getStartDatetime() {
 		return startDatetime;
 	}
-	public void setStartDatetime(Date startDatetime) {
+	public void setStartDatetime(String startDatetime) {
 		this.startDatetime = startDatetime;
 	}
 
