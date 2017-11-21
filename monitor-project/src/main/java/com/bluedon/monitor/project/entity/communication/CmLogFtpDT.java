@@ -1,15 +1,9 @@
-package com.bluedon.monitor.system.entity;
-
-import java.util.Date;
+package com.bluedon.monitor.project.entity.communication;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,14 +20,13 @@ import com.bluedon.monitor.common.entity.BaseEntity;
 @DynamicUpdate(true)
 public class CmLogFtpDT extends BaseEntity {
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String waterNo;
 	private String ftpIp;
-	private Date ftpDatetime;
+	private String ftpDatetime;
 	private String operCode;
 	private String fileName;
 	private int fileSize;
-	private Date startDatetime;
+	private String startDatetime;
 	private int spendDatetime;
 	private String result;
 
@@ -41,14 +34,6 @@ public class CmLogFtpDT extends BaseEntity {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId() {
-		return this.id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Column(name="WATER_NO")
 	public String getWaterNo() {
 		return waterNo;
@@ -65,12 +50,11 @@ public class CmLogFtpDT extends BaseEntity {
 		this.ftpIp = ftpIp;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="FTP_DATETIME")
-	public Date getFtpDatetime() {
+	public String getFtpDatetime() {
 		return ftpDatetime;
 	}
-	public void setFtpDatetime(Date ftpDatetime) {
+	public void setFtpDatetime(String ftpDatetime) {
 		this.ftpDatetime = ftpDatetime;
 	}
 
@@ -98,12 +82,11 @@ public class CmLogFtpDT extends BaseEntity {
 		this.fileSize = fileSize;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="START_DATETIME")
-	public Date getStartDatetime() {
+	public String getStartDatetime() {
 		return startDatetime;
 	}
-	public void setStartDatetime(Date startDatetime) {
+	public void setStartDatetime(String startDatetime) {
 		this.startDatetime = startDatetime;
 	}
 

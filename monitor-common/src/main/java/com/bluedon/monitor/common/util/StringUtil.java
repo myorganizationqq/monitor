@@ -1,7 +1,7 @@
 package com.bluedon.monitor.common.util;
 
-import org.apache.commons.lang.StringUtils;
 
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author  : jason
@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
  * @module  : 系统公共模块 
  * @comment : 字符串处理类
  */
-public class StringUtil {
+public class StringUtil extends StringUtils {
 	
 	
 	/**
