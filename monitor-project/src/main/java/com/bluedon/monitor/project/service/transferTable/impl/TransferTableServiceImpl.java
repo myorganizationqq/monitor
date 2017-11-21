@@ -1,7 +1,8 @@
-package com.bluedon.monitor.project.service.transferTable;
+package com.bluedon.monitor.project.service.transferTable.impl;
 
 import com.bluedon.monitor.common.dao.IBaseDao;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
+import com.bluedon.monitor.project.service.transferTable.TransferTableService;
 import com.bluedon.monitor.system.entity.TbLoginLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,12 +16,12 @@ import java.util.Map;
  * on 2017/11/10.
  */
 @Service("transferTableService")
-public class TransferTableServiceImpl{
+public class TransferTableServiceImpl implements TransferTableService{
     @Autowired
     @Qualifier("hibernateDao")
     private IBaseDao<TbLoginLog> hibernateDao;
+    @Override
     public List<TransferTable> getList(Map params) {
-       // String hql="select IMP_TABLE_NAME impTableName,EXP_TABLE_NAME expTableName,TABLE_COLUMN tableColumn,EXTRA_SQL extraSql,STAT stat,TABLE_TYPE tableType from transfer_table";
         String hql="select  new TransferTable(a.impTableName, a.expTableName, a.tableColumn, a.extraSql, a.stat, a.tableType)  from TransferTable a";
         if (params !=null && params.size()>0){
             hql+= " where 1=1 ";

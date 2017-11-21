@@ -1,13 +1,13 @@
 package com.bluedon.monitor.system.util;
 
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpSession;
-
 import com.bluedon.monitor.system.model.util.CurrentUserInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author		: 
@@ -103,7 +103,14 @@ public class ConstantUtil {
 		};
 	};
 	
-	
+	public final static Map<String,String> FINISH_FLAG = new HashMap<String, String>(){
+		{
+			put("9","全部状态");
+			put("0","未开始");
+			put("1","进行中");
+			put("2","已完成");
+		}
+	};
 	
 	
 	

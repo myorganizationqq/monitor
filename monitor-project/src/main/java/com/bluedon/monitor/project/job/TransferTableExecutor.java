@@ -5,8 +5,8 @@ import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.project.common.Oracle2Mysql;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
-import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptServiceImpl;
-import com.bluedon.monitor.project.service.transferTable.TransferTableServiceImpl;
+import com.bluedon.monitor.project.service.tradeFileRpt.impl.TradeFileRptServiceImpl;
+import com.bluedon.monitor.project.service.transferTable.impl.TransferTableServiceImpl;
 import org.springframework.context.ApplicationContext;
 
 import java.util.Date;
