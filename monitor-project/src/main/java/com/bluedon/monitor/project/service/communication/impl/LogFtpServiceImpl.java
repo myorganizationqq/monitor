@@ -22,7 +22,8 @@ public class LogFtpServiceImpl implements LogFtpService {
 	public String getLatestFtpDatetime() {
 		List<Map<String, Object>> list = hibernateDao.selectBySql("SELECT MAX(FTP_DATETIME) FTP_DATETIME FROM cm_log_ftp_dt LIMIT 1;");
 		if(list != null && list.size() > 0) {
-			return list.get(0).get("FTP_DATETIME").toString();
+			Object ftpDatetime = list.get(0).get("FTP_DATETIME");
+			return ftpDatetime == null ? null : ftpDatetime.toString().substring(0, 19);
 		}
 		return null;
 	}

@@ -26,7 +26,7 @@ public class CmLogFtpDT extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	private String waterNo;
 	private String ftpIp;
-	private Date ftpDatetime;
+	private String ftpDatetime;
 	private String operCode;
 	private String fileName;
 	private int fileSize;
@@ -54,12 +54,11 @@ public class CmLogFtpDT extends BaseEntity {
 		this.ftpIp = ftpIp;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="FTP_DATETIME")
-	public Date getFtpDatetime() {
+	public String getFtpDatetime() {
 		return ftpDatetime;
 	}
-	public void setFtpDatetime(Date ftpDatetime) {
+	public void setFtpDatetime(String ftpDatetime) {
 		this.ftpDatetime = ftpDatetime;
 	}
 
