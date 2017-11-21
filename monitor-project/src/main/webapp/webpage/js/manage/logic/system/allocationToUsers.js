@@ -3,45 +3,12 @@ $(function(){
 	var roleId=$("#roleId").val();	
 	var userType=$("#userType").val();		
 	
-	//树结构加载上：待完善
-	//学校的角色：加载学校（系统管理员所在的组织机构）及其各个部门
-	//家长：只加载根节点（学校）
-	//学生：学校和各个班级
-	//系统管理员：组织机构树结构
-	$('#orgDepartTree').tree({
-		url:basePath+"webpage/manage/system/orgManage/json/tree2.json",
-		onLoadSuccess:function(node, data){
-			//被选列表：默认加载该组织下的所有可选用户（排除已经分配该角色的用户）			
-			getSelectingUsers(orgId,null,userType,roleId);
-			//已选列表：默认加载该组织下的已经分配该角色的用户列表
-			getSelectedUsers(orgId,null,userType,roleId);
-		},
-		onSelect:function(node){	
-			//node.target.setAttribute("style","font-weight:bold");
-			//alert(node.id);
-			var selectId=node.id;
-			if(selectId==orgId){//根节点
-				//可选用户：组织机构下可选用户（排除已经分配该角色的用户）
-				getSelectingUsers(selectId,null,userType,roleId);
-				//已选用户：该组织机构下的已经分配该角色的用户列表
-				getSelectedUsers(selectId,null,userType,roleId);
-			}else{//非根节点 
-				//可选用户：部门下可选用户（排除已经分配该角色的用户）
-				getSelectingUsers(orgId,selectId,userType,roleId);
-				//已选用户：部门下的已经分配该角色的用户列表
-				getSelectedUsers(orgId,selectId,userType,roleId);				
-			}
-		}
-	});
 
-	
-	$("#queryUser").click(function(){
-		var realName=$("#real_name").val();	
-		getSelectingUsers(orgId,null,userType,roleId,realName);
-		getSelectedUsers(orgId,null,userType,roleId,realName);
-		var node = $("#orgDepartTree").tree("find", orgId); 
-		$('#orgDepartTree').tree("select",node.target);
-	});
+	getSelectingUsers(orgId,null,userType,roleId);
+
+    getSelectedUsers(orgId,null,userType,roleId,null);
+
+
 });
 
 //待选用户

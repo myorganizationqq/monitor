@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.bluedon.monitor.system.model.system.DepartManagerModel;
 import com.bluedon.monitor.system.model.util.ComboTree;
+import com.bluedon.monitor.system.service.BaseServiceImpl;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -27,7 +28,7 @@ import com.bluedon.monitor.system.service.system.IDepartManagerService;
  * @comment : 部门管理业务实现类
  */
 @Service("departManagerServiceImpl")
-public class DepartManagerServiceImpl implements IDepartManagerService {
+public class DepartManagerServiceImpl extends BaseServiceImpl implements IDepartManagerService {
 
 	//日志记录对象
 	private static final Logger log = Logger.getLogger(DepartManagerServiceImpl.class);

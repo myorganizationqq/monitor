@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bluedon.monitor.system.entity.TbCommonUserOrg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -155,9 +156,15 @@ public class UserManagerController {
 					log.debug("操作：新增");
 				String defaultPw=ConfigReader.getProperty("config", "default_password");
 				//加密
-				String pw=Encrypt3DesUtil.getEncString(defaultPw);
+				String pw=defaultPw;
 				model.setPassword(pw);
 				userManagerService.saveUser(model);
+
+					TbCommonUserOrg uo = new TbCommonUserOrg();
+					uo.setUserId(model.getId());
+					uo.setDepartId(model.getDepartId());
+					uo.setOrgId(model.getOrgId());
+					departManagerService.add(uo);
 				result = true;
 			} else {
 				rs.setMsg("登录名已存在！");

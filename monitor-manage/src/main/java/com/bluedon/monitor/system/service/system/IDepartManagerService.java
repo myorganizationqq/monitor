@@ -6,6 +6,7 @@ import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.system.entity.TbCommonDepart;
 import com.bluedon.monitor.system.model.system.DepartManagerModel;
 import com.bluedon.monitor.system.model.util.ComboTree;
+import com.bluedon.monitor.system.service.IBaseService;
 
 /**
  * @author  : liangliwen
@@ -13,7 +14,7 @@ import com.bluedon.monitor.system.model.util.ComboTree;
  * @module  : 系统模块 
  * @comment : 部门管理业务实现接口
  */
-public interface IDepartManagerService {
+public interface IDepartManagerService extends IBaseService {
 	//查询组织机构列表
 	PageUtil getPageList(DepartManagerModel modelParam, PageUtil pageUtil);
 

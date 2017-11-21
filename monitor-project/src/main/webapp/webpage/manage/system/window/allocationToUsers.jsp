@@ -14,30 +14,19 @@
 <body>
 <div class="tahoma_font  tdstyle"  style="padding-top:10px; padding-bottom:10px; padding-left:10px;">
   <form id="form_allocation_users" method="post">
- 	<input id="orgId" name="orgId" value="152" type="hidden"/>
+ 	<input id="orgId" name="orgId" value="1" type="hidden"/>
  	<input id="roleId" name="roleId" value="${roleInfo.id }" type="hidden"/>
  	<input id="userType" name="userType" value="1" type="hidden"/>
  	<!-- 保存原来的选中的学生id集合 -->
  	<input id="oldSelectedUsers" type="hidden"/>
     <table cellpadding="5" class="newAddOrg" width="680">
     <!-- 角色信息 -->
-       <tr>
-        <td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">角色编码：</td>
-        <td width="200" >${roleInfo.rolecode }</td>
-        <td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">角色名称：</td>
-        <td width="200" >${roleInfo.rolename }</td>
-      </tr>    
+
        <tr>
         <td colspan="4">
-        	<table width="100%" height="150" cellpadding="0" cellspacing="1">
+        	<table width="100%" height="150" cellpadding="0" cellspacing="0">
 				<tr>
-					<!-- 机构-部门 -->
-					<td width="230" height="150" valign="top">
-						<div id="treeDivId" align="left" style="background-color:#FFF; width: 205px; height: 322px; overflow: auto;">
-							<ul id="orgDepartTree" style="padding: 5px;">
-							</ul>
-						</div>
-					</td>
+
 					<td width="2"></td>
 					<td align="center" valign="top">
 						<table width="400" cellpadding="0" cellspacing="0">

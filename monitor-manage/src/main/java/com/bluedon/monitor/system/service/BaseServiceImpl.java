@@ -8,6 +8,8 @@ import com.bluedon.monitor.common.dao.IBaseDao;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+
 /**
  * @author  : jason
  * @date    : 2015年3月10日
@@ -45,7 +47,10 @@ public class BaseServiceImpl implements IBaseService {
 		this.baseHibernateDao.update(obj);
 		return true;
 	}
-	
-	
+
+	public Object loadById(Class clazz, Serializable id) {
+
+		return this.baseHibernateDao.loadById(clazz,id);
+	}
 	
 }

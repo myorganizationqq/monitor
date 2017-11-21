@@ -14,7 +14,7 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 	">
-	
+
 	<bean id="SystemPropertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -83,16 +83,16 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.jdbc.fetch_size">50</prop>
-				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.fetch_size">100</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
 				<prop key="hibernate.max_fetch_depth">3</prop>
 				<prop key="hibernate.jdbc.use_scrollable_resultset">false</prop>
 				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
 				 <!--
 				<prop key="hibernate.current_session_context_class">thread</prop>
 				  -->
-				<!-- <prop key="hibernate.hbm2ddl.auto">none</prop> -->				
+				<!--<prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
 			</props>
 		</property>
 	</bean>

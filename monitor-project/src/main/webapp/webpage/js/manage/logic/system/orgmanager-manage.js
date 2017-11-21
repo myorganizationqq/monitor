@@ -20,7 +20,7 @@ function search(){
         pageNumber:1,           //默认显示第一页
         rownumbers:true,	    //行号
         singleSelect:false,      //多选
-        url:basePath+'manage/system/orgManagerController.do?getOrgList',  //数据源
+        url:basePath+'manage/system/alarmManagerController.do?getOrgList',  //数据源
         queryParams:qParams,//查询框内容
         fit:true,
         fitColumns:true,

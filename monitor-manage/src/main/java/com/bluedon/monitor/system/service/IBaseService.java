@@ -1,6 +1,8 @@
 package com.bluedon.monitor.system.service;
 
 
+import java.io.Serializable;
+
 /**
  * @author  : jason
  * @date    : 2015年3月10日
@@ -29,5 +31,7 @@ public interface IBaseService {
 	 * @return
 	 */
 	public boolean update(Object obj);
+
+	public Object loadById(Class clazz, Serializable id);
 	
 }
