@@ -1,7 +1,7 @@
 package com.bluedon.monitor.common.util;
 
 
-import org.apache.commons.lang3.StringUtils;
+import com.alibaba.druid.util.StringUtils;
 
 /**
  * @author  : jason

@@ -352,7 +352,7 @@ public class FunctionManagerServiceImpl  implements IFunctionManagerService{
 			//保存新的角色菜单关系
 			for (TbCommonRoleFunction tb : prepareList){
 				//当前菜单变更的按钮
-				if (!StringUtil.isEmpty(String.valueOf(selFunctionId)) && tb.getFunctionId().longValue() == selFunctionId.longValue()){
+				if (!StringUtil.isEmpty(String.valueOf(selFunctionId)) && (tb.getFunctionId().longValue() == selFunctionId.longValue())){
 					tb.setOperationId(operationId);
 				}
 				hibernateDao.save(tb);

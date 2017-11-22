@@ -115,8 +115,9 @@ public class AlarmManagerController {
 	 */
 	@RequestMapping(params="saveOrUpdate")
 	public void saveOrUpdate(Alarm param,HttpServletResponse rsp){
-		OperResult rs = new OperResult();
 
+		OperResult rs = new OperResult();
+		System.out.println(123);
 		try {
 			if(param.getId()!=0){
 				log.debug("alarm配置操作：修改，id="+param.getId());

@@ -39,7 +39,7 @@ public class StSysFlowCurrentDtServiceImpl implements StSysFlowCurrentDtService{
     public PageUtil getPageList(StSysFlowCurrentDt param, PageUtil pageUtil) {
         //查询参数构造
         List<Criterion> paramList = new ArrayList<Criterion>();
-        if(!(StringUtil.isBlank(param.getFinishFlag())||"9".equals(param.getFinishFlag()))){
+        if(!(StringUtil.isEmpty(param.getFinishFlag())||"9".equals(param.getFinishFlag()))){
             paramList.add(Restrictions.eq("finishFlag", param.getFinishFlag()));
         }
         List<Order> orders = new ArrayList<>();

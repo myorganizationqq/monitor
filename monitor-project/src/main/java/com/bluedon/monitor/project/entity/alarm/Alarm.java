@@ -231,4 +231,196 @@ public class Alarm {
     public void setUpdateDateStr(String updateDateStr) {
         this.updateDateStr = updateDateStr;
     }
+
+    public int getJywjhsj_bhfsjgs_gz() {
+        return jywjhsj_bhfsjgs_gz;
+    }
+
+    public void setJywjhsj_bhfsjgs_gz(int jywjhsj_bhfsjgs_gz) {
+        this.jywjhsj_bhfsjgs_gz = jywjhsj_bhfsjgs_gz;
+    }
+
+    public int getJywjhsj_bhfsjgs_wx() {
+        return jywjhsj_bhfsjgs_wx;
+    }
+
+    public void setJywjhsj_bhfsjgs_wx(int jywjhsj_bhfsjgs_wx) {
+        this.jywjhsj_bhfsjgs_wx = jywjhsj_bhfsjgs_wx;
+    }
+
+    public int getJywjhsj_cfsjgs_gz() {
+        return jywjhsj_cfsjgs_gz;
+    }
+
+    public void setJywjhsj_cfsjgs_gz(int jywjhsj_cfsjgs_gz) {
+        this.jywjhsj_cfsjgs_gz = jywjhsj_cfsjgs_gz;
+    }
+
+    public int getJywjhsj_cfsjgs_wx() {
+        return jywjhsj_cfsjgs_wx;
+    }
+
+    public void setJywjhsj_cfsjgs_wx(int jywjhsj_cfsjgs_wx) {
+        this.jywjhsj_cfsjgs_wx = jywjhsj_cfsjgs_wx;
+    }
+
+    public int getJywjhsj_wfyclwjgs_gz() {
+        return jywjhsj_wfyclwjgs_gz;
+    }
+
+    public void setJywjhsj_wfyclwjgs_gz(int jywjhsj_wfyclwjgs_gz) {
+        this.jywjhsj_wfyclwjgs_gz = jywjhsj_wfyclwjgs_gz;
+    }
+
+    public int getJywjhsj_wfyclwjgs_wx() {
+        return jywjhsj_wfyclwjgs_wx;
+    }
+
+    public void setJywjhsj_wfyclwjgs_wx(int jywjhsj_wfyclwjgs_wx) {
+        this.jywjhsj_wfyclwjgs_wx = jywjhsj_wfyclwjgs_wx;
+    }
+
+    public int getTxywxt_jszdll_gz() {
+        return txywxt_jszdll_gz;
+    }
+
+    public void setTxywxt_jszdll_gz(int txywxt_jszdll_gz) {
+        this.txywxt_jszdll_gz = txywxt_jszdll_gz;
+    }
+
+    public int getTxywxt_jszdll_wx() {
+        return txywxt_jszdll_wx;
+    }
+
+    public void setTxywxt_jszdll_wx(int txywxt_jszdll_wx) {
+        this.txywxt_jszdll_wx = txywxt_jszdll_wx;
+    }
+
+    public int getTxywxt_jszxll_gz() {
+        return txywxt_jszxll_gz;
+    }
+
+    public void setTxywxt_jszxll_gz(int txywxt_jszxll_gz) {
+        this.txywxt_jszxll_gz = txywxt_jszxll_gz;
+    }
+
+    public int getTxywxt_jszxll_wx() {
+        return txywxt_jszxll_wx;
+    }
+
+    public void setTxywxt_jszxll_wx(int txywxt_jszxll_wx) {
+        this.txywxt_jszxll_wx = txywxt_jszxll_wx;
+    }
+
+    public int getTxywxt_cggs_gz() {
+        return txywxt_cggs_gz;
+    }
+
+    public void setTxywxt_cggs_gz(int txywxt_cggs_gz) {
+        this.txywxt_cggs_gz = txywxt_cggs_gz;
+    }
+
+    public int getTxywxt_cggs_wx() {
+        return txywxt_cggs_wx;
+    }
+
+    public void setTxywxt_cggs_wx(int txywxt_cggs_wx) {
+        this.txywxt_cggs_wx = txywxt_cggs_wx;
+    }
+
+    public int getTxywxt_sbgs_gz() {
+        return txywxt_sbgs_gz;
+    }
+
+    public void setTxywxt_sbgs_gz(int txywxt_sbgs_gz) {
+        this.txywxt_sbgs_gz = txywxt_sbgs_gz;
+    }
+
+    public int getTxywxt_sbgs_wx() {
+        return txywxt_sbgs_wx;
+    }
+
+    public void setTxywxt_sbgs_wx(int txywxt_sbgs_wx) {
+        this.txywxt_sbgs_wx = txywxt_sbgs_wx;
+    }
+
+    public int getTxywxt_ftpcgsl_gz() {
+        return txywxt_ftpcgsl_gz;
+    }
+
+    public void setTxywxt_ftpcgsl_gz(int txywxt_ftpcgsl_gz) {
+        this.txywxt_ftpcgsl_gz = txywxt_ftpcgsl_gz;
+    }
+
+    public int getTxywxt_ftpcgsl_wx() {
+        return txywxt_ftpcgsl_wx;
+    }
+
+    public void setTxywxt_ftpcgsl_wx(int txywxt_ftpcgsl_wx) {
+        this.txywxt_ftpcgsl_wx = txywxt_ftpcgsl_wx;
+    }
+
+    public int getTxywxt_ftpsbsl_gz() {
+        return txywxt_ftpsbsl_gz;
+    }
+
+    public void setTxywxt_ftpsbsl_gz(int txywxt_ftpsbsl_gz) {
+        this.txywxt_ftpsbsl_gz = txywxt_ftpsbsl_gz;
+    }
+
+    public int getTxywxt_ftpsbsl_wx() {
+        return txywxt_ftpsbsl_wx;
+    }
+
+    public void setTxywxt_ftpsbsl_wx(int txywxt_ftpsbsl_wx) {
+        this.txywxt_ftpsbsl_wx = txywxt_ftpsbsl_wx;
+    }
+
+    public int getJyzxt_jrickhmd_gz() {
+        return jyzxt_jrickhmd_gz;
+    }
+
+    public void setJyzxt_jrickhmd_gz(int jyzxt_jrickhmd_gz) {
+        this.jyzxt_jrickhmd_gz = jyzxt_jrickhmd_gz;
+    }
+
+    public int getJyzxt_jrickhmd_wx() {
+        return jyzxt_jrickhmd_wx;
+    }
+
+    public void setJyzxt_jrickhmd_wx(int jyzxt_jrickhmd_wx) {
+        this.jyzxt_jrickhmd_wx = jyzxt_jrickhmd_wx;
+    }
+
+    public int getJyzxt_cshyctdc_gz() {
+        return jyzxt_cshyctdc_gz;
+    }
+
+    public void setJyzxt_cshyctdc_gz(int jyzxt_cshyctdc_gz) {
+        this.jyzxt_cshyctdc_gz = jyzxt_cshyctdc_gz;
+    }
+
+    public int getJyzxt_cshyctdc_wx() {
+        return jyzxt_cshyctdc_wx;
+    }
+
+    public void setJyzxt_cshyctdc_wx(int jyzxt_cshyctdc_wx) {
+        this.jyzxt_cshyctdc_wx = jyzxt_cshyctdc_wx;
+    }
+
+    public int getJyzxt_bql_gz() {
+        return jyzxt_bql_gz;
+    }
+
+    public void setJyzxt_bql_gz(int jyzxt_bql_gz) {
+        this.jyzxt_bql_gz = jyzxt_bql_gz;
+    }
+
+    public int getJyzxt_bql_wx() {
+        return jyzxt_bql_wx;
+    }
+
+    public void setJyzxt_bql_wx(int jyzxt_bql_wx) {
+        this.jyzxt_bql_wx = jyzxt_bql_wx;
+    }
 }
