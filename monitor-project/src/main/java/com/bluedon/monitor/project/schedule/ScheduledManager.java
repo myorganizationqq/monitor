@@ -28,7 +28,7 @@ public class ScheduledManager {
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
-	 * 处理消息收发日志数据 0 0/30 * * * ?
+	 * 处理消息收发日志、FTP文件数据 0 0/30 * * * ?
 	 * 1、先分别查询本地表中最大时间记录  2、设置查询条件查询远程数据  3、处理入库
 	 * @throws Exception
 	 */
@@ -53,9 +53,10 @@ public class ScheduledManager {
 				table.setExtraSql(String.format(sql, "FTP_DATETIME", latestFtpDatetime));
 			}
 			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecdDatetime != null) {
-				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestFtpDatetime));
+				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestRecdDatetime));
 			}
-			Oracle2Mysql.tableInput(table, oracleConnectVO);
+			List<List<String>> resultList = Oracle2Mysql.tableInput(table, oracleConnectVO);
+			log.info(table.getImpTableName() + "表：共有" + resultList.size() + "条记录待入库...");
 		}
 		log.info(simpleDateFormat.format(new Date()) + " ：结束执行任务。");
 	}
