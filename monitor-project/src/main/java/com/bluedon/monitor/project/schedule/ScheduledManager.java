@@ -12,7 +12,7 @@ import com.bluedon.monitor.project.common.ConnectVO;
 import com.bluedon.monitor.project.common.Oracle2Mysql;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.service.communication.LogFtpService;
-import com.bluedon.monitor.project.service.communication.LogRecdsendService;
+import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import com.bluedon.monitor.project.util.PropertiesUtil;
 
 @Component("scheduledManager")
@@ -23,7 +23,7 @@ public class ScheduledManager {
 	@Autowired
 	private LogFtpService logFtpService;
 	@Autowired
-	private LogRecdsendService logRecdsendService;
+	private LogRecvsendService logRecvsendService;
 	
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -39,7 +39,7 @@ public class ScheduledManager {
 		
 		List<TransferTable> list = logFtpService.getTableList();
 		String latestFtpDatetime = logFtpService.getLatestFtpDatetime();
-		String latestRecdDatetime = logRecdsendService.getLatestRecdDatetime();
+		String latestRecvDatetime = logRecvsendService.getLatestRecdDatetime();
 		
 		ConnectVO oracleConnectVO = new ConnectVO(PropertiesUtil.getValue("oracle.driverClassName"),
 				PropertiesUtil.getValue("cm.oracle.url"), PropertiesUtil.getValue("cm.oracle.username"),
@@ -52,11 +52,11 @@ public class ScheduledManager {
 			if("cm_log_ftp".equals(table.getImpTableName()) && latestFtpDatetime != null) {
 				table.setExtraSql(String.format(sql, "FTP_DATETIME", latestFtpDatetime));
 			}
-			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecdDatetime != null) {
-				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestRecdDatetime));
+			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecvDatetime != null) {
+				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestRecvDatetime));
 			}
 			List<List<String>> resultList = Oracle2Mysql.tableInput(table, oracleConnectVO);
-			log.info(table.getImpTableName() + "表：共有" + resultList.size() + "条记录待入库...");
+			log.info(table.getImpTableName() + "表：共有" + resultList.size() + "条记录入库...");
 		}
 		log.info(simpleDateFormat.format(new Date()) + " ：结束执行任务。");
 	}
