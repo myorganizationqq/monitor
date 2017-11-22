@@ -50,7 +50,7 @@ public class BaseServiceImpl implements IBaseService {
 
 	public Object loadById(Class clazz, Serializable id) {
 
-		return this.baseHibernateDao.loadById(clazz,id);
+		return this.baseHibernateDao.queryById(clazz,id);
 	}
 	
 }

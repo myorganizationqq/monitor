@@ -40,40 +40,14 @@
 					 </td>
 			      </tr>
 
-				<tr>
-					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">重复数据个数</td>
-					<td width="250" >
-						小于：<input id="jywjhsj_cfsjgs_gz"  name="jywjhsj_cfsjgs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
-								  value="${obj.jywjhsj_cfsjgs_gz }" />个
-					</td>
 
-					<td width="250" >
-						小于：<input id="jywjhsj_cfsjgs_wx" name="jywjhsj_cfsjgs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
-								  value="${obj.jywjhsj_cfsjgs_wx }" />个
-					</td>
-				</tr>
-
-				<tr>
-					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">无法预处理文件个数</td>
-					<td width="250" >
-						小于：<input id="jywjhsj_wfyclwjgs_gz"  name="jywjhsj_wfyclwjgs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
-								  value="${obj.jywjhsj_wfyclwjgs_gz }" />个
-					</td>
-
-					<td width="250" >
-						小于：<input id="jywjhsj_wfyclwjgs_wx" name="jywjhsj_wfyclwjgs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
-								  value="${obj.jywjhsj_wfyclwjgs_wx }" />个
-					</td>
-				</tr>
 
 			      <tr>
 			        <td colspan="3">
 			          <div align="right" style="padding-right: 50px;padding-top: 5px;" > 
-			          	<a id="saveOperation" href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;" onclick="saveOrUpdate(1);">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
+			          	<a id="saveOperation" href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;" onclick="saveOrUpdate();">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
+			          	&nbsp;&nbsp;
+			          	<a id="closeOperation"  href="javascript:void(0)" class="easyui-linkbutton"  style="width:100px;" onclick="closeWin();">&nbsp;&nbsp;设置告警通知&nbsp;&nbsp;</a>
 			          </div>
 			      	</td>
 			      </tr>			      
@@ -85,8 +59,8 @@
 <script type="text/javascript">
 
     //保存
-    function saveOrUpdate(step){
-        var isValid = $("#form_user").form("validate");//表单验证方法
+    function saveOrUpdate(){
+        //var isValid = $("#form_user").form("validate");//表单验证方法
         if (true){
             //进行录入操作的后台交互
             $.ajax({
@@ -98,8 +72,7 @@
                     if(d.resultCode==0){
                         $.messager.alert("提示",d.msg);
                         closeWin();
-
-                        $("#getAlarmList").datagrid("reload");
+                        $("#role_search_form").datagrid("reload");
                     } else if(d.resultCode == 1){
                         $.messager.alert("提示",d.msg);
                     }
@@ -110,9 +83,12 @@
 
     //关闭
     function closeWin(){
-
-		$('#editWindow').window('close');
-
+        var id=$("#id").val();
+        if(id){
+            $('#editWindow').window('close');
+        }else{
+            $('#addWindow').window('close');
+        }
     }
 </script>
 </html>

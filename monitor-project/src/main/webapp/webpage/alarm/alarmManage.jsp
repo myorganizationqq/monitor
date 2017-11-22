@@ -15,7 +15,7 @@
 <div style="width: 99%; padding-top: 10px; padding-left: 10px"
 	id="centerMain">
 	<!--	查询模块开始		-->
-	<div class="tahoma_font tableStyle_5_0">
+	<%--<div class="tahoma_font tableStyle_5_0">
 		<form id="role_search_form">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
@@ -55,7 +55,7 @@
 
 		</table>
 		</form>
-	</div>
+	</div>--%>
 	<!--	查询模块结束		-->
 	
 	<!--上下距间-->

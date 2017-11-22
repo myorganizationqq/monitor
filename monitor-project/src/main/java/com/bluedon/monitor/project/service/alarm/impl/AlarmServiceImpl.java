@@ -67,6 +67,7 @@ public class AlarmServiceImpl extends BaseServiceImpl implements IAlarmManagerSe
 				if (alarm.getUpdateDate() != null) {
 					alarm.setUpdateDateStr(DateUtil.dateToString(alarm.getUpdateDate(), "yyyy-MM-dd HH:hh:ss"));
 				}
+
 			}
 			pageUtil.setResultList(resultList);
 

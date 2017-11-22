@@ -103,7 +103,25 @@ public class AlarmManagerController {
 		Alarm alarm = (Alarm) alarmService.loadById(Alarm.class,param.getId());
 
 	    req.setAttribute("obj",alarm);
-		return new ModelAndView("alarm/alarm"+param.getAlarmType()+"Edit");
+		return new ModelAndView("alarm/alarm"+alarm.getAlarmType()+"Edit");
+
+	}
+
+	/**
+	 * 跳转告警通知页面
+	 * @param param
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(params="toEditNotice")
+	public ModelAndView toEditNotice(Alarm param,HttpServletRequest req){
+		if(param.getId()==0){
+			throw new IllegalArgumentException("告警通知编辑跳转id不能为空");
+		}
+		Alarm alarm = (Alarm) alarmService.loadById(Alarm.class,param.getId());
+
+		req.setAttribute("obj",alarm);
+		return new ModelAndView("alarm/alarm"+param.getAlarmType()+"EditNotice");
 
 
 	}
@@ -117,7 +135,6 @@ public class AlarmManagerController {
 	public void saveOrUpdate(Alarm param,HttpServletResponse rsp){
 
 		OperResult rs = new OperResult();
-		System.out.println(123);
 		try {
 			if(param.getId()!=0){
 				log.debug("alarm配置操作：修改，id="+param.getId());
@@ -128,10 +145,13 @@ public class AlarmManagerController {
 				log.debug("alarm配置操作：新增");
 				//创建时间
 				param.setCreateDate(new Date());
+				param.setUpdateDate(new Date());
+
 				alarmService.add(param);
 			}
 
 			rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
+			rs.setData(param);
 			rs.setMsg("操作成功");
 		}catch (Exception e){
 			rs.setResultCode(ConstantUtil.RESULT_FAILED);
