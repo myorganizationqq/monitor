@@ -24,7 +24,6 @@ public class LogRecvsendController {
 	
 	@RequestMapping(params = "toPageList")
 	public ModelAndView toPageList(HttpServletRequest req) {
-		System.out.println("toPageList.....");
 		return new ModelAndView("project/communication/logRecvsendList");
 	}
 	

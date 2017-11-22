@@ -6,7 +6,9 @@ function init() {
 	// 获取查询框的值
 	var qParams = {
 		'linkIp' : $('#linkIp').val(),
-		'serverCode' : $('#serverCode').val()
+		'serverCode' : $('#serverCode').val(),
+		'dateTime1' : $('#dateTime1').val(),
+		'dateTime2' : $('#dateTime2').val()
 	};
 
 	// 表单信息
@@ -54,20 +56,8 @@ function init() {
 							field : 'msgLength',
 							width : 100,
 							align : 'center'
-						},
-						{
-							title : '操作',
-							field : 'operation',
-							width : 100,
-							align : 'center',
-							formatter : function(value, row) {
-								var s = ' <a href="#"  onclick="alarmEdit(\''
-										+ row.id + '\')">修改</a> ';
-								var d = ' <a href="#"  onclick="alarmDel(\''
-										+ row.id + '\')">删除</a> ';
-								return s + d;
-							}
-						} ] ],
+						}
+						] ],
 				onLoadSuccess : function(data) {
 
 				},

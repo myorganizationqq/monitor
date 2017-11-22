@@ -6,7 +6,9 @@ function init() {
 	// 获取查询框的值
 	var qParams = {
 		'ftpId' : $('#ftpId').val(),
-		'fileName' : $('#fileName').val()
+		'fileName' : $('#fileName').val(),
+		'dateTime1' : $('#dateTime1').val(),
+		'dateTime2' : $('#dateTime2').val(),
 	};
 
 	// 表单信息
@@ -28,41 +30,29 @@ function init() {
 						},
 						{
 							title : 'FTP IP地址',
-							field : 'ftpIp',
+							field : 'FTP_IP',
 							width : 100,
 							align : 'center'
 						},
 						{
 							title : '文件名称',
-							field : 'fileName',
+							field : 'FILENAME',
 							width : 70,
 							align : 'center'
 						},
 						{
 							title : '下载成功数量',
-							field : 'successCount',
+							field : 'SUCCESS',
 							width : 100,
 							align : 'center'
 						},
 						{
 							title : '下载失败数量',
-							field : 'failureCount',
+							field : 'FAILURE',
 							width : 100,
 							align : 'center'
-						},
-						{
-							title : '操作',
-							field : 'operation',
-							width : 100,
-							align : 'center',
-							formatter : function(value, row) {
-								var s = ' <a href="#"  onclick="alarmEdit(\''
-										+ row.id + '\')">修改</a> ';
-								var d = ' <a href="#"  onclick="alarmDel(\''
-										+ row.id + '\')">删除</a> ';
-								return s + d;
-							}
-						} ] ],
+						}
+						] ],
 				onLoadSuccess : function(data) {
 
 				},

@@ -43,8 +43,8 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, String>> getLogFtpPageList(String ftpIp,String fileName,String startT1,String startT2) {
-		String sql = "SELECT a.FTP_IP FTP_IP,a.FILENAME,"
+	public List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param) {
+		String sql = "SELECT a.FTP_IP,a.FILENAME,"
 						+ "MAX(CASE a.OPER_CODE WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
 						+ "MAX(CASE a.OPER_CODE WHEN 1 THEN a.num ELSE 0 END) FAILURE "
 					+ "FROM "
@@ -52,9 +52,11 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 						+ "SELECT w.FTP_IP,w.FILENAME,w.OPER_CODE,w.START_DATETIME,COUNT(0)num "
 						+ "FROM cm_log_ftp_dt w WHERE w.OPER_CODE=0 OR w.OPER_CODE=1 GROUP BY w.FTP_IP,w.OPER_CODE "
 					+ ")a "
-					+ "WHERE a.FTP_IP LIKE '%ftpIp%' AND a.FILENAME LIKE '%fileName%' AND (a.START_DATETIME BETWEEN 'T1' AND 'T2') "
+					+ "WHERE a.FTP_IP LIKE '%ftpIp%' AND a.FILENAME LIKE '%fileName%'"
+					+ (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (a.START_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
 					+ "GROUP BY a.FTP_IP;";
-		sql = sql.replace("ftpIp", ftpIp).replace("fileName", fileName).replace("T1", startT1).replace("T2", startT2);
+		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("fileName", param.getFileName()==null ? "" : param.getFileName())
+				.replace("T1", param.getDateTime1()).replace("T2", param.getDateTime2());
 		return hibernateDao.selectBySql(sql);
 	}
 
@@ -75,20 +77,11 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 		pageUtil.setTotalRecordNumber(count);
 
 		if (pageUtil.fetchPaging()) {
+			List<Map<String, Object>> list = getLogFtpPageList(param);
 			// 开始获取分页数据
-			List<CmLogFtpDT> resultList = hibernateDao.findByPage(CmLogFtpDT.class, paramList,
-					(pageUtil.getPage() - 1) * pageUtil.getRows(), pageUtil.getRows(), order, null);
-			for (CmLogFtpDT model : resultList) {
-				// if (alarm.getCreateDate() != null) {
-				// alarm.setCreateDateStr(DateUtil.dateToString(alarm.getCreateDate(),
-				// "yyyy-MM-dd HH:hh:ss"));
-				// }
-				// if (alarm.getUpdateDate() != null) {
-				// alarm.setUpdateDateStr(DateUtil.dateToString(alarm.getUpdateDate(),
-				// "yyyy-MM-dd HH:hh:ss"));
-				// }
-			}
-			pageUtil.setResultList(resultList);
+//			List<CmLogFtpDT> resultList = hibernateDao.findByPage(CmLogFtpDT.class, paramList,
+//					(pageUtil.getPage() - 1) * pageUtil.getRows(), pageUtil.getRows(), order, null);
+			pageUtil.setResultList(list);
 		}
 		return pageUtil;
 	}

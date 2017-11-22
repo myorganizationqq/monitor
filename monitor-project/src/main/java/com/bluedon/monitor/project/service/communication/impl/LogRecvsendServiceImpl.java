@@ -44,6 +44,12 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 		if (!StringUtil.isEmpty(param.getServerCode())) {
 			paramList.add(Restrictions.like("serverCode", param.getServerCode(), MatchMode.ANYWHERE));
 		}
+		if (!StringUtil.isEmpty(param.getDateTime1())) {
+			paramList.add(Restrictions.like("recdDatetime", param.getDateTime1(), MatchMode.ANYWHERE));
+		}
+		if (!StringUtil.isEmpty(param.getDateTime2())) {
+			paramList.add(Restrictions.like("recdDatetime", param.getDateTime2(), MatchMode.ANYWHERE));
+		}
 
 		List<Order> order = new ArrayList<Order>();
 		// order.add(Order.asc("createTime"));
