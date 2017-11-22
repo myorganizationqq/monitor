@@ -12,7 +12,7 @@ import com.bluedon.monitor.project.common.ConnectVO;
 import com.bluedon.monitor.project.common.Oracle2Mysql;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.service.communication.LogFtpService;
-import com.bluedon.monitor.project.service.communication.LogRecdsendService;
+import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import com.bluedon.monitor.project.util.PropertiesUtil;
 
 @Component("scheduledManager")
@@ -23,12 +23,12 @@ public class ScheduledManager {
 	@Autowired
 	private LogFtpService logFtpService;
 	@Autowired
-	private LogRecdsendService logRecdsendService;
+	private LogRecvsendService logRecvsendService;
 	
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
-	 * 处理消息收发日志数据 0 0/30 * * * ?
+	 * 处理消息收发日志、FTP文件数据 0 0/30 * * * ?
 	 * 1、先分别查询本地表中最大时间记录  2、设置查询条件查询远程数据  3、处理入库
 	 * @throws Exception
 	 */
@@ -39,7 +39,7 @@ public class ScheduledManager {
 		
 		List<TransferTable> list = logFtpService.getTableList();
 		String latestFtpDatetime = logFtpService.getLatestFtpDatetime();
-		String latestRecdDatetime = logRecdsendService.getLatestRecdDatetime();
+		String latestRecvDatetime = logRecvsendService.getLatestRecdDatetime();
 		
 		ConnectVO oracleConnectVO = new ConnectVO(PropertiesUtil.getValue("oracle.driverClassName"),
 				PropertiesUtil.getValue("cm.oracle.url"), PropertiesUtil.getValue("cm.oracle.username"),
@@ -52,10 +52,11 @@ public class ScheduledManager {
 			if("cm_log_ftp".equals(table.getImpTableName()) && latestFtpDatetime != null) {
 				table.setExtraSql(String.format(sql, "FTP_DATETIME", latestFtpDatetime));
 			}
-			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecdDatetime != null) {
-				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestFtpDatetime));
+			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecvDatetime != null) {
+				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestRecvDatetime));
 			}
-			Oracle2Mysql.tableInput(table, oracleConnectVO);
+			List<List<String>> resultList = Oracle2Mysql.tableInput(table, oracleConnectVO);
+			log.info(table.getImpTableName() + "表：共有" + resultList.size() + "条记录入库...");
 		}
 		log.info(simpleDateFormat.format(new Date()) + " ：结束执行任务。");
 	}

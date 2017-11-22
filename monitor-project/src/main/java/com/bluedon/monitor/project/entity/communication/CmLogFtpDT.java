@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -29,6 +30,11 @@ public class CmLogFtpDT extends BaseEntity {
 	private String startDatetime;
 	private int spendDatetime;
 	private String result;
+	
+	private int successCount;
+	private int failureCount;
+	private String dateTime1;
+	private String dateTime2;
 
 	public CmLogFtpDT() {
 	}
@@ -66,7 +72,7 @@ public class CmLogFtpDT extends BaseEntity {
 		this.operCode = operCode;
 	}
 
-	@Column(name="FILE_NAME")
+	@Column(name="FILENAME")
 	public String getFileName() {
 		return fileName;
 	}
@@ -106,4 +112,37 @@ public class CmLogFtpDT extends BaseEntity {
 		this.result = result;
 	}
 
+	@Transient
+	public int getSuccessCount() {
+		return successCount;
+	}
+	public void setSuccessCount(int successCount) {
+		this.successCount = successCount;
+	}
+
+	@Transient
+	public int getFailureCount() {
+		return failureCount;
+	}
+	public void setFailureCount(int failureCount) {
+		this.failureCount = failureCount;
+	}
+
+	@Transient
+	public String getDateTime1() {
+		return dateTime1;
+	}
+	public void setDateTime1(String dateTime1) {
+		this.dateTime1 = dateTime1;
+	}
+
+	@Transient
+	public String getDateTime2() {
+		return dateTime2;
+	}
+	public void setDateTime2(String dateTime2) {
+		this.dateTime2 = dateTime2;
+	}
+	
+	
 }
