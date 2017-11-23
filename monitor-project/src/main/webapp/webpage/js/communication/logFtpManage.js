@@ -5,7 +5,7 @@ $(function() {
 function init() {
 	// 获取查询框的值
 	var qParams = {
-		'ftpId' : $('#ftpId').val(),
+		'ftpIp' : $('#ftpIp').val(),
 		'fileName' : $('#fileName').val(),
 		'dateTime1' : $('#dateTime1').val(),
 		'dateTime2' : $('#dateTime2').val(),

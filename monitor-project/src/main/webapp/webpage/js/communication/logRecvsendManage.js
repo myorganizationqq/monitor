@@ -30,30 +30,30 @@ function init() {
 						},
 						{
 							title : 'IP地址',
-							field : 'linkIp',
+							field : 'LINK_IP',
 							width : 100,
 							align : 'center'
 						},
 						{
 							title : '消息总数',
-							field : 'fileName',
+							field : 'totalCount',
 							width : 70,
 							align : 'center'
 						},
 						{
 							title : '成功数量',
-							field : 'successCount',
+							field : 'SUCCESS',
 							width : 100,
 							align : 'center'
 						},
 						{
 							title : '失败数量',
-							field : 'failureCount',
+							field : 'FAILURE',
 							width : 100,
 							align : 'center'
 						},{
 							title : '流量',
-							field : 'msgLength',
+							field : 'MSG_LENGTH',
 							width : 100,
 							align : 'center'
 						}

@@ -13,7 +13,7 @@ public interface LogFtpService extends IBaseService {
 	
 	List<TransferTable> getTableList();
 	
-	List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param);
+	List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param, PageUtil pageUtil);
 	
 	PageUtil getPageList(CmLogFtpDT param, PageUtil pageUtil);
 }
