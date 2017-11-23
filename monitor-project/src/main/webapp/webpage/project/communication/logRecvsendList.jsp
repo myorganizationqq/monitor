@@ -31,11 +31,9 @@
 				</td>
 				<td width="60" style="padding-left:20px;"><label>接收时间：</label></td>
 				<td width="360">
-					<input type="t" class="easyui-textbox" id="dateTime1"
-						style="width: 150px" data-options="" fit="true" />
+					<input id="dateTime1" type="text" size="16" class="easyui-datetimebox">
 					至
-					<input type="t" class="easyui-textbox" id="dateTime2"
-						style="width: 150px" data-options="" fit="true" />
+					<input id="dateTime2" type="text" size="16" class="easyui-datetimebox">
 				</td>
 				<td></td>
 				<td>
