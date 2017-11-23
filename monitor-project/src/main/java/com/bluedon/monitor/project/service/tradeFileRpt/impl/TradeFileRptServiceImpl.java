@@ -1,15 +1,24 @@
 package com.bluedon.monitor.project.service.tradeFileRpt.impl;
 
 import com.bluedon.monitor.common.dao.IBaseDao;
+import com.bluedon.monitor.common.util.PageUtil;
+import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.project.service.transferTable.impl.TransferTableServiceImpl;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author JiangFeng
@@ -24,10 +33,8 @@ public class TradeFileRptServiceImpl implements TradeFileRptService{
     @Autowired
     private TransferTableServiceImpl transferTableService;
 
-    /*public List<TradeFileRpt> getList(TradeFileRpt vo) {
-        hibernateDao.
-        return null;
-    }*/
+private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
+
     @Override
     public List<TradeFileRpt> getFileCountList(){
         String hql="select a.file_type fileType,sum(a.file_count) fileCount from trade_file_rpt a group by a.file_type order by fileCount desc";
@@ -168,6 +175,31 @@ public class TradeFileRptServiceImpl implements TradeFileRptService{
             tradeFileRptVO.setNoPretreatmentCount(noPretreatmentCount);
         }
         return  tradeFileRptVOs;
+    }
+
+    @Override
+    public PageUtil getPageList(TradeFileRpt param, PageUtil pageUtil) {
+        //查询参数构造
+        List<Criterion> paramList = new ArrayList<Criterion>();
+        if(!StringUtil.isEmpty(param.getFileType())){
+            paramList.add(Restrictions.eq("fileType", param.getFileType()));
+        }
+        List<Order> orders = new ArrayList<>();
+        orders.add(Order.desc("balanceWaterNo"));
+        //获取总记录数
+        int count = this.hibernateDao.getCount(TradeFileRpt.class, paramList, null);
+        log.debug("获取记录数:"+count);
+        pageUtil.setTotalRecordNumber(count);
+        //计算分页数据
+        if(pageUtil.fetchPaging()){
+            //开始获取分页数据
+            List<TradeFileRpt> resultList = this.hibernateDao.findByPage(TradeFileRpt.class, paramList, (pageUtil.getPage()-1)*pageUtil.getRows(), pageUtil.getRows(), orders, null);
+            if(resultList != null && resultList.size() > 0) {
+                pageUtil.setResultList(resultList);
+            }
+        }
+        log.debug("获取结果总数:"+((pageUtil.getResultList()!=null&&pageUtil.getResultList().size()>0)?pageUtil.getResultList().size():0));
+        return pageUtil;
     }
 
     /**

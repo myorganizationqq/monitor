@@ -105,14 +105,23 @@ public class ConstantUtil {
 	
 	public final static Map<String,String> FINISH_FLAG = new HashMap<String, String>(){
 		{
-			put("9","全部状态");
+			put("","全部状态");
 			put("0","未开始");
 			put("1","进行中");
 			put("2","已完成");
 		}
 	};
-	
-	
+
+	public final static Map<String,String> FILE_TYPE = new HashMap<String, String>(){
+		{
+			put("","请选择");
+			put("AUD","审计文件");
+			put("TRX","交易文件");
+			put("PRO","收益文件");
+			put("REG","寄存器文件");
+			put("TCD","金融ic卡交易文件");
+		}
+	};
 	
 	
 	

@@ -1,8 +1,10 @@
+var finishFlagArr=[];
 //默认执行查询方法
 $(document).ready(function() {
     /*if($("#h_orgId").val() == ""){
         search();
     }*/
+    getFinishFlag();
 });
 
 //查询
@@ -57,18 +59,26 @@ function clean(){
 }
 
 function finishFlagFmt(value, row) {
-    var str="";
-    if (str == '0'){
-        str="未开始";
-    }else if(str == '1'){
-        str="进行中";
-    }else{
-        str="已完成";
+    var str ="";
+    for(var i=0;i<finishFlagArr.length;i++){
+        if(finishFlagArr[i].id == value){
+            str=finishFlagArr[i].text;
+            break;
+        }
     }
     return str;
 }
 
-
+function getFinishFlag() {
+    $.ajax({
+        type: "get",
+        url: basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtCpntroller.do?getFinishFlag',
+        data: "json",
+        success: function(msg){
+            finishFlagArr = eval(msg);
+        }
+    });
+}
 
 
 
