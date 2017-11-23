@@ -54,14 +54,20 @@ function init() {
 							align : 'center'
 						},
 						{
-							title : '下载成功数量',
-							field : 'SUCCESS',
+							title : 'FTP类型',
+							field : 'OPER_CODE',
 							width : 100,
 							align : 'center'
 						},
 						{
-							title : '下载失败数量',
-							field : 'FAILURE',
+							title : '操作结果',
+							field : 'RESULT',
+							width : 100,
+							align : 'center'
+						},
+						{
+							title : '数量',
+							field : 'NUM',
 							width : 100,
 							align : 'center'
 						}
