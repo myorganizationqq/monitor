@@ -89,7 +89,7 @@ function listSearch() {
 	var date2 = $('#dateTime2').datebox('getValue');
 	if(date1 !="" && date2 !="") {
 		if(date1 > date2) {
-			alert("开始时间不能大于结束时间！");
+			$.messager.alert('提示','开始时间不能大于结束时间！');
 			return;
 		}
 	}
