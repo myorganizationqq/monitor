@@ -57,13 +57,14 @@ function init(){
                   },
 		          {title:'操作',field:'operation',width:150,align:'center',
 		        	  formatter:function(value, row) {
-		        		  var s = ' <a href="#"  onclick="alarmEdit(\'' + row.id + '\')">配置告警阀值</a> ';
-                          var d = ' <a href="#"  onclick="alarmEditNotice(\'' + row.id + '\')">配置告警通知</a> ';
+						  var idStr = row.id+","+row.alarmType;
+		        		  var s = ' <a href="#"  onclick="alarmEdit(\'' + idStr  + '\')">配置告警阀值</a> ';
+                          var d = ' <a href="#"  onclick="alarmEditNotice(\'' + idStr + '\')">配置告警通知</a> ';
                           var e = "";
                           if(row.alarmStatus==0){
-                              e = ' <a href="#"  onclick="alarmEditStatus(\'' + row.id + '\')">关闭</a> ';
+                              e = ' <a href="#"  onclick="editAlarmStatus(\'' + row.id + '\')">关闭</a> ';
 						  }else{
-                              e = ' <a href="#"  onclick="alarmEditStatus(\'' + row.id + '\')">开启</a> ';
+                              e = ' <a href="#"  onclick="editAlarmStatus(\'' + row.id + '\')">开启</a> ';
 						  }
 
 		        		  return s +"&nbsp;"+ d +"&nbsp;"+ e;
@@ -93,12 +94,23 @@ function clean(){
 
 
 //修改告警配置
-function alarmEdit(id){
+function alarmEdit(idStr){
+	var idArr = idStr.split(",");
+	var id = idArr[0];
+	var alarmType = idArr[1];
+	var title = "";
+	if(alarmType=='JYZXT'){
+		title = '交易子系统告警配置';
+	}else if(alarmType=='JYWJHSJ'){
+        title = '交易文件和数据告警配置';
+	}else{
+        title = '通信业务系统告警配置';
+	}
     $(this).amsWindow({
         container : 'editWindow',
         type : 'add',
         url : basePath+'alarm/alarmManagerController.do?toEdit&id='+id,
-        title : '修改告警配置',
+        title : title,
         width : 730,
         height : 550,
         top : '10%'
@@ -106,25 +118,41 @@ function alarmEdit(id){
 }
 
 //修改告警状态
-function alarmStatus(id){
-    if(data){
-        $.post(basePath+"alarm/alarmManagerController.do?editStatus", {id:id},function(data){
-            $.messager.alert('提示',unescape(data.msg));
-            init();
-        },'json');
-    }
+function editAlarmStatus(id){
+    $.messager.confirm('系统提示', '修改告警状态？', function(data) {
+        if (data) {
+            $.post(basePath + "alarm/alarmManagerController.do?editAlarmStatus", {id: id}, function (data) {
+                $.messager.alert('提示', unescape(data.msg));
+                init();
+            }, 'json');
+        }
+    });
+
 }
 
 //修改告警通知配置
-function alarmEditNotice(id){
+function alarmEditNotice(idStr){
+
+    var idArr = idStr.split(",");
+    var id = idArr[0];
+    var alarmType = idArr[1];
+    var title = "";
+    if(alarmType=='JYZXT'){
+        title = '交易子系统告警通知';
+    }else if(alarmType=='JYWJHSJ'){
+        title = '交易文件和数据告警通知';
+    }else{
+        title = '通信业务系统告警通知';
+    }
+
     $(this).amsWindow({
         container : 'editNoticeWindow',
         type : 'add',
         url : basePath+'alarm/alarmManagerController.do?toEditNotice&id='+id,
-        title : '修改告警配置',
-        width : 760,
-        height : 350,
-        top : '15%'
+        title : title,
+        width : 600,
+        height : 500,
+        top : '10%'
     });
 }
 

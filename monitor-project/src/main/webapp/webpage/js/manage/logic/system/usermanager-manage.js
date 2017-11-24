@@ -31,15 +31,17 @@ function search(){
         columns:[[//列
             {field:'id',checkbox:true,width:30,align:'center'},	
             {title:'真实姓名',field:'realName',width:80,align:'center'},	
-            {title:'登录名',field:'loginName',width:100,align:'center'},                        	
-			{title:'所属单位ID',field:'orgId',width:100,align:'center',hidden:true},
+            {title:'登录名',field:'loginName',width:100,align:'center'},
+            {title:'电子邮箱',field:'email',width:100,align:'center'},
+            {title:'手机号码',field:'phone',width:100,align:'center'},
+			/*{title:'所属单位ID',field:'orgId',width:100,align:'center',hidden:true},
 			{title:'所属单位',field:'orgName',width:100,align:'center'},
 			{title:'所在部门ID',field:'departId',width:100,align:'center',hidden:true},
 			{title:'所在部门',field:'departName',width:100,align:'center'},
 			{title:'用户角色',field:'roleName',width:100,align:'center'},
 			{title:'用户类别ID',field:'userType',width:60,align:'center',hidden:true},	
             {title:'用户类别',field:'userTypeStr',width:60,align:'center'},
-			{title:'用户状态ID',field:'isValid',width:60,align:'center',hidden:true},
+			{title:'用户状态ID',field:'isValid',width:60,align:'center',hidden:true},*/
 			{title:'用户状态',field:'isValidStr',width:60,align:'center'},
 			{title:'操作',field:'operation',width:120,align:'center',
 				formatter:function(value, row) {

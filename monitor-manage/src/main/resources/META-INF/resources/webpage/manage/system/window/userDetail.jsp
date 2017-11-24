@@ -41,7 +41,7 @@
 		        	</c:choose>
 			      </tr>
 			      <tr>
-			       
+
 			        <c:choose>
 		        		<c:when test="${!empty commonUser }">
 		        			<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10">用户类别：</td>

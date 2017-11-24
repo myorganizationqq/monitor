@@ -16,7 +16,15 @@ public class UserManagerModel {
 	private Long orgId;	//机构id
 	private Integer userType;//用户类别
 	private Integer isValid;//是否有效
-	
+	private long id;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getLoginName() {
 		return loginName;

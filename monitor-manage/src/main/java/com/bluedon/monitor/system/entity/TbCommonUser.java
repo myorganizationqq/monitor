@@ -34,6 +34,8 @@ public class TbCommonUser  extends BaseEntity  {
 	private Long orgId;	//机构id
 	private Integer userType;//用户类别
 	private Integer isValid;//是否有效
+	private String email;
+	private String phone;
 	
 	public TbCommonUser() {
 	}
@@ -117,7 +119,21 @@ public class TbCommonUser  extends BaseEntity  {
 		this.realName = realName;
 	}
 
-	
-	
+	@Column(name="EMAIL")
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name="PHONE")
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

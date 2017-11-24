@@ -57,6 +57,20 @@ public class Alarm {
      */
     private String alarmUser;
 
+    @Column(name = "alarm_cycle")
+    public int getAlarmCycle() {
+        return alarmCycle;
+    }
+
+    public void setAlarmCycle(int alarmCycle) {
+        this.alarmCycle = alarmCycle;
+    }
+
+    /**
+     * 告警周期
+     */
+    private int alarmCycle;
+
     //--------交易文件和数据
     /**
      * 交易文件和数据_不合法数据个数_故障（小于）

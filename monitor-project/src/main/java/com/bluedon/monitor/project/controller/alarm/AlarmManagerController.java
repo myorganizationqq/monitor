@@ -7,14 +7,13 @@ import com.bluedon.monitor.common.util.model.ModelMapper;
 import com.bluedon.monitor.common.util.model.ModelMapperFactory;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.service.alarm.IAlarmManagerService;
-import com.bluedon.monitor.system.entity.TbCommonFunction;
-import com.bluedon.monitor.system.entity.TbCommonOperation;
-import com.bluedon.monitor.system.entity.TbCommonRole;
-import com.bluedon.monitor.system.entity.TbCommonRoleFunction;
+import com.bluedon.monitor.system.entity.*;
 import com.bluedon.monitor.system.model.system.RoleManagerModel;
+import com.bluedon.monitor.system.model.system.UserManagerModel;
 import com.bluedon.monitor.system.model.util.ComboTree;
 import com.bluedon.monitor.system.model.util.OperResult;
 import com.bluedon.monitor.system.service.system.IFunctionManagerService;
+import com.bluedon.monitor.system.service.system.IUserManagerService;
 import com.bluedon.monitor.system.util.ConstantUtil;
 import com.bluedon.monitor.system.util.ToolUtil;
 import org.apache.log4j.Logger;
@@ -45,7 +44,9 @@ public class AlarmManagerController {
 	@Autowired
 	@Qualifier("alarmServiceImpl")
 	private IAlarmManagerService alarmService;
-
+	@Autowired
+	@Qualifier("userManagerServiceImpl")
+	private IUserManagerService userManagerService;
 
 
 	/**
@@ -121,7 +122,7 @@ public class AlarmManagerController {
 		Alarm alarm = (Alarm) alarmService.loadById(Alarm.class,param.getId());
 
 		req.setAttribute("obj",alarm);
-		return new ModelAndView("alarm/alarm"+param.getAlarmType()+"EditNotice");
+		return new ModelAndView("alarm/alarmNoticeEdit");
 
 
 	}
@@ -163,6 +164,39 @@ public class AlarmManagerController {
 	}
 
 	/**
+	 * 保存告警配置信息
+	 * @param param
+	 * @param rsp
+	 */
+	@RequestMapping(params="updateAlarmNotice")
+	public void updateAlarmNotice(Alarm param,HttpServletResponse rsp){
+		if(param.getId()==0){
+			throw new IllegalArgumentException("修改告警通知操作id不能为空");
+		}
+
+		OperResult rs = new OperResult();
+		try {
+				log.debug("修改告警通知操作：修改，id="+param.getId());
+				Alarm alarm = (Alarm)alarmService.loadById(Alarm.class,param.getId());
+				alarm.setAlarmUser(param.getAlarmUser());
+				alarm.setAlarmEmail(param.getAlarmEmail());
+				alarm.setAlarmMessage(param.getAlarmMessage());
+				param.setUpdateDate(new Date());
+				alarmService.update(alarm);
+
+			rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
+			rs.setData(param);
+			rs.setMsg("操作成功");
+		}catch (Exception e){
+			rs.setResultCode(ConstantUtil.RESULT_FAILED);
+			rs.setMsg("操作失败");
+			e.printStackTrace();
+		}
+
+		ToolUtil.getData(rsp, rs);
+	}
+
+	/**
 	 * 删除告警配置
 	 * @param param
 	 * @param rsp
@@ -189,5 +223,91 @@ public class AlarmManagerController {
 		ToolUtil.getData(rsp, rs);
 	}
 
+	/**
+	 * 修改告警状态
+	 * @param param
+	 * @param rsp
+	 */
+	@RequestMapping(params="editAlarmStatus")
+	public void editAlarmStatus(Alarm param,HttpServletResponse rsp){
+		if(param.getId()==0){
+			throw new IllegalArgumentException("修改告警状态操作id不能为空");
+		}
 
+		OperResult rs = new OperResult();
+
+		try {
+			Alarm alarm = (Alarm) alarmService.loadById(Alarm.class,param.getId());
+			alarm.setUpdateDate(new Date());
+			if(alarm.getAlarmStatus()==0){
+				alarm.setAlarmStatus(1);
+			}else{
+				alarm.setAlarmStatus(0);
+			}
+			alarmService.update(alarm);
+			log.debug("修改告警状态操作操作：id="+param.getId());
+			rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
+			rs.setMsg("操作成功");
+		}catch (Exception e){
+			rs.setResultCode(ConstantUtil.RESULT_FAILED);
+			rs.setMsg("操作失败");
+			e.printStackTrace();
+		}
+
+		ToolUtil.getData(rsp, rs);
+	}
+
+	/**
+	 * 获取待选用户列表
+	 * @param model
+	 */
+	@RequestMapping(params="getSelectingUsers")
+	public void getSelectingUsers(UserManagerModel param, HttpServletRequest req, HttpServletResponse rsp){
+		param.setIsValid(1);//有效
+
+		List<TbCommonUser> list= this.userManagerService.getUserListByParam(param);
+
+		List<TbCommonUser> selectList= new ArrayList <>();
+		Alarm alarm = (Alarm)alarmService.loadById(Alarm.class,param.getId());
+		String ids = alarm.getAlarmUser();
+		if(!StringUtil.isEmpty(ids)){
+			String [] users = ids.split(",");
+			TbCommonUser u = null;
+			for(String user : users){
+				u = (TbCommonUser)userManagerService.loadById(TbCommonUser.class,Long.parseLong(user));
+				selectList.add(u);
+
+			}
+
+			list.removeAll(selectList);//移除已经选中的元素
+		}
+
+
+		ToolUtil.getCombo(rsp, list);
+	}
+
+	/**
+	 * 获取已选用户列表
+	 * @param model
+	 */
+	@RequestMapping(params="getSelectedUsers")
+	public void getSelectedUsers(UserManagerModel param,HttpServletRequest req, HttpServletResponse rsp){
+		param.setIsValid(1);//有效
+
+		List<TbCommonUser> selectList= new ArrayList <>();
+		Alarm alarm = (Alarm)alarmService.loadById(Alarm.class,param.getId());
+		String ids = alarm.getAlarmUser();
+		if(!StringUtil.isEmpty(ids)){
+			String [] users = ids.split(",");
+			TbCommonUser u = null;
+			for(String user : users){
+				u = (TbCommonUser)userManagerService.loadById(TbCommonUser.class,Long.parseLong(user));
+				selectList.add(u);
+
+			}
+		}
+
+
+		ToolUtil.getCombo(rsp, selectList);
+	}
 }

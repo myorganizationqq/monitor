@@ -158,6 +158,8 @@ public class UserManagerController {
 				//加密
 				String pw=defaultPw;
 				model.setPassword(pw);
+				model.setOrgId(1l);
+				model.setDepartId(1l);
 				userManagerService.saveUser(model);
 
 					TbCommonUserOrg uo = new TbCommonUserOrg();

@@ -18,7 +18,12 @@
 		style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; overflow: hidden">
 		<form id="form_user" method="post">
 			<input id="id" name="id" value="${commonUser.id }" type="hidden"/>
-  			<input id="load" name="load" value="${load }" type="hidden"/>			
+  			<input id="load" name="load" value="${load }" type="hidden"/>
+
+			<input name="userType" type="hidden" value="${commonUser.userType }"/>
+			<input name="orgId" value="${commonUser.orgId }" type="hidden"/>
+			<input name="deptId" value="${commonUser.departId }" type="hidden"/>
+
 			<!-- 是否有效 -->
   			<input name="isValid" value="${!empty commonUser?commonUser.isValid:1 }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680">
@@ -42,7 +47,7 @@
 			      </tr>
 			      <tr>
 			       
-			        <c:choose>
+			        <%--<c:choose>
 		        		<c:when test="${!empty commonUser }">
 		        			<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10">用户类别：</td>
 			       			<td width="300" >
@@ -63,7 +68,7 @@
 					        	url:'${requestScope.basePath }manage/common/constantController.do?getCombobox&mapName=user_type'"></select>
 					         </td>
 				        </c:otherwise>
-		        	</c:choose>     				        	   	
+		        	</c:choose>--%>
 			       
 			      </tr>
 				 <tr>
@@ -74,7 +79,25 @@
 			        	 value="${commonUser.realName }" />        	
 			        </td>
 			      </tr>
-			      <tr>
+
+				<tr>
+					<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10"><span class="text_required">*</span>电子邮箱：</td>
+					<td width="300" >
+						<input  name="email" type="text" style="height:25px;width:200px;"
+							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入电子邮箱！',validType:'length[5,30]'"
+							   value="${commonUser.email }" />
+					</td>
+				</tr>
+
+				<tr>
+					<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10"><span class="text_required">*</span>手机号码：</td>
+					<td width="300" >
+						<input  name="phone" type="text" style="height:25px;width:200px;"
+							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入手机号码！',validType:'length[11,11]'"
+							   value="${commonUser.phone }" />
+					</td>
+				</tr>
+			     <%-- <tr>
 			        <td width="110" align="right" bgcolor="#f1f2f3" class="p_right10"><span class="text_required">*</span>组织机构：</td>
 			        <td width="300" >
 			        	<select id="d_orgId" name="orgId" class="easyui-combotree" style="height:30px;width:200px;"   
@@ -90,7 +113,7 @@
 				        	data-options="url:'${requestScope.basePath }manage/system/departManagerController.do?getDepartComboTree',
 				        	onLoadSuccess:function(data){$('#d_departId').combotree('setValue','${commonUser.departId }');}"></select>            	
 			        </td>
-			      </tr>   
+			      </tr>   --%>
 			      <tr>
 			        <td colspan="2">
 			          <div align="right" style="padding-right: 50px;padding-top: 5px;" > 
