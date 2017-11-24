@@ -81,7 +81,7 @@ public class StSysFlowCurrentDtCpntroller {
             ComboBox c = new ComboBox();
             c.setId(entry.getKey());
             c.setText(entry.getValue());
-            if ("9".equals(entry.getKey())){
+            if ("".equals(entry.getKey())){
                 c.setSelected(true);
             }
             cList.add(c);

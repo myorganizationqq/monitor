@@ -55,8 +55,7 @@ public class ScheduledManager {
 			if("cm_log_recv_send".equals(table.getImpTableName()) && latestRecvDatetime != null) {
 				table.setExtraSql(String.format(sql, "RECD_DATETIME", latestRecvDatetime));
 			}
-			List<List<String>> resultList = Oracle2Mysql.tableInput(table, oracleConnectVO);
-			log.info(table.getImpTableName() + "表：共有" + resultList.size() + "条记录入库...");
+			Oracle2Mysql.tableInput(table, oracleConnectVO);
 		}
 		log.info(simpleDateFormat.format(new Date()) + " ：结束执行任务。");
 	}

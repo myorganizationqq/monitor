@@ -10,7 +10,7 @@ import java.util.Date;
  * @DATE  2017/11/17
  */
 @Entity
-@Table(name = "ST_SYS_FLOW_CURRENT_DT")
+@Table(name = "st_sys_flow_current_dt")
 public class StSysFlowCurrentDt extends BaseEntity{
     @Id
     @Column(name = "balance_water_no")

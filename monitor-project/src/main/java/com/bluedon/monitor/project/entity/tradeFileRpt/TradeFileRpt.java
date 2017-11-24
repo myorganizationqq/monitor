@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @author JiangFeng
  * @date 2017/11/14
  */
-@Table(name="TRADE_FILE_RPT")
+@Table(name="trade_file_rpt")
 @Entity
 @DynamicInsert
 @DynamicUpdate
@@ -79,7 +79,7 @@ public class TradeFileRpt {
         this.wrongfulCount = wrongfulCount;
     }
     @Column(name = "duplicate_count")
-    public long getDuplicateCount() {
+    public int getDuplicateCount() {
         return duplicateCount;
     }
 

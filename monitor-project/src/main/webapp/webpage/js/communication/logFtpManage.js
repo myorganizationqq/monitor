@@ -1,14 +1,27 @@
 $(function() {
 	init();
+	//日期控制扩展选择日期小于等于当前日期，开始日期小于等于结束日期
+    $("#dateTime1").datetimebox('calendar').calendar({
+        validator: function(beginDate) {
+            var date = new Date();
+            return beginDate < date;
+        }
+    });
+    $("#dateTime2").datetimebox('calendar').calendar({
+        validator: function(beginDate) {
+            var date = new Date();
+            return beginDate < date;
+        }
+    });
 })
 // 查询
 function init() {
 	// 获取查询框的值
 	var qParams = {
-		'ftpId' : $('#ftpId').val(),
+		'ftpIp' : $('#ftpIp').val(),
 		'fileName' : $('#fileName').val(),
-		'dateTime1' : $('#dateTime1').val(),
-		'dateTime2' : $('#dateTime2').val(),
+		'dateTime1' : $('#dateTime1').datebox('getValue'),
+		'dateTime2' : $('#dateTime2').datebox('getValue')
 	};
 
 	// 表单信息
@@ -41,14 +54,20 @@ function init() {
 							align : 'center'
 						},
 						{
-							title : '下载成功数量',
-							field : 'SUCCESS',
+							title : 'FTP类型',
+							field : 'OPER_CODE',
 							width : 100,
 							align : 'center'
 						},
 						{
-							title : '下载失败数量',
-							field : 'FAILURE',
+							title : '操作结果',
+							field : 'RESULT',
+							width : 100,
+							align : 'center'
+						},
+						{
+							title : '数量',
+							field : 'NUM',
 							width : 100,
 							align : 'center'
 						}
@@ -66,6 +85,14 @@ function init() {
 
 // 点击查询按钮
 function listSearch() {
+	var date1 = $('#dateTime1').datebox('getValue');
+	var date2 = $('#dateTime2').datebox('getValue');
+	if(date1 !="" && date2 !="") {
+		if(date1 > date2) {
+			alert("开始时间不能大于结束时间！");
+			return;
+		}
+	}
 	init();
 }
 
