@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  *
- * 告警业务逻辑代码
+ * 通信业务系统告警业务逻辑代码
  */
 public class AlarmTXYWXTJob implements Job {
 

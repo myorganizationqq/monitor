@@ -15,9 +15,8 @@ import java.util.Date;
 
 /**
  *
- * 告警业务逻辑代码
+ * 交易文件和数据告警业务逻辑代码
  */
-@Controller
 public class AlarmJYWJHSJJob implements Job {
 
     public static String JOB_NAME = "alarm_jywjhsj_job";
