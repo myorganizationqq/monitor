@@ -19,14 +19,14 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="160">
-                        <select id="businessType" class="easyui-combobox" style="width:150px;">
+                        <select id="businessType" style="width:150px;">
                             <option value="1">交易文件和数据</option>
                             <option value="2">清算子系统运行状态</option>
                             <option value="3">通信业务</option>
                         </select>
                         
                         <div style="display:none; margin:-22px 0 0 180px;" id="cmnc">
-	                        <select id="communication" class="easyui-combobox" style="width:150px;">
+	                        <select id="communication" style="width:150px;">
 	                            <option value="1">消息收发</option>
 	                            <option value="2">FTP文件</option>
 	                        </select>
@@ -43,9 +43,10 @@
     <div class="easyui-layout" style="height: 10px"></div>
     <div class="line"></div>
     <!--gap-->
-    <div class="easyui-layout" style="height: 560px;">
-        <iframe id="businessFrame" width="99%" height="100%" frameBorder="no" scrolling="yes" onLoad="" src=""></iframe>
+    <div class="easyui-layout" style="height: 616px;">
+        <iframe id="businessFrame" width="99%" height="100%" frameBorder="no" scrolling="no" onLoad="" src=""></iframe>
     </div>
+    
 </div>
 </body>
 </html>
