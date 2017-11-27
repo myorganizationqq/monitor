@@ -17,6 +17,22 @@ import java.util.Date;
 @DynamicUpdate
 public class Alarm {
 
+    /**
+     * 交易文件和数据告警
+     */
+    public static String ALARM_TYPE_JYWJHSJ = "JYWJHSJ";
+
+    /**
+     * 交易子系统告警
+     */
+    public static String ALARM_TYPE_JYZXT = "JYZXT";
+
+    /**
+     * 通信业务系统告警
+     */
+    public static String ALARM_TYPE_TXYWXT = "TXYWXT";
+
+
     private long id;
 
     /**
@@ -56,6 +72,21 @@ public class Alarm {
      * 告警对象
      */
     private String alarmUser;
+
+    @Column(name = "alarm_cronTrigger")
+    public String getAlarmCronTrigger() {
+        return AlarmCronTrigger;
+    }
+
+    public void setAlarmCronTrigger(String alarmCronTrigger) {
+        AlarmCronTrigger = alarmCronTrigger;
+    }
+
+
+    /**
+     * 定时规则
+     */
+    private String AlarmCronTrigger;
 
     @Column(name = "alarm_cycle")
     public int getAlarmCycle() {
