@@ -135,4 +135,32 @@
 		<aop:advisor pointcut-ref="transaction1" advice-ref="txAdvice" />
 		<aop:advisor pointcut-ref="transaction2" advice-ref="txAdvice" />
 	</aop:config>
+
+
+	<!--告警定时任务工厂 -->
+	<bean id="SpringQtzJob" class="com.bluedon.monitor.project.job.alarm.AlarmStart"/>
+	<bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="SpringQtzJob"/>
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<value>execute</value>
+		</property>
+	</bean>
+
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
+		<property name="cronExpression" value="0 */1 * * * ?"></property>
+	</bean>
+
+	<!-- ======================== 调度工厂 ======================== -->
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="CronTriggerBean"/>
+			</list>
+		</property>
+	</bean>
+
 </beans>

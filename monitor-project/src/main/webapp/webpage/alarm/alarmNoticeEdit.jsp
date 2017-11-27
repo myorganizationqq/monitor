@@ -18,6 +18,7 @@
 		style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; overflow: hidden">
 		<form id="form_user" method="post">
 			<input id="id" name="id" value="${obj.id}" type="hidden"/>
+			<input  name="alarmType" value="${obj.alarmType}" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="500">
 
 				<tr>
