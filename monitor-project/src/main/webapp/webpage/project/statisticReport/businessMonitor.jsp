@@ -8,6 +8,17 @@
     <script type="text/javascript" src="${requestScope.basePath}webpage/js/manage/amsWindow.js"></script>
     <script type="text/javascript" src="${requestScope.basePath}webpage/js/public.js"></script>
     <script type="text/javascript" src="${requestScope.basePath}webpage/js/project/statisticReport/appSystemReport.js"></script>
+	<style type="text/css">
+		.warn {
+			width: 95%;
+			padding: 8px;
+			position: absolute;
+			margin: -90px 10px;
+			background: #444C63;
+			color: #FFF;
+			font-size: 16px;
+		}
+	</style>
 </head>
 <body>
 
@@ -42,10 +53,12 @@
     <!--上下距间-->
     <div class="easyui-layout" style="height: 10px"></div>
     <div class="line"></div>
-    <!--gap-->
+
     <div class="easyui-layout" style="height: 616px;">
         <iframe id="businessFrame" width="99%" height="100%" frameBorder="no" scrolling="no" onLoad="" src=""></iframe>
     </div>
+    
+	<div class="warn">告警统计</div>
     
 </div>
 </body>
