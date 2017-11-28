@@ -21,14 +21,14 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
 
-                    <td width="60" style="padding-left:20px;"><label>文件类型：</label></td>
+                    <td width="80" style="padding-right:10px;"><label>文件类型：</label></td>
                     <td width="160">
                         <select id="fileType" name="fileType" class="easyui-combobox" style="width:150px;"
                                 data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
-				        	url:'${requestScope.basePath }project/tradeFileRpt/tradeFileRptCpntroller.do?getFileType'"></select>
+				        	url:'${requestScope.basePath }project/tradeFileRpt/tradeFileRptController.do?getFileType'"></select>
                     </td>
 
-                    <td>
+                    <td align="right">
                         <a id="searchBtn" href="javascript:void(0);" onclick="doSearch();"
                            class="easyui-linkbutton" style="padding: 0 10px">查询</a>
 

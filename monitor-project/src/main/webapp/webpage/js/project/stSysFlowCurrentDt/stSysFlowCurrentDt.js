@@ -1,10 +1,8 @@
 var finishFlagArr=[];
 //默认执行查询方法
 $(document).ready(function() {
-    /*if($("#h_orgId").val() == ""){
-        search();
-    }*/
     getFinishFlag();
+    doSearch();
 });
 
 //查询
@@ -25,7 +23,7 @@ function search(){
         fit:true,
         fitColumns:true,
         columns:[[//列
-            {field:'id',checkbox:true,width:30,align:'center'},
+            {field:'id',checkbox:true,width:30,align:'center',hidden:true},
             {title:'清算流程',field:'step',width:80,align:'center',hidden:true},
             {title:'清算流程',field:'remark',width:100,align:'center'},
             {title:'状态',field:'stat',width:50,align:'center'},

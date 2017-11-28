@@ -2,10 +2,8 @@ var fileTypeArr=[];
 var statArr=[];
 //默认执行查询方法
 $(document).ready(function() {
-    /*if($("#h_orgId").val() == ""){
-     search();
-     }*/
     getFileType();
+    doSearch();
 });
 
 //查询
@@ -26,7 +24,7 @@ function search(){
         fit:true,
         fitColumns:true,
         columns:[[//列
-            {field:'id',checkbox:true,width:30,align:'center'},
+            {field:'id',checkbox:true,width:30,align:'center',hidden:true},
             {title:'流水号',field:'balanceWaterNo',width:80,align:'center'},
             {title:'状态',field:'stat',width:100,align:'center',formatter:statFmt},
             {title:'文件类型',field:'fileType',width:100,align:'center',formatter:fileTypeFmt},
