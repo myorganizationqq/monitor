@@ -74,14 +74,8 @@ public class Alarm {
      */
     private String alarmUser;
 
-    @Column(name = "alarm_cronTrigger")
-    public String getAlarmCronTrigger() {
-        return alarmCronTrigger;
-    }
 
-    public void setAlarmCronTrigger(String alarmCronTrigger) {
-        this.alarmCronTrigger = alarmCronTrigger;
-    }
+
 
 
     /**
@@ -89,14 +83,6 @@ public class Alarm {
      */
     private String alarmCronTrigger;
 
-    @Column(name = "alarm_cycle")
-    public int getAlarmCycle() {
-        return alarmCycle;
-    }
-
-    public void setAlarmCycle(int alarmCycle) {
-        this.alarmCycle = alarmCycle;
-    }
 
     /**
      * 告警周期
@@ -1312,5 +1298,23 @@ public class Alarm {
     @Column(name = "jyzxt_drllb_wx")
     public int getJyzxt_drllb_wx() {
         return jyzxt_drllb_wx;
+    }
+
+    @Column(name = "alarm_cronTrigger")
+    public String getAlarmCronTrigger() {
+        return alarmCronTrigger;
+    }
+
+    @Column(name = "alarm_cycle")
+    public int getAlarmCycle() {
+        return alarmCycle;
+    }
+
+    public void setAlarmCycle(int alarmCycle) {
+        this.alarmCycle = alarmCycle;
+    }
+
+    public void setAlarmCronTrigger(String alarmCronTrigger) {
+        this.alarmCronTrigger = alarmCronTrigger;
     }
 }
