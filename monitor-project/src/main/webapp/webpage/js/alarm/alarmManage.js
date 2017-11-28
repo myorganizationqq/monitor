@@ -69,7 +69,7 @@ function init(){
 
 		        		  return s +"&nbsp;"+ d +"&nbsp;"+ e;
 		        	  }
-		          }			
+		          }
 		          ]],
 		          onLoadSuccess: function(data){
 
@@ -173,7 +173,7 @@ function alarmDel(id){
 function allocationToUser(){
 	var row=$('#getAlarmList').datagrid("getSelected");
 	if(row){
-		var roleId=row.id;	
+		var roleId=row.id;
 		$(this).amsWindow({
 			container : 'allocationToUserWindow',
 			type : 'add',
@@ -185,14 +185,14 @@ function allocationToUser(){
 		});
 	}else{
 		$.messager.alert('提示','请选择一个角色分配用户');
-	}	
+	}
 }
 
 //分配到菜单
 function allocationMenu(){
 	var row=$('#getAlarmList').datagrid("getSelected");
 	if(row){
-		var roleId=row.id;	
+		var roleId=row.id;
 		$(this).amsWindow({
 			container : 'allocationToUserWindow',
 			type : 'add',
@@ -204,5 +204,5 @@ function allocationMenu(){
 		});
 	}else{
 		$.messager.alert('提示','请选择一个角色分配菜单');
-	}	
+	}
 }
