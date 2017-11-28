@@ -28,9 +28,9 @@ import java.util.Map;
  * @Description
  */
 @Controller
-@RequestMapping("/project/stSysFlowCurrentDt/stSysFlowCurrentDtCpntroller")
-public class StSysFlowCurrentDtCpntroller {
-    private static final Logger log = Logger.getLogger(StSysFlowCurrentDtCpntroller.class);
+@RequestMapping("/project/stSysFlowCurrentDt/stSysFlowCurrentDtController")
+public class StSysFlowCurrentDtController {
+    private static final Logger log = Logger.getLogger(StSysFlowCurrentDtController.class);
 
     @Autowired
     @Qualifier("stSysFlowCurrentDtService")

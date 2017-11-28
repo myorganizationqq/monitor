@@ -1,17 +1,28 @@
 $(document).ready(function () {
     businessViewChange();
-    $("#businessType").change(businessViewChange);
+    $("#businessType").combobox({
+        onChange : function(n, o) {
+            var url='';
+            if (n==1){
+                url=basePath+'webpage/project/applicationSystemView/tradeFileRptChart.jsp';
+            }else if(n==2){
+                url=basePath+'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
+            }else if(n==3){
+
+            }
+            $("#businessFrame").attr("src",url);
+        }
+    });
 })
 function businessViewChange() {
     var businessType=$("#businessType").val();
     var url='';
-    if (1==businessType){
+    if (businessType == 1){
         url=basePath+'webpage/project/applicationSystemView/tradeFileRptChart.jsp';
-    }else if(2==businessType){
+    }else if(businessType == 2){
         url=basePath+'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
-    }else if(3==businessType){
+    }else if(businessType == 3){
 
     }
-    alert(11111);
     $("#businessFrame").attr("src",url);
 }

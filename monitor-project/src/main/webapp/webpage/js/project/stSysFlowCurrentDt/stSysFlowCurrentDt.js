@@ -20,7 +20,7 @@ function search(){
         pageNumber:1,           //默认显示第一页
         rownumbers:true,	    //行号
         //singleSelect:true,      //单选
-        url:basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtCpntroller.do?getPageList',  //数据源
+        url:basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getPageList',  //数据源
         queryParams:qParams,//查询框内容
         fit:true,
         fitColumns:true,
@@ -72,7 +72,7 @@ function finishFlagFmt(value, row) {
 function getFinishFlag() {
     $.ajax({
         type: "get",
-        url: basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtCpntroller.do?getFinishFlag',
+        url: basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getFinishFlag',
         data: "json",
         success: function(msg){
             finishFlagArr = eval(msg);

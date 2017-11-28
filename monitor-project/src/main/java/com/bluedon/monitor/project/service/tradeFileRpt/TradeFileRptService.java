@@ -4,6 +4,7 @@ import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author JiangFeng
@@ -11,11 +12,11 @@ import java.util.List;
  * @Description
  */
 public interface TradeFileRptService {
-    List<TradeFileRpt> getFileCountList();
-    List<TradeFileRpt> getHandleCountList();
-    List<TradeFileRpt> getWrongfulCountList();
-    List<TradeFileRpt> getDuplicateCountList();
-    List<TradeFileRpt> getNoPretreatmentCountList();
+    Map<String, Integer> getFileCountList();
+    Map<String, Integer> getHandleCountList();
+    Map<String, Integer> getWrongfulCountList();
+    Map<String, Integer> getDuplicateCountList();
+    Map<String, Integer> getNoPretreatmentCountList();
     TradeFileRpt getOne(long id);
     void insert(TradeFileRpt vo);
     void insertBatch(List<TradeFileRpt> vos);

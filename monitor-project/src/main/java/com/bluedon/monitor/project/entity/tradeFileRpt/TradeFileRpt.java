@@ -1,5 +1,6 @@
 package com.bluedon.monitor.project.entity.tradeFileRpt;
 
+import com.bluedon.monitor.common.entity.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-public class TradeFileRpt {
+public class TradeFileRpt extends BaseEntity {
     private long id;
     /*清算流水号*/
     private String balanceWaterNo;

@@ -1,5 +1,6 @@
 package com.bluedon.monitor.project.controller.tradeFileRpt;
 
+import com.alibaba.fastjson.JSON;
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
@@ -7,16 +8,20 @@ import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.system.model.util.ComboBox;
 import com.bluedon.monitor.system.util.ConstantUtil;
 import com.bluedon.monitor.system.util.ToolUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +31,9 @@ import java.util.Map;
  * @Description
  */
 @Controller
-@RequestMapping("/project/tradeFileRpt/tradeFileRptCpntroller")
-public class TradeFileRptCpntroller {
-    private static final Logger log = Logger.getLogger(TradeFileRptCpntroller.class);
+@RequestMapping("/project/tradeFileRpt/tradeFileRptController")
+public class TradeFileRptController {
+    private static final Logger log = Logger.getLogger(TradeFileRptController.class);
 
     @Autowired
     @Qualifier("tradeFileRptService")
@@ -89,4 +94,39 @@ public class TradeFileRptCpntroller {
         ToolUtil.getCombo(response, cList);
     }
 
+    @RequestMapping(params = "getChartData")
+    @ResponseBody
+    public String getChartData(HttpServletResponse response,@Param String wrongType){
+        Map<String,Integer> map=new HashMap<String,Integer>();
+        if ("fileCount".equals(wrongType)){
+            map=tradeFileRptService.getFileCountList();
+        }else if("handleCount".equals(wrongType)){
+            map=tradeFileRptService.getHandleCountList();
+        }else if("wrongfulCount".equals(wrongType)){
+            map=tradeFileRptService.getWrongfulCountList();
+        }else if("duplicateCount".equals(wrongType)){
+            map=tradeFileRptService.getDuplicateCountList();
+        }else if("noPretreatmentCount".equals(wrongType)){
+            map=tradeFileRptService.getNoPretreatmentCountList();
+        }
+        Map<String, String> fileTypeMap = ConstantUtil.FILE_TYPE;
+        Map<String, Integer> resultMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : fileTypeMap.entrySet()) {
+            String key = entry.getKey();
+            if(StringUtils.isNotBlank(key)){
+                int temp= map.get(key) == null ? 0:map.get(key);
+                resultMap.put(entry.getValue(),temp);
+            }
+        }
+       return JSON.toJSONString(resultMap);
+    }
+
+    @RequestMapping(params = "getTotalCountData")
+    @ResponseBody
+    public String getTotalCountData(HttpServletResponse response){
+        Map<String,Integer> map=new HashMap<String,Integer>();
+        map.put("故障",4);
+        map.put("未知",8);
+        return JSON.toJSONString(map);
+    }
 }

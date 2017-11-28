@@ -21,7 +21,7 @@ function search(){
         pageNumber:1,           //默认显示第一页
         rownumbers:true,	    //行号
         //singleSelect:true,      //单选
-        url:basePath+'project/tradeFileRpt/tradeFileRptCpntroller.do?getPageList',  //数据源
+        url:basePath+'project/tradeFileRpt/tradeFileRptController.do?getPageList',  //数据源
         queryParams:qParams,//查询框内容
         fit:true,
         fitColumns:true,
@@ -78,7 +78,7 @@ function fileTypeFmt(value, row) {
 function getFileType() {
     $.ajax({
         type: "get",
-        url: basePath+'project/tradeFileRpt/tradeFileRptCpntroller.do?getFileType',
+        url: basePath+'project/tradeFileRpt/tradeFileRptController.do?getFileType',
         data: "json",
         success: function(msg){
             fileTypeArr = eval(msg);

@@ -12,12 +12,12 @@
 <body>
 
 <div style="margin:20px 0 10px 0;"></div>
-<div class="easyui-tabs" style="width:100%;height:100%">
+<div class="easyui-tabs" style="width:100%;height:900px; ">
     <div title="清算应用程序性能监控" style="padding:10px">
 
     </div>
-    <div title="清算应用程序业务监控" style="padding:10px;overflow:auto;width:100%;height:100%">
-        <iframe id="businessMonitorFrame"  width='99%' height=100%'' frameBorder=no  width="99%" height="100%"  scrolling="no" onLoad=""  src='${requestScope.basePath }webpage/project/applicationSystemView/businessMonitor.jsp'></iframe>
+    <div title="清算应用程序业务监控" style="padding:10px;height: 800px;overflow:scroll;overflow-y:hidden">
+        <iframe id="businessMonitorFrame"  width="100%" height="100%" frameBorder="no"   scrolling="auto" onLoad=""  src="${requestScope.basePath }webpage/project/applicationSystemView/businessMonitor.jsp"></iframe>
     </div>
 </div>
 </body>

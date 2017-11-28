@@ -36,79 +36,64 @@ public class TradeFileRptServiceImpl implements TradeFileRptService{
 private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
 
     @Override
-    public List<TradeFileRpt> getFileCountList(){
+    public Map<String, Integer> getFileCountList(){
         String hql="select a.file_type fileType,sum(a.file_count) fileCount from trade_file_rpt a group by a.file_type order by fileCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
-        List<TradeFileRpt> tradeFileRpts = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
             String fileType = String.valueOf(stringObjectMap.get("fileType"));
             int fileCount = Integer.valueOf(String.valueOf(stringObjectMap.get("fileCount")));
-            TradeFileRpt tradeFileRpt = new TradeFileRpt();
-            tradeFileRpt.setFileType(fileType);
-            tradeFileRpt.setFileCount(fileCount);
-            tradeFileRpts.add(tradeFileRpt);
+           map.put(fileType,fileCount);
         }
-        return tradeFileRpts;
+        return map;
     }
     @Override
-    public List<TradeFileRpt> getHandleCountList(){
+    public Map<String, Integer> getHandleCountList(){
         String hql="select a.file_type fileType,sum(a.handle_count) handleCount from trade_file_rpt a group by a.file_type order by handleCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
-        List<TradeFileRpt> tradeFileRpts = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
             String fileType = String.valueOf(stringObjectMap.get("fileType"));
             int handleCount = Integer.valueOf(String.valueOf(stringObjectMap.get("handleCount")));
-            TradeFileRpt tradeFileRpt = new TradeFileRpt();
-            tradeFileRpt.setFileType(fileType);
-            tradeFileRpt.setHandleCount(handleCount);
-            tradeFileRpts.add(tradeFileRpt);
+            map.put(fileType,handleCount);
         }
-        return tradeFileRpts;
+        return map;
     }
     @Override
-    public List<TradeFileRpt> getWrongfulCountList(){
+    public Map<String, Integer> getWrongfulCountList(){
         String hql="select a.file_type fileType,sum(a.wrongful_count) wrongfulCount from trade_file_rpt a group by a.file_type order by wrongfulCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
-        List<TradeFileRpt> tradeFileRpts = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
             String fileType = String.valueOf(stringObjectMap.get("fileType"));
             int wrongfulCount = Integer.valueOf(String.valueOf(stringObjectMap.get("wrongfulCount")));
-            TradeFileRpt tradeFileRpt = new TradeFileRpt();
-            tradeFileRpt.setFileType(fileType);
-            tradeFileRpt.setWrongfulCount(wrongfulCount);
-            tradeFileRpts.add(tradeFileRpt);
+            map.put(fileType,wrongfulCount);
         }
-        return tradeFileRpts;
+        return map;
     }
     @Override
-    public List<TradeFileRpt> getDuplicateCountList(){
+    public Map<String, Integer> getDuplicateCountList(){
         String hql="select a.file_type fileType,sum(a.duplicate_count) duplicateCount from trade_file_rpt a group by a.file_type order by duplicateCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
-        List<TradeFileRpt> tradeFileRpts = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
             String fileType = String.valueOf(stringObjectMap.get("fileType"));
             int duplicateCount = Integer.valueOf(String.valueOf(stringObjectMap.get("duplicateCount")));
-            TradeFileRpt tradeFileRpt = new TradeFileRpt();
-            tradeFileRpt.setFileType(fileType);
-            tradeFileRpt.setDuplicateCount(duplicateCount);
-            tradeFileRpts.add(tradeFileRpt);
+            map.put(fileType,duplicateCount);
         }
-        return tradeFileRpts;
+        return map;
     }
     @Override
-    public List<TradeFileRpt> getNoPretreatmentCountList(){
+    public Map<String, Integer> getNoPretreatmentCountList(){
         String hql="select a.file_type fileType,sum(a.no_pretreatment_count) noPretreatmentCount from trade_file_rpt a group by a.file_type order by noPretreatmentCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
-        List<TradeFileRpt> tradeFileRpts = new ArrayList<>();
+        HashMap<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
             String fileType = String.valueOf(stringObjectMap.get("fileType"));
             int noPretreatmentCount = Integer.valueOf(String.valueOf(stringObjectMap.get("noPretreatmentCount")));
-            TradeFileRpt tradeFileRpt = new TradeFileRpt();
-            tradeFileRpt.setFileType(fileType);
-            tradeFileRpt.setNoPretreatmentCount(noPretreatmentCount);
-            tradeFileRpts.add(tradeFileRpt);
+            map.put(fileType,noPretreatmentCount);
         }
-        return tradeFileRpts;
+        return map;
     }
     @Override
     public TradeFileRpt getOne(long id) {
