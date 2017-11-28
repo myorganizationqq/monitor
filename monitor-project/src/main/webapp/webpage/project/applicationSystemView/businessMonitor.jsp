@@ -11,8 +11,7 @@
 </head>
 <body>
 
-<div style="width: 99%; padding-top: 10px; padding-left: 10px"
-     id="centerMain">
+<div style="width: 99%; padding-top: 10px; padding-left: 10px">
     <!--input 表格模块-->
     <div class="tahoma_font tableStyle_5_0">
 
@@ -20,8 +19,8 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="160">
-                        <select id="businessType"  class="easyui-combobox" style="width:150px;" >
-                            <option value="1">交易文件和数据</option>
+                        <select id="businessType"  class="" style="width:150px;" >
+                            <option value="1" selected="selected">交易文件和数据</option>
                             <option value="2">清算子系统运行状态</option>
                             <option value="3">通信业务</option>
                         </select>
@@ -37,8 +36,8 @@
     <div class="easyui-layout" style="height: 10px"></div>
     <div class="line"></div>
     <!--gap-->
-    <div class="easyui-layout" style="height: 100%; padding: 10px">
-        <iframe id="businessFrame"  width='99%' height=100%'' frameBorder=no  width="99%" height="100%"  scrolling="no" onLoad=""  src=''></iframe>
+    <div class="easyui-layout" style=" padding: 5px;min-height: 700px" >
+        <iframe id="businessFrame"  width='100%' height="600px" frameBorder='no'   scrolling="auto" onLoad=""  src=''></iframe>
     </div>
 </div>
 </body>
