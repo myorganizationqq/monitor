@@ -16,7 +16,15 @@
 	<div class="tahoma_font  tdstyle"
 		style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; overflow: hidden">
 		<form id="form_user" method="post">
-			<input id="alarmType" name="alarmType" value="JYWJHSJ" type="hidden"/>
+			<input id="id" name="id" value="${obj.id }" type="hidden"/>
+			<input name="alarmName" value="${obj.alarmName }" type="hidden"/>
+			<input name="alarmType" value="${obj.alarmType }" type="hidden"/>
+			<input name="alarmStatus" value="${obj.alarmStatus }" type="hidden"/>
+			<input name="alarmMessage" value="${obj.alarmMessage }" type="hidden"/>
+			<input name="alarmEmail" value="${obj.alarmEmail }" type="hidden"/>
+			<input name="alarmUser" value="${obj.alarmUser }" type="hidden"/>
+			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
+			<input name="alarmCycle" value="${obj.alarmCycle }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680" aria-label="fewafaewf">
 				<tr>
 					<td colspan="3">

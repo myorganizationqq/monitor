@@ -8,10 +8,11 @@ import java.util.Date;
 
 /**
  * 告警配置
+ *
  * @author zhouming
  * @date 2017/11/20
  */
-@Table(name="alarm")
+@Table(name = "alarm")
 @Entity
 @DynamicInsert
 @DynamicUpdate
@@ -75,18 +76,18 @@ public class Alarm {
 
     @Column(name = "alarm_cronTrigger")
     public String getAlarmCronTrigger() {
-        return AlarmCronTrigger;
+        return alarmCronTrigger;
     }
 
     public void setAlarmCronTrigger(String alarmCronTrigger) {
-        AlarmCronTrigger = alarmCronTrigger;
+        this.alarmCronTrigger = alarmCronTrigger;
     }
 
 
     /**
      * 定时规则
      */
-    private String AlarmCronTrigger;
+    private String alarmCronTrigger;
 
     @Column(name = "alarm_cycle")
     public int getAlarmCycle() {
@@ -494,7 +495,6 @@ public class Alarm {
     private int jyzxt_yctdzbb_wx;
 
 
-
     /**
      * 清算子系统_导入历史表_故障（小于）
      */
@@ -504,10 +504,6 @@ public class Alarm {
      * 清算子系统_导入历史表_危险（小于）
      */
     private int jyzxt_drllb_wx;
-
-
-
-
 
 
     //--------清算子系统
@@ -703,74 +699,92 @@ public class Alarm {
     public int getJywjhsj_wfyclwjgs_wx() {
         return jywjhsj_wfyclwjgs_wx;
     }
+
     @Column(name = "txywxt_jszdll_gz")
     public int getTxywxt_jszdll_gz() {
         return txywxt_jszdll_gz;
     }
+
     @Column(name = "txywxt_jszdll_wx")
     public int getTxywxt_jszdll_wx() {
         return txywxt_jszdll_wx;
     }
+
     @Column(name = "txywxt_jszxll_gz")
     public int getTxywxt_jszxll_gz() {
         return txywxt_jszxll_gz;
     }
+
     @Column(name = "txywxt_jszxll_wx")
     public int getTxywxt_jszxll_wx() {
         return txywxt_jszxll_wx;
     }
+
     @Column(name = "txywxt_cggs_gz")
     public int getTxywxt_cggs_gz() {
         return txywxt_cggs_gz;
     }
+
     @Column(name = "txywxt_cggs_wx")
     public int getTxywxt_cggs_wx() {
         return txywxt_cggs_wx;
     }
+
     @Column(name = "txywxt_sbgs_gz")
     public int getTxywxt_sbgs_gz() {
         return txywxt_sbgs_gz;
     }
+
     @Column(name = "txywxt_sbgs_wx")
     public int getTxywxt_sbgs_wx() {
         return txywxt_sbgs_wx;
     }
+
     @Column(name = "txywxt_ftpcgsl_gz")
     public int getTxywxt_ftpcgsl_gz() {
         return txywxt_ftpcgsl_gz;
     }
+
     @Column(name = "txywxt_ftpcgsl_wx")
     public int getTxywxt_ftpcgsl_wx() {
         return txywxt_ftpcgsl_wx;
     }
+
     @Column(name = "txywxt_ftpsbsl_gz")
     public int getTxywxt_ftpsbsl_gz() {
         return txywxt_ftpsbsl_gz;
     }
+
     @Column(name = "txywxt_ftpsbsl_wx")
     public int getTxywxt_ftpsbsl_wx() {
         return txywxt_ftpsbsl_wx;
     }
+
     @Column(name = "jyzxt_jrickhmd_gz")
     public int getJyzxt_jrickhmd_gz() {
         return jyzxt_jrickhmd_gz;
     }
+
     @Column(name = "jyzxt_jrickhmd_wx")
     public int getJyzxt_jrickhmd_wx() {
         return jyzxt_jrickhmd_wx;
     }
+
     @Column(name = "jyzxt_cshyctdc_gz")
     public int getJyzxt_cshyctdc_gz() {
         return jyzxt_cshyctdc_gz;
     }
+
     @Column(name = "jyzxt_cshyctdc_wx")
     public int getJyzxt_cshyctdc_wx() {
         return jyzxt_cshyctdc_wx;
     }
+
     @Column(name = "jyzxt_bql_gz")
     public int getJyzxt_bql_gz() {
         return jyzxt_bql_gz;
     }
+
     @Column(name = "jyzxt_bql_wx")
     public int getJyzxt_bql_wx() {
         return jyzxt_bql_wx;
@@ -1030,223 +1044,271 @@ public class Alarm {
     }
 
 
-
-
-
-
-
     @Column(name = "jyzxt_cshdrkftpwj_gz")
     public int getJyzxt_cshdrkftpwj_gz() {
         return jyzxt_cshdrkftpwj_gz;
     }
+
     @Column(name = "jyzxt_cshdrkftpwj_wx")
     public int getJyzxt_cshdrkftpwj_wx() {
         return jyzxt_cshdrkftpwj_wx;
     }
+
     @Column(name = "jyzxt_dcyctqtxlcpukwj_gz")
     public int getJyzxt_dcyctqtxlcpukwj_gz() {
         return jyzxt_dcyctqtxlcpukwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctqtxlcpukwj_wx")
     public int getJyzxt_dcyctqtxlcpukwj_wx() {
         return jyzxt_dcyctqtxlcpukwj_wx;
     }
+
     @Column(name = "jyzxt_sjwjxf_gz")
     public int getJyzxt_sjwjxf_gz() {
         return jyzxt_sjwjxf_gz;
     }
+
     @Column(name = "jyzxt_sjwjxf_wx")
     public int getJyzxt_sjwjxf_wx() {
         return jyzxt_sjwjxf_wx;
     }
+
     @Column(name = "jyzxt_dcyctgfptkwj_gz")
     public int getJyzxt_dcyctgfptkwj_gz() {
         return jyzxt_dcyctgfptkwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctgfptkwj_wx")
     public int getJyzxt_dcyctgfptkwj_wx() {
         return jyzxt_dcyctgfptkwj_wx;
     }
+
     @Column(name = "jyzxt_cpwjrk_gz")
     public int getJyzxt_cpwjrk_gz() {
         return jyzxt_cpwjrk_gz;
     }
+
     @Column(name = "jyzxt_cpwjrk_wx")
     public int getJyzxt_cpwjrk_wx() {
         return jyzxt_cpwjrk_wx;
     }
+
     @Column(name = "jyzxt_xfhmd_gz")
     public int getJyzxt_xfhmd_gz() {
         return jyzxt_xfhmd_gz;
     }
+
     @Column(name = "jyzxt_xfhmd_wx")
     public int getJyzxt_xfhmd_wx() {
         return jyzxt_xfhmd_wx;
     }
+
     @Column(name = "jyzxt_jsxwygjrickpj_gz")
     public int getJyzxt_jsxwygjrickpj_gz() {
         return jyzxt_jsxwygjrickpj_gz;
     }
+
     @Column(name = "jyzxt_jsxwygjrickpj_wx")
     public int getJyzxt_jsxwygjrickpj_wx() {
         return jyzxt_jsxwygjrickpj_wx;
     }
+
     @Column(name = "jyzxt_bfbdwj_gz")
     public int getJyzxt_bfbdwj_gz() {
         return jyzxt_bfbdwj_gz;
     }
+
     @Column(name = "jyzxt_bfbdwj_wx")
     public int getJyzxt_bfbdwj_wx() {
         return jyzxt_bfbdwj_wx;
     }
+
     @Column(name = "jyzxt_bbtj_gz")
     public int getJyzxt_bbtj_gz() {
         return jyzxt_bbtj_gz;
     }
+
     @Column(name = "jyzxt_bbtj_wx")
     public int getJyzxt_bbtj_wx() {
         return jyzxt_bbtj_wx;
     }
+
     @Column(name = "jyzxt_dcyctgfcpukwj_gz")
     public int getJyzxt_dcyctgfcpukwj_gz() {
         return jyzxt_dcyctgfcpukwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctgfcpukwj_wx")
     public int getJyzxt_dcyctgfcpukwj_wx() {
         return jyzxt_dcyctgfcpukwj_wx;
     }
+
     @Column(name = "jyzxt_dcyctygptkwj_gz")
     public int getJyzxt_dcyctygptkwj_gz() {
         return jyzxt_dcyctygptkwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctygptkwj_wx")
     public int getJyzxt_dcyctygptkwj_wx() {
         return jyzxt_dcyctygptkwj_wx;
     }
+
     @Column(name = "jyzxt_dcyctygcpukwj_gz")
     public int getJyzxt_dcyctygcpukwj_gz() {
         return jyzxt_dcyctygcpukwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctygcpukwj_wx")
     public int getJyzxt_dcyctygcpukwj_wx() {
         return jyzxt_dcyctygcpukwj_wx;
     }
+
     @Column(name = "jyzxt_dcygjrickjywj_gz")
     public int getJyzxt_dcygjrickjywj_gz() {
         return jyzxt_dcygjrickjywj_gz;
     }
+
     @Column(name = "jyzxt_dcygjrickjywj_wx")
     public int getJyzxt_dcygjrickjywj_wx() {
         return jyzxt_dcygjrickjywj_wx;
     }
+
     @Column(name = "jyzxt_dcjricktkwj_gz")
     public int getJyzxt_dcjricktkwj_gz() {
         return jyzxt_dcjricktkwj_gz;
     }
+
     @Column(name = "jyzxt_dcjricktkwj_wx")
     public int getJyzxt_dcjricktkwj_wx() {
         return jyzxt_dcjricktkwj_wx;
     }
+
     @Column(name = "jyzxt_dcjrickjywj_gz")
     public int getJyzxt_dcjrickjywj_gz() {
         return jyzxt_dcjrickjywj_gz;
     }
+
     @Column(name = "jyzxt_dcjrickjywj_wx")
     public int getJyzxt_dcjrickjywj_wx() {
         return jyzxt_dcjrickjywj_wx;
     }
+
     @Column(name = "jyzxt_dcyctqtxlptkwj_gz")
     public int getJyzxt_dcyctqtxlptkwj_gz() {
         return jyzxt_dcyctqtxlptkwj_gz;
     }
+
     @Column(name = "jyzxt_dcyctqtxlptkwj_wx")
     public int getJyzxt_dcyctqtxlptkwj_wx() {
         return jyzxt_dcyctqtxlptkwj_wx;
     }
+
     @Column(name = "jyzxt_djczcwbfcfsj_gz")
     public int getJyzxt_djczcwbfcfsj_gz() {
         return jyzxt_djczcwbfcfsj_gz;
     }
+
     @Column(name = "jyzxt_djczcwbfcfsj_wx")
     public int getJyzxt_djczcwbfcfsj_wx() {
         return jyzxt_djczcwbfcfsj_wx;
     }
+
     @Column(name = "jyzxt_sjyctj_gz")
     public int getJyzxt_sjyctj_gz() {
         return jyzxt_sjyctj_gz;
     }
+
     @Column(name = "jyzxt_sjyctj_wx")
     public int getJyzxt_sjyctj_wx() {
         return jyzxt_sjyctj_wx;
     }
+
     @Column(name = "jyzxt_sytjmk_gz")
     public int getJyzxt_sytjmk_gz() {
         return jyzxt_sytjmk_gz;
     }
+
     @Column(name = "jyzxt_sytjmk_wx")
     public int getJyzxt_sytjmk_wx() {
         return jyzxt_sytjmk_wx;
     }
+
     @Column(name = "jyzxt_jsmk_gz")
     public int getJyzxt_jsmk_gz() {
         return jyzxt_jsmk_gz;
     }
+
     @Column(name = "jyzxt_jsmk_wx")
     public int getJyzxt_jsmk_wx() {
         return jyzxt_jsmk_wx;
     }
+
     @Column(name = "jyzxt_klcjfx_gz")
     public int getJyzxt_klcjfx_gz() {
         return jyzxt_klcjfx_gz;
     }
+
     @Column(name = "jyzxt_klcjfx_wx")
     public int getJyzxt_klcjfx_wx() {
         return jyzxt_klcjfx_wx;
     }
+
     @Column(name = "jyzxt_ccjcqsjtjbb_gz")
     public int getJyzxt_ccjcqsjtjbb_gz() {
         return jyzxt_ccjcqsjtjbb_gz;
     }
+
     @Column(name = "jyzxt_ccjcqsjtjbb_wx")
     public int getJyzxt_ccjcqsjtjbb_wx() {
         return jyzxt_ccjcqsjtjbb_wx;
     }
+
     @Column(name = "jyzxt_ccyyssybb_gz")
     public int getJyzxt_ccyyssybb_gz() {
         return jyzxt_ccyyssybb_gz;
     }
+
     @Column(name = "jyzxt_ccyyssybb_wx")
     public int getJyzxt_ccyyssybb_wx() {
         return jyzxt_ccyyssybb_wx;
     }
+
     @Column(name = "jyzxt_fbrzjl_gz")
     public int getJyzxt_fbrzjl_gz() {
         return jyzxt_fbrzjl_gz;
     }
+
     @Column(name = "jyzxt_fbrzjl_wx")
     public int getJyzxt_fbrzjl_wx() {
         return jyzxt_fbrzjl_wx;
     }
+
     @Column(name = "jyzxt_jrickdzbb_gz")
     public int getJyzxt_jrickdzbb_gz() {
         return jyzxt_jrickdzbb_gz;
     }
+
     @Column(name = "jyzxt_jrickdzbb_wx")
     public int getJyzxt_jrickdzbb_wx() {
         return jyzxt_jrickdzbb_wx;
     }
+
     @Column(name = "jyzxt_yctdzbb_gz")
     public int getJyzxt_yctdzbb_gz() {
         return jyzxt_yctdzbb_gz;
     }
+
     @Column(name = "jyzxt_yctdzbb_wx")
     public int getJyzxt_yctdzbb_wx() {
         return jyzxt_yctdzbb_wx;
     }
+
     @Column(name = "jyzxt_drllb_gz")
     public int getJyzxt_drllb_gz() {
         return jyzxt_drllb_gz;
     }
+
     @Column(name = "jyzxt_drllb_wx")
     public int getJyzxt_drllb_wx() {
         return jyzxt_drllb_wx;

@@ -145,21 +145,17 @@ public class AlarmManagerController {
     @RequestMapping(params = "saveOrUpdate")
     public void saveOrUpdate(Alarm param, HttpServletResponse rsp) {
 
+        if (param.getId() == 0) {
+            throw new IllegalArgumentException("修改告警设置操作id不能为空");
+        }
+
         OperResult rs = new OperResult();
         try {
-            if (param.getId() != 0) {
-                log.debug("alarm配置操作：修改，id=" + param.getId());
-                param.setUpdateDate(new Date());
-                alarmService.update(param);
+            log.debug("alarm配置操作：修改，id=" + param.getId());
+            param.setUpdateDate(new Date());
+            param.setCreateDate(new Date());
+            alarmService.update(param);
 
-            } else {
-                log.debug("alarm配置操作：新增");
-                //创建时间
-                param.setCreateDate(new Date());
-                param.setUpdateDate(new Date());
-
-                alarmService.add(param);
-            }
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
             rs.setData(param);
@@ -204,16 +200,16 @@ public class AlarmManagerController {
 
             Class jobClass = null;
             String jobName = null;
-            if(param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXT)){
+            if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXT)) {
                 jobClass = AlarmTXYWXTJob.class;
                 jobName = AlarmTXYWXTJob.JOB_NAME;
-            }else if(param.getAlarmType().equals(Alarm.ALARM_TYPE_JYWJHSJ)){
+            } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_JYWJHSJ)) {
                 jobClass = AlarmJYWJHSJJob.class;
                 jobName = AlarmJYWJHSJJob.JOB_NAME;
-            }else if(param.getAlarmType().equals(Alarm.ALARM_TYPE_JYZXT)){
+            } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_JYZXT)) {
                 jobClass = AlarmJYZXTJob.class;
                 jobName = AlarmJYZXTJob.JOB_NAME;
-            }else{
+            } else {
                 throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
             }
 
@@ -221,7 +217,7 @@ public class AlarmManagerController {
                 String alarmCronTrigger = "0 */" + param.getAlarmCycle() + " * * * ?";
                 alarm.setAlarmCronTrigger(alarmCronTrigger);
 
-                log.debug("Alarm新增定时任务：任务名称"+jobName+"任务周期" + alarm.getAlarmCronTrigger());
+                log.debug("Alarm新增定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
 
                 AlarmJobManager.removeJob(sche, jobName);
                 AlarmJobManager.addJob(sche, jobName, jobClass, alarm.getAlarmCronTrigger());
@@ -231,7 +227,7 @@ public class AlarmManagerController {
                 String alarmCronTrigger = "0 0 * * * ?";
                 alarm.setAlarmCronTrigger(alarmCronTrigger);
 
-                log.debug("alarmCycle为0 移除定时任务:任务名称"+jobName);
+                log.debug("alarmCycle为0 移除定时任务:任务名称" + jobName);
                 AlarmJobManager.removeJob(sche, jobName);
             }
             alarmService.update(alarm);
