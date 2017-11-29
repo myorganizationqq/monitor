@@ -23,7 +23,6 @@ function init(){
         }
     }else if (2==flag){
         var chartPillar=initPillar("faultTimePillar","TOP排名 故障时间百分比排名");
-        var temp=new Date().getTime()+1000;
         //设数据
         var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData';
         setChartData(url,chartPillar);
@@ -79,7 +78,7 @@ function initTotalCountPie(title){
         series : [
             {
                 name:'',
-                color:["#f9a643","#f769a8","#f6d368","#4caaf6","#69de9d","#c38eec","#945305","#006241","#fcacc8"],
+                color:["#C0C0C0","#DC143C","#f9a643","#f6d368","#4caaf6","#69de9d","#c38eec","#945305","#006241","#f769a8","#fcacc8"],
                 type:'pie',
                 startAngle:330,
                 minAngle:1,
