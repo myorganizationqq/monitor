@@ -3,10 +3,14 @@ package com.bluedon.monitor.project.listener;
 
 import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.project.job.TransferTableExecutor;
+import com.bluedon.monitor.project.job.TransferTableJob;
+import com.bluedon.monitor.project.job.alarm.AlarmJobManager;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.quartz.Scheduler;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -26,12 +30,27 @@ public class StartupListener extends ContextLoaderListener implements Applicatio
     public void contextInitialized(ServletContextEvent event) {
 
         super.contextInitialized(event);
-        //ApplicationContext oAC = (ApplicationContext)event.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         ApplicationContext oAC =WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());
-        /*TradeFileRptService tradeFileRptService = oAC.getBean(TradeFileRptService.class);
-        TradeFileRptVO tr = tradeFileRptService.getOne(1);
-        System.out.println(tr.getBalanceWaterNo()+"---------------------------------");*/
-        Date currentDate = new Date();
+
+        SchedulerFactoryBean schedulerFactoryBean=oAC.getBean(SchedulerFactoryBean.class);
+        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+        AlarmJobManager.addJob(scheduler,TransferTableJob.JOB_NAME,TransferTableJob.GROUP_NAME,TransferTableJob.TRIGGER_NAME,TransferTableJob.GROUP_NAME, TransferTableJob.class,"0 0 1 * * ?");
+    }
+
+    public static void main(String[] args) {
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+    }
+
+    /**
+     * 旧的导数据任务
+     * @param oAC
+     */
+    private void startTransferTableExecutor(ApplicationContext oAC){
+         Date currentDate = new Date();
         Date nextDay = DateUtil.addDay(currentDate, 1);
         long interval=0;
         try {
@@ -45,14 +64,6 @@ public class StartupListener extends ContextLoaderListener implements Applicatio
         }
         //传输表数据的定时任务
         ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(10,new BasicThreadFactory.Builder().namingPattern("TransferTable-schedule-pool-%d").daemon(true).build());
-        scheduledExecutorService.scheduleAtFixedRate(new TransferTableExecutor("TransferTableJob",oAC),interval,24*60*60,TimeUnit.SECONDS);
-    }
-
-    public static void main(String[] args) {
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
+        scheduledExecutorService.scheduleAtFixedRate(new TransferTableExecutor("TransferTableJob",oAC),interval,24*60*60, TimeUnit.SECONDS);
     }
 }
