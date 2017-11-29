@@ -1,27 +1,28 @@
 $(document).ready(function () {
     $("#businessType").combobox({
         onChange : function(n, o) {
-            var url='';
-            if (n==1){
-                url=basePath+'webpage/project/applicationSystemView/tradeFileRptChart.jsp';
-            }else if(n==2){
-                url=basePath+'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
-            }else if(n==3){
-
+            var url = '';
+            if (n == 1){
+            	$("#cmnc").hide();
+                url = 'webpage/project/applicationSystemView/tradeFileRptChart.jsp';
+            }else if(n == 2){
+            	$("#cmnc").hide();
+                url = 'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
+            }else if(n == 3){
+            	$("#cmnc").show();
+            	url = 'webpage/project/statisticReport/logFtpChart.jsp';
             }
-            $("#businessFrame").attr("src",url);
+            $("#businessFrame").attr("src", basePath + url);
         }
     });
+    
+    $("#communication").combobox({
+		onChange : function(n, o) {
+			if (n == 1) {
+				$("#businessFrame").attr("src", basePath + 'webpage/project/statisticReport/logFtpChart.jsp');
+			}else if (n == 2) {
+				$("#businessFrame").attr("src", basePath + 'webpage/project/statisticReport/logFtpChart.jsp');
+			}
+		}
+	});
 })
-function businessViewChange() {
-    var businessType=$("#businessType").val();
-    var url='';
-    if (businessType == 1){
-        url=basePath+'webpage/project/applicationSystemView/tradeFileRptChart.jsp';
-    }else if(businessType == 2){
-        url=basePath+'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
-    }else if(businessType == 3){
-
-    }
-    $("#businessFrame").attr("src",url);
-}

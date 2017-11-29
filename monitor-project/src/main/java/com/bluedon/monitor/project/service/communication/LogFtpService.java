@@ -16,4 +16,6 @@ public interface LogFtpService extends IBaseService {
 	List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param, PageUtil pageUtil);
 	
 	PageUtil getPageList(CmLogFtpDT param, PageUtil pageUtil);
+	
+	Map<String, Object> getTopLogFtp(int result);
 }
