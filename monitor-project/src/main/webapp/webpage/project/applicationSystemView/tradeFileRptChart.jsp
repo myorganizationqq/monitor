@@ -12,9 +12,6 @@
     <script type="text/javascript"
             src="${requestScope.basePath }webpage/js/project/applicationSystemView/tradeFileRptChart.js"></script>
 </head>
-<head>
-    <title></title>
-</head>
 <body>
 <input type="hidden" id="flag" value="1">
 <div class="row" style="width: 100%;height: 100%; padding-top: 10px; padding-left: 10px">

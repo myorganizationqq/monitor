@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    businessViewChange();
     $("#businessType").combobox({
         onChange : function(n, o) {
             var url='';

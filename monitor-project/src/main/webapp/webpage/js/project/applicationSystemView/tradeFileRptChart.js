@@ -4,6 +4,7 @@ var handleCountPillar;
 var wrongfulCountPillar;
 var duplicateCountPillar;
 var noPretreatmentCountPillar;
+var chartPillar;
 var fileTypeArr;
 var wrongTypeMap={'fileCount':'TOP排名 文件数量','handleCount':'TOP排名 处理记录数','wrongfulCount':'TOP排名 不合法数量','duplicateCount':'TOP排名 重复数据数量','noPretreatmentCount':'TOP排名 无法预处理数据数量'};
 $(document).ready(function () {
@@ -11,18 +12,21 @@ $(document).ready(function () {
 })
 
 function init(){
-    var flag=$("#flag").val();
     initTotalCountPie('检测对象');
     setTotalCountData();
+    var flag=$("#flag").val();
     if (1==flag){
+        var url=basePath+'project/tradeFileRpt/tradeFileRptController.do?getChartData&wrongType=';
         for (var key in wrongTypeMap){
             var chartPillar=initPillar(key+"Pillar",wrongTypeMap[key]);
-            setChartData(key,chartPillar);
+            setChartData(url+key,chartPillar);
         }
     }else if (2==flag){
         var chartPillar=initPillar("faultTimePillar","TOP排名 故障时间百分比排名");
+        var temp=new Date().getTime()+1000;
         //设数据
-        setTimeout(setPillarData,1000,chartPillar,[17,4,90,2,91],[0.5,0.25,0.75,1,0.5]);
+        var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData';
+        setChartData(url,chartPillar);
     }
 
 }
@@ -130,13 +134,13 @@ function setTotalCountData(){
     });
 }
 
-function setChartData(wrongType,chartPillar){
+function setChartData(url,chartPillar){
     $.ajax({
         type: "POST",
-        url: basePath+'project/tradeFileRpt/tradeFileRptController.do?getChartData',
+        url: url,
         dataType:'json',
         scriptCharset: 'utf-8',
-        data: {"wrongType":wrongType},
+        data: {},
         success: function (result) {
            /* var map=JSON.parse(result);*/
             var map=result;
@@ -176,6 +180,8 @@ function initPillar(chartsId,title){
         duplicateCountPillar = echarts.init(document.getElementById(chartsId));
     }else if('noPretreatmentCountPillar' == chartsId){
         noPretreatmentCountPillar = echarts.init(document.getElementById(chartsId));
+    }else if('faultTimePillar'==chartsId){
+        faultTimePillar= echarts.init(document.getElementById(chartsId));
     }
     // 指定图表的配置项和数据
     var option = {
@@ -276,6 +282,9 @@ function initPillar(chartsId,title){
     }else if('noPretreatmentCountPillar' == chartsId){
         noPretreatmentCountPillar.setOption(option);
         return noPretreatmentCountPillar;
+    }else if('faultTimePillar'==chartsId){
+        faultTimePillar.setOption(option);
+        return faultTimePillar;
     }
 }
 

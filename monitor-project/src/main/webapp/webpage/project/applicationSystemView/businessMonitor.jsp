@@ -37,7 +37,7 @@
     <div class="line"></div>
     <!--gap-->
     <div class="easyui-layout" style=" padding: 5px;min-height: 700px" >
-        <iframe id="businessFrame"  width='100%' height="600px" frameBorder='no'   scrolling="auto" onLoad=""  src=''></iframe>
+        <iframe id="businessFrame"  width='100%' height="600px" frameBorder='no'   scrolling="auto" onLoad=""  src='${requestScope.basePath}webpage/project/applicationSystemView/tradeFileRptChart.jsp'></iframe>
     </div>
 </div>
 </body>
