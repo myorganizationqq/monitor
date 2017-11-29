@@ -96,12 +96,8 @@ public class StSysFlowCurrentDtController {
     @RequestMapping(params = "getDaultTimeData")
     @ResponseBody
     public String getDaultTimeData(){
-        Map<String,String> map=new HashMap<String,String>();
-        map.put("17","0.5");
-        map.put("4","0.25");
-        map.put("90","0.75");
-        map.put("2","0.1");
-        map.put("91","0.4");
-        return JSON.toJSONString(map);
+        Map<String,Object> map=new HashMap();
+        Map<String, Object> timeMap = stSysFlowCurrentDtService.getTime(map);
+        return JSON.toJSONString(timeMap);
     }
 }

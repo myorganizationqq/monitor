@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author JiangFeng
@@ -58,5 +60,23 @@ public class StSysFlowCurrentDtServiceImpl implements StSysFlowCurrentDtService{
         }
         log.debug("获取结果总数:"+((pageUtil.getResultList()!=null&&pageUtil.getResultList().size()>0)?pageUtil.getResultList().size():0));
         return pageUtil;
+    }
+
+    @Override
+    public Map<String, Object> getTime(Map<String, Object> param) {
+        Map<String, Object> timeMap = new HashMap<>();
+        String sql="select a.STEP step,a.REMARK remark,IFNULL(SUM(UNIX_TIMESTAMP(a.END_TIME)-UNIX_TIMESTAMP(a.BEGIN_TIME)),0) timeDiff FROM st_sys_flow_current_dt a GROUP BY a.STEP ORDER BY timeDiff DESC";
+        List<Map<String,Object>> list = hibernateDao.selectBySql(sql);
+        int temp=0;
+        for (Map<String,Object> map : list) {
+            //默认显示前五名
+            if (temp<5){
+                timeMap.put(String.valueOf(map.get("remark")),map.get("timeDiff"));
+                temp+=1;
+                continue;
+            }
+            break;
+        }
+        return timeMap;
     }
 }

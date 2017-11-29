@@ -4,7 +4,7 @@ var handleCountPillar;
 var wrongfulCountPillar;
 var duplicateCountPillar;
 var noPretreatmentCountPillar;
-var chartPillar;
+var faultTimePillar;
 var fileTypeArr;
 var wrongTypeMap={'fileCount':'TOP排名 文件数量','handleCount':'TOP排名 处理记录数','wrongfulCount':'TOP排名 不合法数量','duplicateCount':'TOP排名 重复数据数量','noPretreatmentCount':'TOP排名 无法预处理数据数量'};
 $(document).ready(function () {
