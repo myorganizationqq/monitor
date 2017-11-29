@@ -54,7 +54,7 @@ function initTotalCountPie(title){
             data:[]
         },
         toolbox: {
-            show : true,
+            show : false,
             feature : {
                 mark : {show: false},
                 dataView : {show: false, readOnly: false},
@@ -87,10 +87,10 @@ function initTotalCountPie(title){
                 itemStyle : {
                     normal : {
                         label : {
-                            show : false
+                            show : true
                         },
                         labelLine : {
-                            show : false
+                            show : true
                         }
                     },
                     emphasis : {
