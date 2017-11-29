@@ -15,7 +15,6 @@ function init() {
 	initTotalCountPie('检测对象');
 	setTotalCountData();
 	var flag = $("#flag").val();
-	console.log('flag', flag);
 	
 	if (1 == flag) {
 		var url = basePath + 'communication/logFtp.do?getChartData&wrongType=';
