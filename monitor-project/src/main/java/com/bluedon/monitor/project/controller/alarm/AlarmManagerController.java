@@ -6,7 +6,7 @@ import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.job.alarm.AlarmJYWJHSJJob;
 import com.bluedon.monitor.project.job.alarm.AlarmJYZXTJob;
 import com.bluedon.monitor.project.job.alarm.AlarmJobManager;
-import com.bluedon.monitor.project.job.alarm.AlarmTXYWXTJob;
+import com.bluedon.monitor.project.job.alarm.AlarmTXYWXTXXSFJob;
 import com.bluedon.monitor.project.service.alarm.IAlarmManagerService;
 import com.bluedon.monitor.system.entity.TbCommonUser;
 import com.bluedon.monitor.system.model.system.UserManagerModel;
@@ -188,7 +188,8 @@ public class AlarmManagerController {
             alarm.setAlarmUser(param.getAlarmUser());
             alarm.setAlarmEmail(param.getAlarmEmail());
             alarm.setAlarmMessage(param.getAlarmMessage());
-            alarm.setAlarmCycle(param.getAlarmCycle());
+            alarm.setAlarmCronTriggerStart(param.getAlarmCronTriggerStart());
+            alarm.setAlarmCronTrigger(param.getAlarmCronTrigger());
             alarm.setUpdateDate(new Date());
 
             //定时任务配置
@@ -200,9 +201,12 @@ public class AlarmManagerController {
 
             Class jobClass = null;
             String jobName = null;
-            if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXT)) {
-                jobClass = AlarmTXYWXTJob.class;
-                jobName = AlarmTXYWXTJob.JOB_NAME;
+            if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTXXSF)) {
+                jobClass = AlarmTXYWXTXXSFJob.class;
+                jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
+            }else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTFTPWJ)) {
+                jobClass = AlarmTXYWXTXXSFJob.class;
+                jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
             } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_JYWJHSJ)) {
                 jobClass = AlarmJYWJHSJJob.class;
                 jobName = AlarmJYWJHSJJob.JOB_NAME;
@@ -213,23 +217,14 @@ public class AlarmManagerController {
                 throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
             }
 
-            if (param.getAlarmCycle() != 0) {
-                String alarmCronTrigger = "0 */" + param.getAlarmCycle() + " * * * ?";
-                alarm.setAlarmCronTrigger(alarmCronTrigger);
-
-                log.debug("Alarm新增定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
-
+            String alarmCronTrigger = "0 0 " + param.getAlarmCronTriggerStart() + "/" +param.getAlarmCronTriggerHour()+ " * * ?";
+            if (param.getAlarmStatus().equals("Y") && alarmCronTrigger.equals(alarm.getAlarmCronTrigger())) {
+                log.debug("Alarm修改定时任务：任务名称" + jobName + "任务周期" + alarmCronTrigger);
                 AlarmJobManager.removeJob(sche, jobName);
-                AlarmJobManager.addJob(sche, jobName, jobClass, alarm.getAlarmCronTrigger());
+                AlarmJobManager.addJob(sche, jobName, jobClass, alarmCronTrigger);
 
-            } else {
-                //移除定时任务
-                String alarmCronTrigger = "0 0 * * * ?";
-                alarm.setAlarmCronTrigger(alarmCronTrigger);
-
-                log.debug("alarmCycle为0 移除定时任务:任务名称" + jobName);
-                AlarmJobManager.removeJob(sche, jobName);
             }
+            alarm.setAlarmCronTrigger(alarmCronTrigger);
             alarmService.update(alarm);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
@@ -289,10 +284,10 @@ public class AlarmManagerController {
         try {
             Alarm alarm = (Alarm) alarmService.loadById(Alarm.class, param.getId());
             alarm.setUpdateDate(new Date());
-            if (alarm.getAlarmStatus() == 0) {
-                alarm.setAlarmStatus(1);
+            if (alarm.getAlarmStatus().equals("Y")) {
+                alarm.setAlarmStatus("N");
             } else {
-                alarm.setAlarmStatus(0);
+                alarm.setAlarmStatus("Y");
             }
             alarmService.update(alarm);
             log.debug("修改告警状态操作操作：id=" + param.getId());

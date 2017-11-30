@@ -36,7 +36,7 @@ public class Alarm {
     /**
      * 通信业务系统告警
      */
-    public static String ALARM_TYPE_TXYWXTSF = "TXYWXTXXSF";
+    public static String ALARM_TYPE_TXYWXTXXSF = "TXYWXTXXSF";
 
 
     private long id;
@@ -62,7 +62,7 @@ public class Alarm {
     /**
      * 告警状态
      */
-    private int alarmStatus;
+    private String alarmStatus;
 
     /**
      * 短信告警
@@ -92,7 +92,12 @@ public class Alarm {
     /**
      * 告警周期
      */
-    private int alarmCycle;
+    private int alarmCronTriggerHour;
+
+    /**
+     * 告警周期
+     */
+    private int alarmCronTriggerStart;
 
     //--------交易文件和数据
     /**
@@ -781,7 +786,7 @@ public class Alarm {
         return jyzxt_bql_wx;
     }
 
-    public void setAlarmStatus(int alarmStatus) {
+    public void setAlarmStatus(String alarmStatus) {
         this.alarmStatus = alarmStatus;
     }
 
@@ -794,7 +799,7 @@ public class Alarm {
     }
 
     @Column(name = "alarm_status")
-    public int getAlarmStatus() {
+    public String getAlarmStatus() {
         return alarmStatus;
     }
 
@@ -1310,16 +1315,27 @@ public class Alarm {
         return alarmCronTrigger;
     }
 
-    @Column(name = "alarm_cycle")
-    public int getAlarmCycle() {
-        return alarmCycle;
-    }
 
-    public void setAlarmCycle(int alarmCycle) {
-        this.alarmCycle = alarmCycle;
-    }
 
     public void setAlarmCronTrigger(String alarmCronTrigger) {
         this.alarmCronTrigger = alarmCronTrigger;
+    }
+
+    @Column(name = "alarm_cronTrigger_hour")
+    public int getAlarmCronTriggerHour() {
+        return alarmCronTriggerHour;
+    }
+
+    public void setAlarmCronTriggerHour(int alarmCronTriggerHour) {
+        this.alarmCronTriggerHour = alarmCronTriggerHour;
+    }
+
+    @Column(name = "alarm_cronTrigger_start")
+    public int getAlarmCronTriggerStart() {
+        return alarmCronTriggerStart;
+    }
+
+    public void setAlarmCronTriggerStart(int alarmCronTriggerStart) {
+        this.alarmCronTriggerStart = alarmCronTriggerStart;
     }
 }

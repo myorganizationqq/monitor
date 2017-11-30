@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
- * 通信业务系统告警业务逻辑代码
+ * 通信业务系统告警消息收发业务逻辑代码
  */
-public class AlarmTXYWXTJob implements Job {
+public class AlarmTXYWXTXXSFJob implements Job {
 
     public static String JOB_NAME = "alarm_txywxt_job";
 
