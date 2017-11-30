@@ -29,13 +29,15 @@ public class AlarmStart {
 
     protected void execute() {
 
-        if (alarmList != null){
+        if (alarmList != null) {
             return;
-        }else{
+        } else {
             log.debug("spring启动alarm所有定时任务");
 
             PageUtil pageUtil = new PageUtil();
             pageUtil.setRows(100);
+            Alarm alarmParam = new Alarm();
+            alarmParam.setAlarmStatus("Y");
             PageUtil pageList = alarmService.getPageList(new Alarm(), pageUtil);
             alarmList = (List <Alarm>) pageList.getResultList();
 
@@ -56,9 +58,12 @@ public class AlarmStart {
 
                 Class jobClass = null;
                 String jobName = null;
-                if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXT)) {
-                    jobClass = AlarmTXYWXTJob.class;
-                    jobName = AlarmTXYWXTJob.JOB_NAME;
+                if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTXXSF)) {
+                    jobClass = AlarmTXYWXTXXSFJob.class;
+                    jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
+                } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTFTPWJ)) {
+                    jobClass = AlarmTXYWXTXXSFJob.class;
+                    jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
                 } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_JYWJHSJ)) {
                     jobClass = AlarmJYWJHSJJob.class;
                     jobName = AlarmJYWJHSJJob.JOB_NAME;
@@ -69,13 +74,10 @@ public class AlarmStart {
                     throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
                 }
 
-                if (param.getAlarmCycle() != 0) {
+                log.debug("tomcat启动 Alarm定时任务：任务名称" + jobName + "任务周期" + param.getAlarmCronTrigger());
 
-                    log.debug("Alarm新增定时任务：任务名称" + jobName + "任务周期" + param.getAlarmCronTrigger());
+                AlarmJobManager.addJob(sche, jobName, jobClass, param.getAlarmCronTrigger());
 
-                    AlarmJobManager.addJob(sche, jobName, jobClass, param.getAlarmCronTrigger());
-
-                }
             }
         }
 
