@@ -48,6 +48,10 @@ public class AlarmServiceImpl extends BaseServiceImpl implements IAlarmManagerSe
 			paramList.add(Restrictions.like("alarmName", param.getAlarmName(), MatchMode.ANYWHERE));
 		}
 
+		if(!StringUtil.isEmpty(param.getAlarmStatus())){
+			paramList.add(Restrictions.eq("alarmStatus", param.getAlarmStatus()));
+		}
+
 
 		List<Order> order=new ArrayList<Order>();
 		//order.add(Order.asc("createTime"));

@@ -22,14 +22,15 @@
 			<table cellpadding="5" class="newAddOrg" width="500">
 
 				<tr>
-					<td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">告警周期</td>
+					<td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">告警时间</td>
 					<td width="250" colspan="3">
-						<input name="alarmCycle" type="text" value="${obj.alarmCycle}" style="height:25px;width:290px;"
-							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,10]'"
-							     />分钟
+						从<input name="alarmCronTriggerStart" type="text" value="${obj.alarmCronTriggerStart}" style="height:25px;width:50px;"
+							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
+							     />点钟开始,每<input name="alarmCronTriggerHour" type="text" value="${obj.alarmCronTriggerHour}" style="height:25px;width:50px;"
+											class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
+					/>小时执行一次
 					</td>
 				</tr>
-
 
 				<tr>
 					<td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">告警方式</td>

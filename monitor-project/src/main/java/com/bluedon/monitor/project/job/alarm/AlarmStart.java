@@ -32,17 +32,16 @@ public class AlarmStart {
         if (alarmList != null) {
             return;
         } else {
-            log.debug("spring启动alarm所有定时任务");
-
             PageUtil pageUtil = new PageUtil();
             pageUtil.setRows(100);
             Alarm alarmParam = new Alarm();
             alarmParam.setAlarmStatus("Y");
-            PageUtil pageList = alarmService.getPageList(new Alarm(), pageUtil);
+            PageUtil pageList = alarmService.getPageList(alarmParam, pageUtil);
             alarmList = (List <Alarm>) pageList.getResultList();
 
             if (alarmList == null && alarmList.size() == 0) {
-                throw new IllegalArgumentException("spring启动alarm配置列表为空");
+                log.debug("spring启动alarm配置列表为空");
+                return;
             }
 
             log.debug("查询所有alarm告警任务，size：" + alarmList.size());
@@ -50,6 +49,7 @@ public class AlarmStart {
             //定时任务配置
             Scheduler sche = schedulerFactoryBean.getScheduler();
 
+            log.debug("spring启动alarm所有状态为Y的定时任务");
             for (Alarm param : alarmList) {
 
                 if (StringUtil.isEmpty(param.getAlarmType())) {
@@ -60,10 +60,10 @@ public class AlarmStart {
                 String jobName = null;
                 if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTXXSF)) {
                     jobClass = AlarmTXYWXTXXSFJob.class;
-                    jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
+                    jobName =  AlarmTXYWXTXXSFJob.JOB_NAME;
                 } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTFTPWJ)) {
-                    jobClass = AlarmTXYWXTXXSFJob.class;
-                    jobName = AlarmTXYWXTXXSFJob.JOB_NAME;
+                    jobClass = AlarmTXYWXTFTPWJJob.class;
+                    jobName = AlarmTXYWXTFTPWJJob.JOB_NAME;
                 } else if (param.getAlarmType().equals(Alarm.ALARM_TYPE_JYWJHSJ)) {
                     jobClass = AlarmJYWJHSJJob.class;
                     jobName = AlarmJYWJHSJJob.JOB_NAME;

@@ -27,7 +27,7 @@ function init(){
 						title: '告警状态', field: 'alarmStatus', width: 70, align: 'center',
 						formatter: function (value, row) {
 							var e = "";
-							if (row.alarmStatus == 0) {
+							if (row.alarmStatus == 'Y') {
 								e = '正常';
 							} else {
 								e = '关闭';

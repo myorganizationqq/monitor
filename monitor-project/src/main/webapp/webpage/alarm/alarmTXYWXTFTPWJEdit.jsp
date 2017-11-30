@@ -24,8 +24,9 @@
 			<input name="alarmEmail" value="${obj.alarmEmail }" type="hidden"/>
 			<input name="alarmUser" value="${obj.alarmUser }" type="hidden"/>
 			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
-			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
 			<input name="alarmCronTriggerHour" value="${obj.alarmCronTriggerHour }" type="hidden"/>
+			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
+			<input name="createDate" value="${obj.createDate }" type="hidden"/>
 
 			<table cellpadding="5" class="newAddOrg" width="680" aria-label="fewafaewf">
 				<tr>

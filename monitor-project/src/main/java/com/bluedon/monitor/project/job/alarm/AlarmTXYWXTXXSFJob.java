@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public class AlarmTXYWXTXXSFJob implements Job {
 
-    public static String JOB_NAME = "alarm_txywxt_job";
+    public static String JOB_NAME = "alarm_txywxtxxsf_job";
 
     @Autowired
     @Qualifier("alarmNoticeServiceImpl")
