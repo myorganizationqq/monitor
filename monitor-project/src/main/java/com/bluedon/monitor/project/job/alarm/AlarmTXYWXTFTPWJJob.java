@@ -24,9 +24,6 @@ public class AlarmTXYWXTFTPWJJob implements Job {
     public static String JOB_NAME = "alarm_txywxtftpwj_job";
 
     @Autowired
-    private LogFtpService service;
-
-    @Autowired
     @Qualifier("alarmNoticeServiceImpl")
     private IAlarmNoticeManagerService iAlarmNoticeManagerService;
 
