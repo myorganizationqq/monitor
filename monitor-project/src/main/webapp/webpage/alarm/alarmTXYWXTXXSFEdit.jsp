@@ -26,7 +26,7 @@
 			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
 			<input name="alarmCronTriggerHour" value="${obj.alarmCronTriggerHour }" type="hidden"/>
 			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
-			<input name="createDate" value="${obj.createDate }" type="hidden"/>
+			<input name="createDateStr" value="${obj.createDate }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680" aria-label="fewafaewf">
 				<tr>
 					<td colspan="3">
@@ -99,6 +99,14 @@
 						小于：<input id="txywxt_sbgs_wx" name="txywxt_sbgs_wx" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.txywxt_sbgs_wx }" />个
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="3">
+						<div align="right" style="padding-right: 50px;padding-top: 5px;" >
+							<a id="saveOperation" href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;" onclick="saveOrUpdate(1);">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
+						</div>
 					</td>
 				</tr>
 

@@ -1,5 +1,6 @@
 package com.bluedon.monitor.project.controller.alarm;
 
+import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
@@ -150,7 +151,7 @@ public class AlarmManagerController {
         try {
             log.debug("alarm配置操作：修改，id=" + param.getId());
             param.setUpdateDate(new Date());
-            param.setCreateDate(new Date());
+            param.setCreateDate(DateUtil.strToDate(param.getCreateDateStr().substring(0,param.getCreateDateStr().length()-2),DateUtil.DATE_STYLE_TIME_1));
             alarmService.update(param);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
@@ -214,12 +215,12 @@ public class AlarmManagerController {
             }
 
             String alarmCronTrigger = "0 0 " + param.getAlarmCronTriggerStart() + "/" + param.getAlarmCronTriggerHour() + " * * ?";
-            if (param.getAlarmStatus().equals("Y") && !alarmCronTrigger.equals(alarm.getAlarmCronTrigger())) {
+            alarm.setAlarmCronTrigger(alarmCronTrigger);
+
+            if (alarm.getAlarmStatus().equals("Y") && !alarmCronTrigger.equals(alarm.getAlarmCronTrigger())) {
                 log.debug("Alarm修改定时任务：任务名称" + jobName + "任务周期" + alarmCronTrigger);
                 AlarmJobManager.removeJob(sche, jobName);
                 AlarmJobManager.addJob(sche, jobName, jobClass, alarmCronTrigger);
-
-                alarm.setAlarmCronTrigger(alarmCronTrigger);
             }
 
             alarmService.update(alarm);
@@ -350,7 +351,6 @@ public class AlarmManagerController {
 
             }
         }
-
 
         ToolUtil.getCombo(rsp, selectList);
     }
