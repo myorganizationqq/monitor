@@ -17,7 +17,7 @@
 
     </div>
     <div title="清算应用程序业务监控" style="padding:10px;height: 700px;overflow:scroll;overflow-y:hidden">
-        <iframe id="businessMonitorFrame"  width="100%" height="100%" frameBorder="no"   scrolling="auto" onLoad=""  src="${requestScope.basePath }webpage/project/applicationSystemView/businessMonitor.jsp"></iframe>
+        <iframe id="businessMonitorFrame"  width="100%" height="100%" frameBorder="no"   scrolling="auto"   src="${requestScope.basePath }webpage/project/applicationSystemView/businessMonitor.jsp"></iframe>
     </div>
 </div>
 </body>

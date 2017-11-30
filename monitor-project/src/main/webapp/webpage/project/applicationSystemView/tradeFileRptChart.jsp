@@ -4,9 +4,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="cache-control" >
+    <meta http-equiv="cache-control">
     <jsp:include page="../../manage/header.jsp"></jsp:include>
-    <link rel="stylesheet" type="text/css" href="${requestScope.basePath }webpage/js/bootstrap3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="${requestScope.basePath }webpage/js/bootstrap3.3.5/css/bootstrap.min.css"/>
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/amsWindow.js"></script>
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/echarts/echarts.min.js"></script>

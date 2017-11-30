@@ -9,7 +9,7 @@ var wrongTypeMap = {
 
 $(document).ready(function() {
 	init();
-})
+});
 
 function init() {
 	initTotalCountPie('检测对象');

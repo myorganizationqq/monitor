@@ -7,7 +7,7 @@ var noPretreatmentCountPillar;
 var faultTimePillar;
 var fileTypeArr;
 var wrongTypeMap={'fileCount':'TOP排名 文件数量','handleCount':'TOP排名 处理记录数','wrongfulCount':'TOP排名 不合法数量','duplicateCount':'TOP排名 重复数据数量','noPretreatmentCount':'TOP排名 无法预处理数据数量'};
-$(document).ready(function () {
+$(window).ready(function () {
     init();
 });
 
@@ -203,12 +203,17 @@ function initPillar(chartsId,title){
                 color:'#779796'
             },
             axisLabel :{
-                margin : 0,
+                interval:0,
+                rotate: 40,
+                margin : 2,
                 textStyle :{
-                    fontSize:8
+                    fontSize:12,
+                    align:'center',
+                    baseline:'top',
+                    fontWeight:'lighter'
                 }
             },
-            nameGap:'10',
+            /*nameGap:'10',*/
             axisLine:{
                 lineStyle:{
                     color:'#858585'

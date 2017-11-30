@@ -34,7 +34,9 @@ public class StartupListener extends ContextLoaderListener implements Applicatio
 
         SchedulerFactoryBean schedulerFactoryBean=oAC.getBean(SchedulerFactoryBean.class);
         Scheduler scheduler = schedulerFactoryBean.getScheduler();
-        AlarmJobManager.addJob(scheduler,TransferTableJob.JOB_NAME,TransferTableJob.GROUP_NAME,TransferTableJob.TRIGGER_NAME,TransferTableJob.GROUP_NAME, TransferTableJob.class,"0 0 1 * * ?");
+        String cron="0 0 1 * * ?";
+        AlarmJobManager.addJob(scheduler,TransferTableJob.JOB_NAME,TransferTableJob.GROUP_NAME,TransferTableJob.TRIGGER_NAME,TransferTableJob.GROUP_NAME, TransferTableJob.class,cron);
+        System.out.println(TransferTableJob.JOB_NAME+"已启动,执行周期是:"+cron);
     }
 
     public static void main(String[] args) {
