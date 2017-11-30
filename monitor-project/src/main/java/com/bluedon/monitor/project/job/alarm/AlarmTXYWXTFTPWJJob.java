@@ -5,11 +5,13 @@ package com.bluedon.monitor.project.job.alarm;
  */
 
 import com.bluedon.monitor.project.entity.alarm.Alarm;
+import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.communication.LogFtpService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 
@@ -24,9 +26,16 @@ public class AlarmTXYWXTFTPWJJob implements Job {
     @Autowired
     private LogFtpService service;
 
+    @Autowired
+    @Qualifier("alarmNoticeServiceImpl")
+    private IAlarmNoticeManagerService iAlarmNoticeManagerService;
+
+    @Autowired
+    private LogFtpService logFtpService;
+
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        Alarm alarm = (Alarm)service.loadById(Alarm.class,4);
+        Alarm alarm = (Alarm)iAlarmNoticeManagerService.loadById(Alarm.class,4);
         if(alarm==null){
             throw new IllegalArgumentException("alarm基础数据异常，请检查通信业务系统FTP文件 alarm id是否等于4");
         }

@@ -5,8 +5,11 @@ package com.bluedon.monitor.project.job.alarm;
  */
 
 import com.bluedon.monitor.common.util.SendMailUtil;
+import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
+import com.bluedon.monitor.project.service.stSysFlowCurrentDt.StSysFlowCurrentDtService;
+import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -28,12 +31,21 @@ public class AlarmJYZXTJob implements Job {
     @Qualifier("alarmNoticeServiceImpl")
     private IAlarmNoticeManagerService iAlarmNoticeManagerService;
 
+    @Autowired
+    @Qualifier("stSysFlowCurrentDtService")
+    private StSysFlowCurrentDtService stSysFlowCurrentDtService;
 
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        //AlarmNotice alarmNotice = new AlarmNotice();
-        //alarmNotice.setNoticeName("交易子系统");
-        //iAlarmNoticeManagerService.add(alarmNotice);
-        //SendMailUtil.getInstance().doSendHtmlEmail("交易子系统", "test test test <a href='www.baidu.com'>百度</a>", "664219802@qq.com");
+        Alarm alarm = (Alarm)iAlarmNoticeManagerService.loadById(Alarm.class,2);
+        if(alarm==null){
+            throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm id是否等于2");
+        }
+        if(!alarm.getAlarmType().equals(Alarm.ALARM_TYPE_JYZXT)){
+            throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm type是否为JYZXT");
+        }
+        //最后扫描时间
+        Date time = alarm.getCreateDate();
+
     }
 }

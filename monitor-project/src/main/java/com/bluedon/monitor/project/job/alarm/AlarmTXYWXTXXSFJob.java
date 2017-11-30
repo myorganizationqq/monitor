@@ -5,13 +5,17 @@ package com.bluedon.monitor.project.job.alarm;
  */
 
 import com.bluedon.monitor.common.util.SendMailUtil;
+import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
+import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import java.util.Date;
 
 /**
  *
@@ -25,12 +29,20 @@ public class AlarmTXYWXTXXSFJob implements Job {
     @Qualifier("alarmNoticeServiceImpl")
     private IAlarmNoticeManagerService iAlarmNoticeManagerService;
 
+    @Autowired
+    private LogRecvsendService logRecvsendService;
 
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        //AlarmNotice alarmNotice = new AlarmNotice();
-        //alarmNotice.setNoticeName("通信业务系统");
-        //iAlarmNoticeManagerService.add(alarmNotice);
-        //SendMailUtil.getInstance().doSendHtmlEmail("通信业务系统", "test test test <a href='www.baidu.com'>百度</a>", "664219802@qq.com");
+        Alarm alarm = (Alarm)iAlarmNoticeManagerService.loadById(Alarm.class,3);
+        if(alarm==null){
+            throw new IllegalArgumentException("alarm基础数据异常，通信业务系统消息收发 alarm id是否等于3");
+        }
+        if(!alarm.getAlarmType().equals(Alarm.ALARM_TYPE_TXYWXTXXSF)){
+            throw new IllegalArgumentException("alarm基础数据异常，通信业务系统消息收发 alarm type是否为TXYWXTXXSF");
+        }
+        //最后扫描时间
+        Date time = alarm.getCreateDate();
+
     }
 }
