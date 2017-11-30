@@ -1,5 +1,6 @@
 package com.bluedon.monitor.project.service.communication.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,18 +39,6 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param, PageUtil pageUtil) {
-//		String sql = "SELECT a.FTP_IP,a.FILENAME,"
-//						+ "MAX(CASE a.OPER_CODE WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
-//						+ "MAX(CASE a.OPER_CODE WHEN 1 THEN a.num ELSE 0 END) FAILURE "
-//					+ "FROM "
-//					+ "("
-//						+ "SELECT w.FTP_IP,w.FILENAME,w.OPER_CODE,w.START_DATETIME,COUNT(0)num "
-//						+ "FROM cm_log_ftp_dt w WHERE w.OPER_CODE=0 OR w.OPER_CODE=1 GROUP BY w.FTP_IP,w.OPER_CODE "
-//					+ ")a "
-//					+ "WHERE a.FTP_IP LIKE '%ftpIp%' AND a.FILENAME LIKE '%fileName%'"
-//					+ (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (a.START_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
-//					+ "GROUP BY a.FTP_IP LIMIT start, length;";
-		
 		String sql = "SELECT w.FTP_IP,w.FILENAME,COUNT(0) NUM,"
 				   + "CASE WHEN w.OPER_CODE=1 THEN '下载' ELSE '上传' END OPER_CODE,"
 				   + "CASE WHEN w.RESULT=1 THEN '成功' ELSE '失败' END RESULT "
@@ -97,6 +86,20 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			pageUtil.setResultList(list);
 		}
 		return pageUtil;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getTopLogFtp(int result) {
+		String sql = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=%s GROUP BY FTP_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, result));
+		
+		Map<String, Object> map = new HashMap<>();
+        for (Map<String, Object> stringObjectMap : list) {
+            String ftpIp = String.valueOf(stringObjectMap.get("FTP_IP"));
+            int num = Integer.valueOf(String.valueOf(stringObjectMap.get("NUM")));
+            map.put(ftpIp, num);
+        }
+        return map;
 	}
 	
 	

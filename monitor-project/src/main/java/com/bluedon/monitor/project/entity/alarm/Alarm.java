@@ -31,7 +31,12 @@ public class Alarm {
     /**
      * 通信业务系统告警
      */
-    public static String ALARM_TYPE_TXYWXT = "TXYWXT";
+    public static String ALARM_TYPE_TXYWXTFTPWJ = "TXYWXTFTPWJ";
+
+    /**
+     * 通信业务系统告警
+     */
+    public static String ALARM_TYPE_TXYWXTSF = "TXYWXTXXSF";
 
 
     private long id;

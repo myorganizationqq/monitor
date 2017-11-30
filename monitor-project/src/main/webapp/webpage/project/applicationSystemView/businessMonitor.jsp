@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <jsp:include page="../../manage/header.jsp"></jsp:include>
-    <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/amsWindow.js"></script>
-    <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
-    <script type="text/javascript" src="${requestScope.basePath }webpage/js/project/applicationSystemView/applicationSystemView.js"></script>
+    <script type="text/javascript" src="${requestScope.basePath}webpage/js/manage/amsWindow.js"></script>
+    <script type="text/javascript" src="${requestScope.basePath}webpage/js/public.js"></script>
+    <script type="text/javascript" src="${requestScope.basePath}webpage/js/project/applicationSystemView/applicationSystemView.js"></script>
 </head>
 <body>
 
@@ -19,13 +19,19 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="160">
-                        <select id="businessType"  class="" style="width:150px;" >
+                        <select id="businessType" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
                             <option value="1" selected="selected">交易文件和数据</option>
                             <option value="2">清算子系统运行状态</option>
                             <option value="3">通信业务</option>
                         </select>
+                        
+                        <div style="display:none; margin:-22px 0 0 180px;" id="cmnc">
+	                        <select id="communication" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
+	                            <option value="1">消息收发</option>
+	                            <option value="2">FTP文件</option>
+	                        </select>
+                        </div>
                     </td>
-
                 </tr>
 
             </table>
@@ -36,8 +42,8 @@
     <div class="easyui-layout" style="height: 10px"></div>
     <div class="line"></div>
     <!--gap-->
-    <div class="easyui-layout" style=" padding: 5px;min-height: 700px" >
-        <iframe id="businessFrame"  width='100%' height="600px" frameBorder='no'   scrolling="auto" onLoad=""  src='${requestScope.basePath}webpage/project/applicationSystemView/tradeFileRptChart.jsp'></iframe>
+    <div class="easyui-layout" style="padding: 5px;min-height: 700px">
+        <iframe id="businessFrame" width='100%' height="600px" frameBorder='no' scrolling="auto" onLoad="" src='${requestScope.basePath}webpage/project/applicationSystemView/tradeFileRptChart.jsp'></iframe>
     </div>
 </div>
 </body>

@@ -30,14 +30,14 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="160">
-                        <select id="businessType" style="width:150px;">
+                        <select id="businessType" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
                             <option value="1">交易文件和数据</option>
                             <option value="2">清算子系统运行状态</option>
                             <option value="3">通信业务</option>
                         </select>
                         
                         <div style="display:none; margin:-22px 0 0 180px;" id="cmnc">
-	                        <select id="communication" style="width:150px;">
+	                        <select id="communication" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
 	                            <option value="1">消息收发</option>
 	                            <option value="2">FTP文件</option>
 	                        </select>
