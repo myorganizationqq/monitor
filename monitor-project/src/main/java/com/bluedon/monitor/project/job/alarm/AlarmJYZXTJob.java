@@ -37,7 +37,7 @@ public class AlarmJYZXTJob implements Job {
 
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        Alarm alarm = (Alarm)iAlarmNoticeManagerService.loadById(Alarm.class,2);
+        Alarm alarm = (Alarm)iAlarmNoticeManagerService.loadById(Alarm.class,2l);
         if(alarm==null){
             throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm id是否等于2");
         }

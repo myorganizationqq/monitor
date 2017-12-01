@@ -1,9 +1,10 @@
 package com.bluedon.monitor.project.service.communication.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.bluedon.monitor.common.util.CommonUtil;
+import com.bluedon.monitor.common.util.DateUtil;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -100,6 +101,41 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
             map.put(ftpIp, num);
         }
         return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> alarmCount() {
+		String sql0 = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=0 AND FTP_DATETIME BETWEEN 'T1' AND 'T2' GROUP BY FTP_IP;";
+		String sql1 = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=1 AND FTP_DATETIME BETWEEN 'T1' AND 'T2' GROUP BY FTP_IP;";
+
+		Map<String,String> t = CommonUtil.getCurrentAndPreTime();
+		String T1 = t.get("currentDay");
+		String T2 = t.get("preDay");
+
+		sql0 = sql0.replace("T1", T1).replace("T2", T2);
+		sql1 = sql1.replace("T1", T1).replace("T2", T2);
+
+		List<Map<String, Object>> list0 = hibernateDao.selectBySql(sql0);
+		List<Map<String, Object>> list1 = hibernateDao.selectBySql(sql1);
+
+		Map<String, Object> map0 = new HashMap<>();
+		Map<String, Object> map1 = new HashMap<>();
+
+		for (Map<String, Object> stringObjectMap : list0) {
+			String ftpIp = String.valueOf(stringObjectMap.get("FTP_IP"));
+			int num = Integer.valueOf(String.valueOf(stringObjectMap.get("NUM")));
+			map0.put(ftpIp, num);
+		}
+		for (Map<String, Object> stringObjectMap : list1) {
+			String ftpIp = String.valueOf(stringObjectMap.get("FTP_IP"));
+			int num = Integer.valueOf(String.valueOf(stringObjectMap.get("NUM")));
+			map1.put(ftpIp, num);
+		}
+
+		List<Map<String, Object>> result = new ArrayList <>();
+		result.add(map0);
+		result.add(map1);
+		return result;
 	}
 	
 	

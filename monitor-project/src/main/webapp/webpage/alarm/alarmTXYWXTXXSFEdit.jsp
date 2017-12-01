@@ -25,8 +25,6 @@
 			<input name="alarmUser" value="${obj.alarmUser }" type="hidden"/>
 			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
 			<input name="alarmCronTriggerHour" value="${obj.alarmCronTriggerHour }" type="hidden"/>
-			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
-			<input name="createDateStr" value="${obj.createDate }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680" aria-label="fewafaewf">
 				<tr>
 					<td colspan="3">
@@ -90,13 +88,13 @@
 				<tr>
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">失败个数</td>
 					<td width="250" >
-						小于：<input id="txywxt_sbgs_gz"  name="txywxt_sbgs_gz" type="text" style="height:25px;width:150px;"
+						大于：<input id="txywxt_sbgs_gz"  name="txywxt_sbgs_gz" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.txywxt_sbgs_gz }" />个
 					</td>
 
 					<td width="250" >
-						小于：<input id="txywxt_sbgs_wx" name="txywxt_sbgs_wx" type="text" style="height:25px;width:150px;"
+						大于：<input id="txywxt_sbgs_wx" name="txywxt_sbgs_wx" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.txywxt_sbgs_wx }" />个
 					</td>

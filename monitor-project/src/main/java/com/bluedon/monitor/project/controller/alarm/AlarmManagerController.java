@@ -1,6 +1,5 @@
 package com.bluedon.monitor.project.controller.alarm;
 
-import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
@@ -151,7 +150,6 @@ public class AlarmManagerController {
         try {
             log.debug("alarm配置操作：修改，id=" + param.getId());
             param.setUpdateDate(new Date());
-            param.setCreateDate(DateUtil.strToDate(param.getCreateDateStr().substring(0,param.getCreateDateStr().length()-2),DateUtil.DATE_STYLE_TIME_1));
             alarmService.update(param);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
@@ -214,7 +212,7 @@ public class AlarmManagerController {
                 throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
             }
 
-            String alarmCronTrigger = "0 0 " + param.getAlarmCronTriggerStart() + "/" + param.getAlarmCronTriggerHour() + " * * ?";
+            String alarmCronTrigger = "0 0 " +  param.getAlarmCronTriggerHour() + " * * ?";
             alarm.setAlarmCronTrigger(alarmCronTrigger);
 
             if (alarm.getAlarmStatus().equals("Y") && !alarmCronTrigger.equals(alarm.getAlarmCronTrigger())) {

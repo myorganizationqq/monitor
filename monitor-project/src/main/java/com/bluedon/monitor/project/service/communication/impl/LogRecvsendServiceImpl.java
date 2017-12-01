@@ -1,8 +1,13 @@
 package com.bluedon.monitor.project.service.communication.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.bluedon.monitor.common.util.CommonUtil;
+import com.bluedon.monitor.common.util.DateUtil;
+import com.bluedon.monitor.project.entity.alarm.Alarm;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -95,5 +100,28 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 		}
 		return pageUtil;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> alarmCount() {
+		String sql = "SELECT a.LINK_IP,MAX(a.MSG_LENGTH) MSG_LENGTH,MIN(a.MSG_LENGTH) MIN_LENGTH,"
+				+ " MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
+				+ " MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
+				+ " FROM (SELECT w.LINK_IP,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
+				+ " FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT ) a "
+				+ " WHERE a.LINK_IP IS NOT NULL AND a.RECD_DATETIME BETWEEN 'T1' AND 'T2' "
+				+ " GROUP BY a.LINK_IP;";
+
+
+
+		Map<String,String> t = CommonUtil.getCurrentAndPreTime();
+		String T1 = t.get("currentDay");
+		String T2 = t.get("preDay");
+
+		sql = sql.replace("T1", T1).replace("T2", T2);
+
+		return hibernateDao.selectBySql(sql);
+	}
+
+
 }

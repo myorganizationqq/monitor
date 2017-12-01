@@ -25,8 +25,6 @@
 			<input name="alarmUser" value="${obj.alarmUser }" type="hidden"/>
 			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
 			<input name="alarmCronTriggerHour" value="${obj.alarmCronTriggerHour }" type="hidden"/>
-			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
-			<input name="createDateStr" value="${obj.createDate }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680">
 
 				<tr>
@@ -38,13 +36,13 @@
 				 <tr>
 			        <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">不合法数据个数</td>
 			        <td width="250" >
-						小于：<input id="jywjhsj_bhfsjgs_gz"  name="jywjhsj_bhfsjgs_gz" type="text" style="height:25px;width:150px;"
+						大于：<input id="jywjhsj_bhfsjgs_gz"  name="jywjhsj_bhfsjgs_gz" type="text" style="height:25px;width:150px;"
 			        	 class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 			        	 value="${obj.jywjhsj_bhfsjgs_gz }"  />个
 			        </td>
 
 					 <td width="250" >
-						 小于：<input id="jywjhsj_bhfsjgs_wx" name="jywjhsj_bhfsjgs_wx" type="text" style="height:25px;width:150px;"
+						 大于：<input id="jywjhsj_bhfsjgs_wx" name="jywjhsj_bhfsjgs_wx" type="text" style="height:25px;width:150px;"
 								class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								value="${obj.jywjhsj_bhfsjgs_wx }" />个
 					 </td>
@@ -53,13 +51,13 @@
 				<tr>
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">重复数据个数</td>
 					<td width="250" >
-						小于：<input id="jywjhsj_cfsjgs_gz"  name="jywjhsj_cfsjgs_gz" type="text" style="height:25px;width:150px;"
+						大于：<input id="jywjhsj_cfsjgs_gz"  name="jywjhsj_cfsjgs_gz" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.jywjhsj_cfsjgs_gz }" />个
 					</td>
 
 					<td width="250" >
-						小于：<input id="jywjhsj_cfsjgs_wx" name="jywjhsj_cfsjgs_wx" type="text" style="height:25px;width:150px;"
+						大于：<input id="jywjhsj_cfsjgs_wx" name="jywjhsj_cfsjgs_wx" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.jywjhsj_cfsjgs_wx }" />个
 					</td>
@@ -68,13 +66,13 @@
 				<tr>
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">无法预处理文件个数</td>
 					<td width="250" >
-						小于：<input id="jywjhsj_wfyclwjgs_gz"  name="jywjhsj_wfyclwjgs_gz" type="text" style="height:25px;width:150px;"
+						大于：<input id="jywjhsj_wfyclwjgs_gz"  name="jywjhsj_wfyclwjgs_gz" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.jywjhsj_wfyclwjgs_gz }" />个
 					</td>
 
 					<td width="250" >
-						小于：<input id="jywjhsj_wfyclwjgs_wx" name="jywjhsj_wfyclwjgs_wx" type="text" style="height:25px;width:150px;"
+						大于：<input id="jywjhsj_wfyclwjgs_wx" name="jywjhsj_wfyclwjgs_wx" type="text" style="height:25px;width:150px;"
 								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
 								  value="${obj.jywjhsj_wfyclwjgs_wx }" />个
 					</td>

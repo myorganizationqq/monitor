@@ -18,4 +18,6 @@ public interface LogFtpService extends IBaseService {
 	PageUtil getPageList(CmLogFtpDT param, PageUtil pageUtil);
 	
 	Map<String, Object> getTopLogFtp(int result);
+
+	public List<Map<String, Object>> alarmCount();
 }
