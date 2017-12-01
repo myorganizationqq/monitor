@@ -15,4 +15,10 @@ public interface StSysFlowCurrentDtService {
      List<StSysFlowCurrentDt> getPageList();
      PageUtil getPageList(StSysFlowCurrentDt param, PageUtil pageUtil);
      Map<String,Object> getTime(Map<String,Object> param);
+
+     /**
+      * 获取当天0点和前天0点之间的数据
+      * @return
+      */
+     public List <StSysFlowCurrentDt> alarmCount();
 }

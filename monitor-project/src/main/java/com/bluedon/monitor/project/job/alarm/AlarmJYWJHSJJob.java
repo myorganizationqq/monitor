@@ -4,13 +4,16 @@ package com.bluedon.monitor.project.job.alarm;
  * Created by ${Time} ${Day} ming on 2017/11/25.
  */
 
+import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.SendMailUtil;
+import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
+import com.bluedon.monitor.system.entity.TbCommonUser;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -19,6 +22,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,14 +57,83 @@ public class AlarmJYWJHSJJob implements Job {
         List <TradeFileRpt> resultList = (List <TradeFileRpt>) pageUtil.getResultList();
 
         for (TradeFileRpt t : resultList) {
+
+            StringBuffer alarmContent = new StringBuffer();
+
             if (alarm.getJywjhsj_bhfsjgs_wx() != 0) {
-                if (t.getWrongfulCount() > alarm.getJywjhsj_bhfsjgs_wx()) {
-                    SendMailUtil.getInstance().doSendHtmlEmail("", "", "");
+                if (alarm.getJywjhsj_bhfsjgs_wx() < t.getWrongfulCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + " 流水号" + t.getBalanceWaterNo() + "  危险：不合法数据个数为" + t.getWrongfulCount() + "<br>");
+                }
+            } else if (alarm.getJywjhsj_bhfsjgs_gz() != 0) {
+                if (alarm.getJywjhsj_bhfsjgs_gz() < t.getWrongfulCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + " 流水号" + t.getBalanceWaterNo() + "  故障：不合法数据个数为" + t.getWrongfulCount() + "<br>");
                 }
             }
+
+            if (alarm.getJywjhsj_cfsjgs_wx() != 0) {
+                if (alarm.getJywjhsj_cfsjgs_wx() < t.getDuplicateCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + " 流水号" + t.getBalanceWaterNo() + "  危险：重复数据个数为" + t.getDuplicateCount() + "<br>");
+                }
+            } else if (alarm.getJywjhsj_cfsjgs_gz() != 0) {
+                if (alarm.getJywjhsj_cfsjgs_gz() < t.getDuplicateCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + " 流水号" + t.getBalanceWaterNo() + "  故障：重复数据个数为" + t.getDuplicateCount() + "<br>");
+                }
+            }
+
+            if (alarm.getJywjhsj_wfyclwjgs_wx() != 0) {
+                if (alarm.getJywjhsj_wfyclwjgs_wx() < t.getNoPretreatmentCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + "  流水号" + t.getBalanceWaterNo() + "  危险：无法预处理数据个数为" + t.getNoPretreatmentCount() + "<br>");
+                }
+            } else if (alarm.getJywjhsj_wfyclwjgs_gz() != 0) {
+                if (alarm.getJywjhsj_wfyclwjgs_gz() < t.getNoPretreatmentCount()) {
+                    alarmContent.append("交易文件类型" + t.getFileType() + "  流水号" + t.getBalanceWaterNo() + "  故障：无法预处理数据个数为" + t.getNoPretreatmentCount() + "<br>");
+                }
+            }
+
+            //无告警信息则返回
+            if (StringUtil.isEmpty(alarmContent.toString())) {
+                return;
+            }
+
+            String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
+            String currentDay = CommonUtil.getCurrentAndPreTime().get("currentDay");
+            String head = "交易文件和数据(" + preDay + "-" + currentDay + ")告警";
+
+
+            String content = "时间：" + preDay + "-" + currentDay + "<br><br>" + alarmContent;
+
+            List<String> emailUser = new ArrayList <>();
+            List<String> phoneUser = new ArrayList <>();
+
+            String emailsStr = alarm.getAlarmEmail();
+            String phonesStr = alarm.getAlarmMessage();
+
+            if(!StringUtil.isEmpty(emailsStr)){
+                String [] emails = emailsStr.split(",");
+                for(String email : emails){
+                    TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class,Long.parseLong(email));
+                    if(user!=null && !StringUtil.isEmpty(user.getEmail())){
+                        emailUser.add(user.getEmail());
+                    }
+                }
+            }
+
+            if(!StringUtil.isEmpty(phonesStr)){
+                String [] phones = phonesStr.split(",");
+                for(String phone : phones){
+                    TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class,Long.parseLong(phone));
+                    if(user!=null && !StringUtil.isEmpty(user.getPhone())){
+                        phoneUser.add(user.getPhone());
+                    }
+                }
+            }
+
+
+            CommonUtil.sendAlarm(head, content, phoneUser,emailUser);
 
 
         }
 
     }
+
 }

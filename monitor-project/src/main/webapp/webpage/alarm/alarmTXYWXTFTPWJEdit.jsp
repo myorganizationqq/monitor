@@ -45,13 +45,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">成功个数</td>
 					<td width="250" >
 						小于：<input id="txywxt_ftpcgsl_gz"  name="txywxt_ftpcgsl_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
 								  value="${obj.txywxt_ftpcgsl_gz }"  />个
 					</td>
 
 					<td width="250" >
 						小于：<input id="txywxt_ftpcgsl_wx" name="txywxt_ftpcgsl_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
 								  value="${obj.txywxt_ftpcgsl_wx }" />个
 					</td>
 				</tr>
@@ -60,13 +60,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">失败个数</td>
 					<td width="250" >
 						大于：<input id="txywxt_ftpsbsl_gz"  name="txywxt_ftpsbsl_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
 								  value="${obj.txywxt_ftpsbsl_gz }" />个
 					</td>
 
 					<td width="250" >
 						大于：<input id="txywxt_ftpsbsl_wx" name="txywxt_ftpsbsl_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[2,50]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
 								  value="${obj.txywxt_ftpsbsl_wx }" />个
 					</td>
 				</tr>

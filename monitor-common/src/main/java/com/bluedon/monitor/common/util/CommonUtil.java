@@ -9,11 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -207,7 +203,7 @@ public class CommonUtil {
         DateTime dateTime1 = new DateTime(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), 0, 0, 0);
         DateTime dateTime2 = dateTime1.minusHours(24);
         //String T1 = DateUtil.dateToString(dateTime1.toDate(), DateUtil.DATE_STYLE_TIME_1);
-       // String T2 = DateUtil.dateToString(dateTime2.toDate(), DateUtil.DATE_STYLE_TIME_1);
+        // String T2 = DateUtil.dateToString(dateTime2.toDate(), DateUtil.DATE_STYLE_TIME_1);
 
         String T1 = "2017-10-1 00:00:00";
         String T2 = "2017-12-1 00:00:00";
@@ -215,6 +211,25 @@ public class CommonUtil {
         map.put("currentDay", T1);
         map.put("preDay", T2);
         return map;
+    }
+
+    /**
+     * 发送邮件和短信息
+     * @param head  邮件头
+     * @param content 内容
+     * @param phones 手机号码
+     * @param emails 邮箱
+     */
+    public static void sendAlarm(String head, String content, List<String> phones, List<String> emails) {
+
+        for (String phone : phones) {
+            System.out.println("发送短信给" + phone);
+        }
+
+        for (String email : emails) {
+            System.out.println("发送邮件给" + email);
+            SendMailUtil.getInstance().doSendHtmlEmail(head, content, email);
+        }
     }
 
 
