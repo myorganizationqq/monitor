@@ -37,7 +37,10 @@ function setChartData(url, chartPillar) {
 		url : url,
 		dataType : 'json',
 		scriptCharset : 'utf-8',
-		data : {},
+		data : {
+			"dateTime1": getBeginDate(),
+			"dateTime2": getEndDate()
+		},
 		success : function(result) {
 			var map = result;
 			var xArr = new Array();
@@ -288,4 +291,12 @@ function setPillarData(pillarChart, xArr, dataArr) {
 			data : dataArr
 		} ]
 	});
+}
+
+function getBeginDate(){
+	return window.parent.getBeginDate();
+}
+
+function getEndDate(){
+	return window.parent.getEndDate();
 }

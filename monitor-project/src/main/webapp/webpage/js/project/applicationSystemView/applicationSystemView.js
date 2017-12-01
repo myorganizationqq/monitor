@@ -12,7 +12,7 @@ $(document).ready(function () {
                 url = 'webpage/project/applicationSystemView/stSysFlowCurrentChart.jsp';
             }else if(n == 3){
                 $("#cmnc").show();
-                url = 'webpage/project/statisticReport/logFtpChart.jsp';
+                url = 'webpage/project/statisticReport/logRecvsendChart.jsp';
             }
             $("#businessFrame").attr("src", basePath + url);
         }
@@ -21,7 +21,7 @@ $(document).ready(function () {
     $("#communication").combobox({
         onChange : function(n, o) {
             if (n == 1) {
-                $("#businessFrame").attr("src", basePath + 'webpage/project/statisticReport/logFtpChart.jsp');
+                $("#businessFrame").attr("src", basePath + 'webpage/project/statisticReport/logRecvsendChart.jsp');
             }else if (n == 2) {
                 $("#businessFrame").attr("src", basePath + 'webpage/project/statisticReport/logFtpChart.jsp');
             }
@@ -77,4 +77,3 @@ function doSearch() {
      stSysFlowCurrentChartIframe.window.init();
      }*/
 }
-

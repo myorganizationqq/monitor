@@ -33,6 +33,11 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getLogRecvsendPageList(CmLogRecvsendDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		String sql = "SELECT a.LINK_IP,MAX(a.MSG_LENGTH) MSG_LENGTH,"
 						+ "MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
 						+ "MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
@@ -42,7 +47,7 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 						+ "FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT "
 					+ ")a "
 					+ "WHERE a.LINK_IP IS NOT NULL AND a.LINK_IP LIKE '%linkIp%' AND a.SERVER_CODE LIKE '%serverCode%'"
-					+ (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
+					+ " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') "
 					+ "GROUP BY a.LINK_IP LIMIT start, length;";
 
 		Integer start = (pageUtil.getPage() - 1) * pageUtil.getRows();
@@ -57,6 +62,11 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	
 	@SuppressWarnings("unchecked")
 	public int getAllCount(CmLogRecvsendDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		String sql = "SELECT a.LINK_IP,MAX(a.MSG_LENGTH) MSG_LENGTH,"
 						+ "MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
 						+ "MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
@@ -66,7 +76,7 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 						+ "FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT "
 					+ ")a "
 					+ "WHERE a.LINK_IP IS NOT NULL AND a.LINK_IP LIKE '%linkIp%' AND a.SERVER_CODE LIKE '%serverCode%'"
-					+ (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
+					+ " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') "
 					+ "GROUP BY a.LINK_IP";
 
 		sql = sql.replace("linkIp", param.getLinkIp() == null ? "" : param.getLinkIp())
@@ -80,11 +90,6 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	
 	@Override
 	public PageUtil getPageList(CmLogRecvsendDT param, PageUtil pageUtil) {
-		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
-			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
-			param.setDateTime1(map.get("currentDay"));
-			param.setDateTime2(map.get("preDay"));
-		}
 		List<Map<String, Object>> list = getLogRecvsendPageList(param, pageUtil);
 				
 		// 获取总记录数
@@ -124,9 +129,14 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getTopLogRecvsend(int result) {
-		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RESULT=%s GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, result));
+	public Map<String, Object> getTopLogRecvsend(CmLogRecvsendDT param) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
+		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RESULT=%s AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getResult(), param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
@@ -138,9 +148,14 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getTopTotalCount() {
-		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+	public Map<String, Object> getTopTotalCount(CmLogRecvsendDT param) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
+		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
@@ -152,9 +167,14 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getTopMaxMsgLength() {
-		String sql = "SELECT LINK_IP,MAX(MSG_LENGTH) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+	public Map<String, Object> getTopMaxMsgLength(CmLogRecvsendDT param) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
+		String sql = "SELECT LINK_IP,MAX(MSG_LENGTH) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
