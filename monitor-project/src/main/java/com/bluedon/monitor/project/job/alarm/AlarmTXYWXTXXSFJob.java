@@ -59,48 +59,48 @@ public class AlarmTXYWXTXXSFJob implements Job {
             StringBuffer alarmContent = new StringBuffer();
 
             if (alarm.getTxywxt_cggs_wx() != 0) {
-                if (alarm.getJywjhsj_bhfsjgs_wx() > succ) {
+                if (alarm.getTxywxt_cggs_wx() > succ) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 危险：成功个数" + succ + "<br>");
                 }
             } else if (alarm.getTxywxt_cggs_gz() != 0) {
-                if (alarm.getJywjhsj_bhfsjgs_gz() > succ) {
+                if (alarm.getTxywxt_cggs_gz() > succ) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 故障：成功个数" + succ + "<br>");
                 }
             }
 
             if (alarm.getTxywxt_sbgs_wx() != 0) {
-                if (alarm.getTxywxt_sbgs_wx() > fail) {
+                if (alarm.getTxywxt_sbgs_wx() < fail) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 危险：失败个数" + fail + "<br>");
                 }
             } else if (alarm.getTxywxt_sbgs_gz() != 0) {
-                if (alarm.getTxywxt_sbgs_gz() > fail) {
+                if (alarm.getTxywxt_sbgs_gz() < fail) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 故障：失败个数" + fail + "<br>");
                 }
             }
 
             if (alarm.getTxywxt_jszdll_wx() != 0) {
-                if (alarm.getTxywxt_jszdll_wx() > max_length) {
+                if (alarm.getTxywxt_jszdll_wx() < max_length) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 危险：接收最大流量" + max_length + "<br>");
                 }
             } else if (alarm.getTxywxt_jszdll_gz() != 0) {
-                if (alarm.getTxywxt_jszdll_gz() > max_length) {
+                if (alarm.getTxywxt_jszdll_gz() < max_length) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 故障：接收最大流量" + max_length + "<br>");
                 }
             }
 
             if (alarm.getTxywxt_jszxll_wx() != 0) {
-                if (alarm.getTxywxt_jszxll_wx() < min_length) {
+                if (alarm.getTxywxt_jszxll_wx() > min_length) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 危险：接收最小流量" + min_length + "<br>");
                 }
             } else if (alarm.getTxywxt_jszxll_gz() != 0) {
-                if (alarm.getTxywxt_jszxll_gz() < min_length) {
+                if (alarm.getTxywxt_jszxll_gz() > min_length) {
                     alarmContent.append("通信业务系统消息收发 IP：" + link_ip + " 故障：接收最小流量" + min_length + "<br>");
                 }
             }
 
             //无告警信息则返回
             if (StringUtil.isEmpty(alarmContent.toString())) {
-                return;
+                continue;
             }
 
             String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
