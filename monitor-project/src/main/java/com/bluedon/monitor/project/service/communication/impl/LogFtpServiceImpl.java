@@ -1,15 +1,16 @@
 package com.bluedon.monitor.project.service.communication.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.bluedon.monitor.common.util.CommonUtil;
-import com.bluedon.monitor.common.util.DateUtil;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.bluedon.monitor.common.dao.IBaseDao;
+import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.communication.CmLogFtpDT;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
@@ -76,6 +77,11 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 
 	@Override
 	public PageUtil getPageList(CmLogFtpDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		List<Map<String, Object>> list = getLogFtpPageList(param, pageUtil);
 
 		// 获取总记录数

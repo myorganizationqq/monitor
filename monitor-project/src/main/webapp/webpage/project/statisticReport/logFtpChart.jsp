@@ -29,23 +29,6 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12" style="margin-left: 5px;margin-top: 6px">
-        <div class="col-sm-4">
-            <div class="" style="background:#fafafa;border:1px solid #ccc;width: 100%">
-                <div id="wrongfulCountPillar" style="min-height:200px"></div>
-            </div>
-        </div>
-        <div class="col-sm-4" style="padding-left: 5px">
-            <div class="" style="background:#fafafa;border:1px solid #ccc;width: 100%">
-                <div id="duplicateCountPillar" style="min-height:200px"></div>
-            </div>
-        </div>
-        <div class="col-sm-4" style="padding-left: 5px">
-            <div class="" style="background:#fafafa;border:1px solid #ccc;width: 100%">
-                <div id="noPretreatmentCountPillar" style="min-height:200px"></div>
-            </div>
-        </div>
-    </div>
 
 </div>
 </body>

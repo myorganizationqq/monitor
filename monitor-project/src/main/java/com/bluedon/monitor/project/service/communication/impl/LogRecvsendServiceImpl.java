@@ -1,18 +1,15 @@
 package com.bluedon.monitor.project.service.communication.impl;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bluedon.monitor.common.util.CommonUtil;
-import com.bluedon.monitor.common.util.DateUtil;
-import com.bluedon.monitor.project.entity.alarm.Alarm;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.bluedon.monitor.common.dao.IBaseDao;
+import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.communication.CmLogRecvsendDT;
 import com.bluedon.monitor.project.service.communication.LogRecvsendService;
@@ -83,6 +80,11 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 	
 	@Override
 	public PageUtil getPageList(CmLogRecvsendDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		List<Map<String, Object>> list = getLogRecvsendPageList(param, pageUtil);
 				
 		// 获取总记录数
@@ -112,8 +114,6 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 				+ " WHERE a.LINK_IP IS NOT NULL AND a.RECD_DATETIME BETWEEN 'T1' AND 'T2' "
 				+ " GROUP BY a.LINK_IP;";
 
-
-
 		Map<String,String> t = CommonUtil.getCurrentAndPreTime();
 		String T1 = t.get("currentDay");
 		String T2 = t.get("preDay");
@@ -123,5 +123,46 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 		return hibernateDao.selectBySql(sql);
 	}
 
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getTopLogRecvsend(int result) {
+		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RESULT=%s GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, result));
+		
+		Map<String, Object> map = new HashMap<>();
+        for (Map<String, Object> objMap : list) {
+            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
+            map.put(linkIp, num);
+        }
+        return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getTopTotalCount() {
+		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+		
+		Map<String, Object> map = new HashMap<>();
+        for (Map<String, Object> objMap : list) {
+            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
+            map.put(linkIp, num);
+        }
+        return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getTopMaxMsgLength() {
+		String sql = "SELECT LINK_IP,MAX(MSG_LENGTH) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+		
+		Map<String, Object> map = new HashMap<>();
+        for (Map<String, Object> objMap : list) {
+            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
+            map.put(linkIp, num);
+        }
+        return map;
+	}
 
 }

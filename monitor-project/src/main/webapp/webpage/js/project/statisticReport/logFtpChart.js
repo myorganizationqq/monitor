@@ -9,11 +9,12 @@ var wrongTypeMap = {
 
 $(document).ready(function() {
 	init();
-});
+})
 
 function init() {
 	initTotalCountPie('检测对象');
 	setTotalCountData();
+	
 	var flag = $("#flag").val();
 	
 	if (1 == flag) {
@@ -22,15 +23,7 @@ function init() {
 			var chartPillar = initPillar(key + "Pillar", wrongTypeMap[key]);
 			setChartData(url + key, chartPillar);
 		}
-	} else if (2 == flag) {
-		var chartPillar = initPillar("faultTimePillar", "TOP排名 故障时间百分比排名");
-		var temp = new Date().getTime() + 1000;
-		//设数据
-		var url = basePath
-				+ 'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData';
-		setChartData(url, chartPillar);
 	}
-
 }
 
 function setChartData(url, chartPillar) {
