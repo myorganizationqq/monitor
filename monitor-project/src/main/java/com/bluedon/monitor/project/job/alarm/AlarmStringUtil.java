@@ -968,18 +968,4 @@ public class AlarmStringUtil {
         }
 	}
 	
-	public static void main(String[] args) {
-		StringBuffer sbf = new StringBuffer();
-		method1(sbf);
-		method2(sbf);
-		System.out.println(sbf.toString());
-	}
-	
-	public static void method1(StringBuffer sbf) {
-		sbf.append("abcd");
-	}
-	
-	public static void method2(StringBuffer sbf) {
-		sbf.append("efgh");
-	}
 }
