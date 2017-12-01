@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.controller.tradeFileRpt;
 
 import com.alibaba.fastjson.JSON;
 import com.bluedon.monitor.common.util.CommonUtil;
+import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
@@ -20,10 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author JiangFeng
@@ -96,18 +94,35 @@ public class TradeFileRptController {
 
     @RequestMapping(params = "getChartData")
     @ResponseBody
-    public String getChartData(HttpServletResponse response,@Param String wrongType){
+    public String getChartData(HttpServletResponse response,@Param String wrongType,@Param String beginDate,@Param String endDate){
         Map<String,Integer> map=new HashMap<String,Integer>();
+        Map<String, Object> params = new HashMap<>();
+        //1.如果开始时间和结束时间都没有选择,就默认查询昨天的流水号数据
+        if(StringUtils.isBlank(beginDate) && StringUtils.isBlank(endDate)){
+            Date yesterday=DateUtil.addDay(new Date(),-1);
+            String dateStr = DateUtil.dateToString(yesterday, "yyyy-MM-dd");
+            beginDate=dateStr;
+            endDate=dateStr;
+            //2.如果开始时间为空,则开始时间默认结束时间
+        }else if(StringUtils.isBlank(beginDate)){
+            beginDate=endDate;
+            //3.如果结束时间为空,则结束时间默认为开始时间
+        }else if(StringUtils.isBlank(endDate)){
+             endDate=beginDate;
+        }
+
+        params.put("beginBalanceWaterNo",beginDate.replace("-","")+"01");
+        params.put("endBalanceWaterNo",endDate.replace("-","")+"01");
         if ("fileCount".equals(wrongType)){
-            map=tradeFileRptService.getFileCountList();
+            map=tradeFileRptService.getFileCountList(params);
         }else if("handleCount".equals(wrongType)){
-            map=tradeFileRptService.getHandleCountList();
+            map=tradeFileRptService.getHandleCountList(params);
         }else if("wrongfulCount".equals(wrongType)){
-            map=tradeFileRptService.getWrongfulCountList();
+            map=tradeFileRptService.getWrongfulCountList(params);
         }else if("duplicateCount".equals(wrongType)){
-            map=tradeFileRptService.getDuplicateCountList();
+            map=tradeFileRptService.getDuplicateCountList(params);
         }else if("noPretreatmentCount".equals(wrongType)){
-            map=tradeFileRptService.getNoPretreatmentCountList();
+            map=tradeFileRptService.getNoPretreatmentCountList(params);
         }
         Map<String, String> fileTypeMap = ConstantUtil.FILE_TYPE;
         Map<String, Integer> resultMap = new HashMap<>();

@@ -36,8 +36,8 @@ public class TradeFileRptServiceImpl implements TradeFileRptService{
 private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
 
     @Override
-    public Map<String, Integer> getFileCountList(){
-        String hql="select a.file_type fileType,sum(a.file_count) fileCount from trade_file_rpt a group by a.file_type order by fileCount desc";
+    public Map<String, Integer> getFileCountList(Map<String,Object> param){
+        String hql="select a.file_type fileType,sum(a.file_count) fileCount from trade_file_rpt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" group by a.file_type order by fileCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
         Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
@@ -48,8 +48,8 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         return map;
     }
     @Override
-    public Map<String, Integer> getHandleCountList(){
-        String hql="select a.file_type fileType,sum(a.handle_count) handleCount from trade_file_rpt a group by a.file_type order by handleCount desc";
+    public Map<String, Integer> getHandleCountList(Map<String,Object> param){
+        String hql="select a.file_type fileType,sum(a.handle_count) handleCount from trade_file_rpt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+"  group by a.file_type order by handleCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
         Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
@@ -60,8 +60,8 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         return map;
     }
     @Override
-    public Map<String, Integer> getWrongfulCountList(){
-        String hql="select a.file_type fileType,sum(a.wrongful_count) wrongfulCount from trade_file_rpt a group by a.file_type order by wrongfulCount desc";
+    public Map<String, Integer> getWrongfulCountList(Map<String,Object> param){
+        String hql="select a.file_type fileType,sum(a.wrongful_count) wrongfulCount from trade_file_rpt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" group by a.file_type order by wrongfulCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
         Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
@@ -72,8 +72,8 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         return map;
     }
     @Override
-    public Map<String, Integer> getDuplicateCountList(){
-        String hql="select a.file_type fileType,sum(a.duplicate_count) duplicateCount from trade_file_rpt a group by a.file_type order by duplicateCount desc";
+    public Map<String, Integer> getDuplicateCountList(Map<String,Object> param){
+        String hql="select a.file_type fileType,sum(a.duplicate_count) duplicateCount from trade_file_rpt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" group by a.file_type order by duplicateCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
         Map<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
@@ -84,8 +84,8 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         return map;
     }
     @Override
-    public Map<String, Integer> getNoPretreatmentCountList(){
-        String hql="select a.file_type fileType,sum(a.no_pretreatment_count) noPretreatmentCount from trade_file_rpt a group by a.file_type order by noPretreatmentCount desc";
+    public Map<String, Integer> getNoPretreatmentCountList(Map<String,Object> param){
+        String hql="select a.file_type fileType,sum(a.no_pretreatment_count) noPretreatmentCount from trade_file_rpt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" group by a.file_type order by noPretreatmentCount desc";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
         HashMap<String, Integer> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {

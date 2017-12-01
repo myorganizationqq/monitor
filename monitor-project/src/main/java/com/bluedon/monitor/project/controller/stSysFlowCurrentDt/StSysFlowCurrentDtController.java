@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.controller.stSysFlowCurrentDt;
 
 import com.alibaba.fastjson.JSON;
 import com.bluedon.monitor.common.util.CommonUtil;
+import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.model.ModelMapper;
 import com.bluedon.monitor.common.util.model.ModelMapperFactory;
@@ -10,7 +11,9 @@ import com.bluedon.monitor.project.service.stSysFlowCurrentDt.StSysFlowCurrentDt
 import com.bluedon.monitor.system.model.util.ComboBox;
 import com.bluedon.monitor.system.util.ConstantUtil;
 import com.bluedon.monitor.system.util.ToolUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,10 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author JiangFeng
@@ -95,9 +95,24 @@ public class StSysFlowCurrentDtController {
 
     @RequestMapping(params = "getDaultTimeData")
     @ResponseBody
-    public String getDaultTimeData(){
-        Map<String,Object> map=new HashMap();
-        Map<String, Object> timeMap = stSysFlowCurrentDtService.getTime(map);
+    public String getDaultTimeData(@Param String beginDate,@Param String endDate){
+        Map<String,Object> params=new HashMap();
+        //1.如果开始时间和结束时间都没有选择,就默认查询昨天的流水号数据
+        if(StringUtils.isBlank(beginDate) && StringUtils.isBlank(endDate)){
+            Date yesterday= DateUtil.addDay(new Date(),-1);
+            String dateStr = DateUtil.dateToString(yesterday, "yyyy-MM-dd");
+            beginDate=dateStr;
+            endDate=dateStr;
+            //2.如果开始时间为空,则开始时间默认结束时间
+        }else if(StringUtils.isBlank(beginDate)){
+            beginDate=endDate;
+            //3.如果结束时间为空,则结束时间默认为开始时间
+        }else if(StringUtils.isBlank(endDate)){
+            endDate=beginDate;
+        }
+        params.put("beginBalanceWaterNo",beginDate.replace("-","")+"01");
+        params.put("endBalanceWaterNo",endDate.replace("-","")+"01");
+        Map<String, Object> timeMap = stSysFlowCurrentDtService.getTime(params);
         return JSON.toJSONString(timeMap);
     }
 }

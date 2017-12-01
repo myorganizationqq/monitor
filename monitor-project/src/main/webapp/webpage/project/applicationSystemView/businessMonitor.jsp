@@ -17,21 +17,28 @@
 
         <form id="businessMonitor_search_form">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td width="160">
+                    <td width="160px">
                         <select id="businessType" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
                             <option value="1" selected="selected">交易文件和数据</option>
                             <option value="2">清算子系统运行状态</option>
                             <option value="3">通信业务</option>
                         </select>
-                        
-                        <div style="display:none; margin:-22px 0 0 180px;" id="cmnc">
+                     </td>
+                    <td width="160px" style="display:none" id="cmnc">
 	                        <select id="communication" data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false" style="width:150px;">
 	                            <option value="1">消息收发</option>
 	                            <option value="2">FTP文件</option>
 	                        </select>
-                        </div>
                     </td>
+                    <td width="320px" id="dateSelectDiv">
+                            <input id="beginDate" type="text" class="easyui-datebox" currentText="Today" required="required" style="width: 110px" />
+                            -
+                            <input id="endDate" type="text" class="easyui-datebox" currentText="Today" required="required" style="width: 110px" />
+                   </td>
+                   <td align="right">
+                            <a id="searchBtn" href="javascript:void(0);" onclick="doSearch();" class="easyui-linkbutton" style="padding: 0 10px;margin-right: 20px">刷新</a>
+                   </td>
+
                 </tr>
 
             </table>
@@ -43,7 +50,7 @@
     <div class="line"></div>
     <!--gap-->
     <div class="easyui-layout" style="padding: 5px;min-height: 700px">
-        <iframe id="businessFrame" width='100%' height="600px" frameBorder='no' scrolling="auto"  src='${requestScope.basePath}webpage/project/applicationSystemView/tradeFileRptChart.jsp'></iframe>
+        <iframe id="businessFrame" name="businessFrame" width='100%' height="600px" frameBorder='no' scrolling="auto"  src='${requestScope.basePath}webpage/project/applicationSystemView/tradeFileRptChart.jsp'></iframe>
     </div>
 </div>
 </body>
