@@ -115,8 +115,8 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 				+ " GROUP BY a.LINK_IP;";
 
 		Map<String,String> t = CommonUtil.getCurrentAndPreTime();
-		String T1 = t.get("currentDay");
-		String T2 = t.get("preDay");
+		String T1 = t.get("preDay");
+		String T2 = t.get("currentDay");
 
 		sql = sql.replace("T1", T1).replace("T2", T2);
 

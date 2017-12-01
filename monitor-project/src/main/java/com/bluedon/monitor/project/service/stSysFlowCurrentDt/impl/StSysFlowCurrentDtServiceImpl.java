@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.service.stSysFlowCurrentDt.impl;
 
 import com.bluedon.monitor.common.dao.IBaseDao;
 import com.bluedon.monitor.common.util.CommonUtil;
+import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.stSysFlowCurrentDt.StSysFlowCurrentDt;
@@ -93,10 +94,11 @@ public class StSysFlowCurrentDtServiceImpl implements StSysFlowCurrentDtService{
         List <Criterion> paramList = new ArrayList <Criterion>();
 
         Map <String, String> t = CommonUtil.getCurrentAndPreTime();
-        String T1 = t.get("currentDay");
-        String T2 = t.get("preDay");
 
-        paramList.add(Restrictions.between("beginTime", T1, T2));
+        String T1 = t.get("preDay");
+        String T2 = t.get("currentDay");
+
+        paramList.add(Restrictions.between("beginTime", DateUtil.strToDate(T1,DateUtil.DATE_STYLE_TIME_1),DateUtil.strToDate(T2,DateUtil.DATE_STYLE_TIME_1)));
 
         List <StSysFlowCurrentDt> resultList = hibernateDao.findByPage(StSysFlowCurrentDt.class, paramList, (pageUtil.getPage() - 1) * pageUtil.getRows(), pageUtil.getRows(), null, null);
         return resultList;

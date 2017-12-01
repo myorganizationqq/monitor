@@ -205,8 +205,8 @@ public class CommonUtil {
         //String T1 = DateUtil.dateToString(dateTime1.toDate(), DateUtil.DATE_STYLE_TIME_1);
         // String T2 = DateUtil.dateToString(dateTime2.toDate(), DateUtil.DATE_STYLE_TIME_1);
 
-        String T1 = "2017-10-1 00:00:00";
-        String T2 = "2017-12-1 00:00:00";
+        String T2 = "2017-10-1 00:00:00";
+        String T1 = "2017-12-1 00:00:00";
         Map <String, String> map = new HashMap <>();
         map.put("currentDay", T1);
         map.put("preDay", T2);

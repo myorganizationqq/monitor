@@ -115,8 +115,9 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 		String sql1 = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=1 AND FTP_DATETIME BETWEEN 'T1' AND 'T2' GROUP BY FTP_IP;";
 
 		Map<String,String> t = CommonUtil.getCurrentAndPreTime();
-		String T1 = t.get("currentDay");
-		String T2 = t.get("preDay");
+
+		String T1 = t.get("preDay");
+		String T2 = t.get("currentDay");
 
 		sql0 = sql0.replace("T1", T1).replace("T2", T2);
 		sql1 = sql1.replace("T1", T1).replace("T2", T2);
@@ -138,7 +139,7 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			map1.put(ftpIp, num);
 		}
 
-		List<Map<String, Integer>> result = new ArrayList <>();
+		List <Map <String, Integer>> result = new ArrayList <>();
 		result.add(map0);
 		result.add(map1);
 		return result;
