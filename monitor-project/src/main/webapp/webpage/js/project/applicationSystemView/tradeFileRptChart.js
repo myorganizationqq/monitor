@@ -15,8 +15,10 @@ function init(){
     initTotalCountPie('检测对象');
     setTotalCountData();
     var flag=$("#flag").val();
+    var beginDate=getBeginDate();
+    var endDate=getEndDate();
     if (1==flag){
-        var url=basePath+'project/tradeFileRpt/tradeFileRptController.do?getChartData&wrongType=';
+        var url=basePath+'project/tradeFileRpt/tradeFileRptController.do?getChartData&beginDate='+beginDate+'&endDate='+endDate+'&wrongType=';
         for (var key in wrongTypeMap){
             var chartPillar=initPillar(key+"Pillar",wrongTypeMap[key]);
             setChartData(url+key,chartPillar);
@@ -24,7 +26,7 @@ function init(){
     }else if (2==flag){
         var chartPillar=initPillar("faultTimePillar","TOP排名 故障时间百分比排名");
         //设数据
-        var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData';
+        var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData&beginDate='+beginDate+'&endDate='+endDate;
         setChartData(url,chartPillar);
     }
 
@@ -205,7 +207,7 @@ function initPillar(chartsId,title){
             axisLabel :{
                 interval:0,
                 rotate: 40,
-                margin : 2,
+               /* margin : 2,*/
                 textStyle :{
                     fontSize:12,
                     align:'center',
@@ -294,4 +296,12 @@ function initPillar(chartsId,title){
 
 function setPillarData(pillarChart,xArr,dataArr){
     pillarChart.setOption({xAxis: {data: xArr}, series : [{data:dataArr}] });
+}
+
+function getBeginDate(){
+  return window.parent.getBeginDate();
+}
+
+function getEndDate(){
+    return window.parent.getEndDate();
 }

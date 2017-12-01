@@ -12,11 +12,11 @@ import java.util.Map;
  * @Description
  */
 public interface TradeFileRptService {
-    Map<String, Integer> getFileCountList();
-    Map<String, Integer> getHandleCountList();
-    Map<String, Integer> getWrongfulCountList();
-    Map<String, Integer> getDuplicateCountList();
-    Map<String, Integer> getNoPretreatmentCountList();
+    Map<String, Integer> getFileCountList(Map<String,Object> param);
+    Map<String, Integer> getHandleCountList(Map<String,Object> param);
+    Map<String, Integer> getWrongfulCountList(Map<String,Object> param);
+    Map<String, Integer> getDuplicateCountList(Map<String,Object> param);
+    Map<String, Integer> getNoPretreatmentCountList(Map<String,Object> param);
     TradeFileRpt getOne(long id);
     void insert(TradeFileRpt vo);
     void insertBatch(List<TradeFileRpt> vos);
