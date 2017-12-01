@@ -41,12 +41,17 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		String sql = "SELECT w.FTP_IP,w.FILENAME,COUNT(0) NUM,"
 				   + "CASE WHEN w.OPER_CODE=1 THEN '下载' ELSE '上传' END OPER_CODE,"
 				   + "CASE WHEN w.RESULT=1 THEN '成功' ELSE '失败' END RESULT "
 				   + "FROM cm_log_ftp_dt w "
 				   + "WHERE w.FTP_IP LIKE '%ftpIp%' AND w.FILENAME LIKE '%fileName%'"
-				   + (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
+				   + " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') "
 				   + "GROUP BY w.FTP_IP,w.RESULT,w.OPER_CODE LIMIT start, length;";
 		
 		Integer start = (pageUtil.getPage() - 1) * pageUtil.getRows();
@@ -60,12 +65,17 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	
 	@SuppressWarnings("unchecked")
 	public int getAllCount(CmLogFtpDT param, PageUtil pageUtil) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
 		String sql = "SELECT w.FTP_IP,w.FILENAME,COUNT(0) NUM,"
 				   + "CASE WHEN w.OPER_CODE=1 THEN '下载' ELSE '上传' END OPER_CODE,"
 				   + "CASE WHEN w.RESULT=1 THEN '成功' ELSE '失败' END RESULT "
 				   + "FROM cm_log_ftp_dt w "
 				   + "WHERE w.FTP_IP LIKE '%ftpIp%' AND w.FILENAME LIKE '%fileName%'"
-				   + (param.getDateTime1()!="" && param.getDateTime2()!="" ? " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') " : " ")
+				   + " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') "
 				   + "GROUP BY w.FTP_IP,w.RESULT,w.OPER_CODE";
 		
 		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("fileName", param.getFileName()==null ? "" : param.getFileName())
@@ -96,9 +106,14 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getTopLogFtp(int result) {
-		String sql = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=%s GROUP BY FTP_IP ORDER BY NUM DESC LIMIT 5;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, result));
+	public Map<String, Object> getTopLogFtp(CmLogFtpDT param) {
+		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
+			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
+			param.setDateTime1(map.get("currentDay"));
+			param.setDateTime2(map.get("preDay"));
+		}
+		String sql = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=%s AND FTP_DATETIME BETWEEN '%s' AND '%s' GROUP BY FTP_IP ORDER BY NUM DESC LIMIT 5;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getResult(), param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {

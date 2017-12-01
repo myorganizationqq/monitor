@@ -42,16 +42,18 @@ public class LogRecvsendController {
 	}
 	
 	@RequestMapping(params = "getChartData")
-	public @ResponseBody Map<String, Object> getChartData(@Param String wrongType) {
+	public @ResponseBody Map<String, Object> getChartData(@Param String wrongType, CmLogRecvsendDT param) {
 		Map<String, Object> map = new HashMap<>();
 		if ("sucsCount".equals(wrongType)) {
-            map = logRecvsendService.getTopLogRecvsend(0);
+			param.setResult("0");
+            map = logRecvsendService.getTopLogRecvsend(param);
         }else if("failCount".equals(wrongType)) {
-        	map = logRecvsendService.getTopLogRecvsend(1);
+        	param.setResult("1");
+        	map = logRecvsendService.getTopLogRecvsend(param);
         }else if("totalCount".equals(wrongType)) {
-        	map = logRecvsendService.getTopTotalCount();
+        	map = logRecvsendService.getTopTotalCount(param);
         }else if("maxMsgLengthCount".equals(wrongType)) {
-        	map = logRecvsendService.getTopMaxMsgLength();
+        	map = logRecvsendService.getTopMaxMsgLength(param);
         }
 		return map;
 	}

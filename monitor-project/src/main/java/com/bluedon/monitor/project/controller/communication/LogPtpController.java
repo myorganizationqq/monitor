@@ -42,12 +42,14 @@ public class LogPtpController {
 	}
 	
 	@RequestMapping(params = "getChartData")
-	public @ResponseBody Map<String, Object> getChartData(@Param String wrongType) {
+	public @ResponseBody Map<String, Object> getChartData(@Param String wrongType, CmLogFtpDT param) {
 		Map<String, Object> map = new HashMap<>();
 		if ("sucsCount".equals(wrongType)){
-            map = logFtpService.getTopLogFtp(1);
+			param.setResult("1");
+            map = logFtpService.getTopLogFtp(param);
         }else if ("failCount".equals(wrongType)){
-            map = logFtpService.getTopLogFtp(0);
+        	param.setResult("0");
+            map = logFtpService.getTopLogFtp(param);
         }
 		return map;
 	}

@@ -16,9 +16,9 @@ public interface LogRecvsendService {
 
 	List<Map<String, Object>> alarmCount();
 
-	Map<String, Object> getTopLogRecvsend(int result);
+	Map<String, Object> getTopLogRecvsend(CmLogRecvsendDT param);
 
-	Map<String, Object> getTopTotalCount();
+	Map<String, Object> getTopTotalCount(CmLogRecvsendDT param);
 
-	Map<String, Object> getTopMaxMsgLength();
+	Map<String, Object> getTopMaxMsgLength(CmLogRecvsendDT param);
 }
