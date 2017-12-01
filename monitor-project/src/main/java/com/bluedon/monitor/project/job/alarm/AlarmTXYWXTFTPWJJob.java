@@ -100,7 +100,7 @@ public class AlarmTXYWXTFTPWJJob implements Job {
 
             //无告警信息则返回
             if (StringUtil.isEmpty(alarmContent)) {
-                return;
+                continue;
             }
 
             String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
