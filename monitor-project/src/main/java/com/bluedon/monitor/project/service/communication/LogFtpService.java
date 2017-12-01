@@ -19,5 +19,5 @@ public interface LogFtpService extends IBaseService {
 	
 	Map<String, Object> getTopLogFtp(int result);
 
-	public List<Map<String, Object>> alarmCount();
+	public List<Map<String, Integer>> alarmCount();
 }

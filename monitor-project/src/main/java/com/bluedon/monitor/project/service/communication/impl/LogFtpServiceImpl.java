@@ -110,7 +110,7 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> alarmCount() {
+	public List<Map<String, Integer>> alarmCount() {
 		String sql0 = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=0 AND FTP_DATETIME BETWEEN 'T1' AND 'T2' GROUP BY FTP_IP;";
 		String sql1 = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=1 AND FTP_DATETIME BETWEEN 'T1' AND 'T2' GROUP BY FTP_IP;";
 
@@ -124,8 +124,8 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 		List<Map<String, Object>> list0 = hibernateDao.selectBySql(sql0);
 		List<Map<String, Object>> list1 = hibernateDao.selectBySql(sql1);
 
-		Map<String, Object> map0 = new HashMap<>();
-		Map<String, Object> map1 = new HashMap<>();
+		Map<String, Integer> map0 = new HashMap<>();
+		Map<String, Integer> map1 = new HashMap<>();
 
 		for (Map<String, Object> stringObjectMap : list0) {
 			String ftpIp = String.valueOf(stringObjectMap.get("FTP_IP"));
@@ -138,7 +138,7 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			map1.put(ftpIp, num);
 		}
 
-		List<Map<String, Object>> result = new ArrayList <>();
+		List<Map<String, Integer>> result = new ArrayList <>();
 		result.add(map0);
 		result.add(map1);
 		return result;

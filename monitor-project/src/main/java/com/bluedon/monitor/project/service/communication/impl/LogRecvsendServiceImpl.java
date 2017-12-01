@@ -110,7 +110,7 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 				+ " MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
 				+ " MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
 				+ " FROM (SELECT w.LINK_IP,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
-				+ " FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT ) a "
+					+ " FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT ) a "
 				+ " WHERE a.LINK_IP IS NOT NULL AND a.RECD_DATETIME BETWEEN 'T1' AND 'T2' "
 				+ " GROUP BY a.LINK_IP;";
 
