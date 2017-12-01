@@ -61,7 +61,7 @@ function init(){
 		        		  var s = ' <a href="#"  onclick="alarmEdit(\'' + idStr  + '\')">配置告警阀值</a> ';
                           var d = ' <a href="#"  onclick="alarmEditNotice(\'' + idStr + '\')">配置告警通知</a> ';
                           var e = "";
-                          if(row.alarmStatus==0){
+                          if(row.alarmStatus=='Y'){
                               e = ' <a href="#"  onclick="editAlarmStatus(\'' + row.id + '\')">关闭</a> ';
 						  }else{
                               e = ' <a href="#"  onclick="editAlarmStatus(\'' + row.id + '\')">开启</a> ';

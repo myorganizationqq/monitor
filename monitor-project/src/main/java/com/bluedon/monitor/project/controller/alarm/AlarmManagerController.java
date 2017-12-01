@@ -183,8 +183,6 @@ public class AlarmManagerController {
             alarm.setAlarmUser(param.getAlarmUser());
             alarm.setAlarmEmail(param.getAlarmEmail());
             alarm.setAlarmMessage(param.getAlarmMessage());
-            alarm.setAlarmCronTriggerStart(param.getAlarmCronTriggerStart());
-            alarm.setAlarmCronTrigger(param.getAlarmCronTrigger());
             alarm.setUpdateDate(new Date());
 
             //定时任务配置
@@ -215,12 +213,13 @@ public class AlarmManagerController {
             String alarmCronTrigger = "0 0 " +  param.getAlarmCronTriggerHour() + " * * ?";
             alarm.setAlarmCronTrigger(alarmCronTrigger);
 
-            if (alarm.getAlarmStatus().equals("Y") && !alarmCronTrigger.equals(alarm.getAlarmCronTrigger())) {
+            if (alarm.getAlarmStatus().equals("Y") && alarm.getAlarmCronTriggerHour()!=param.getAlarmCronTriggerHour()) {
                 log.debug("Alarm修改定时任务：任务名称" + jobName + "任务周期" + alarmCronTrigger);
                 AlarmJobManager.removeJob(sche, jobName);
                 AlarmJobManager.addJob(sche, jobName, jobClass, alarmCronTrigger);
             }
 
+            alarm.setAlarmCronTriggerHour(param.getAlarmCronTriggerHour());
             alarmService.update(alarm);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
