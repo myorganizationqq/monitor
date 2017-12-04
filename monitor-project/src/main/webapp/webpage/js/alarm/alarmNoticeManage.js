@@ -23,11 +23,11 @@ function init(){
 		idField:"id",
 		columns:[[//列
 		          {field:'id',hidden:true},
-            		{title:'告警类型',field:'noticeName',width:120,align:'center'},
-                    {title:'告警状态',field:'noticeStatus',width:100,align:'center'},
-			        {title:'异常指标',field:'noticeIndex',width:120,align:'center'},
+            		{title:'告警类型',field:'noticeName',width:150,align:'center'},
+                    {title:'告警状态',field:'noticeStatus',width:80,align:'center'},
+			        {title:'异常指标',field:'noticeIndex',width:200,align:'center'},
                     {title:'开始时间',field:'createDateStr',width:150,align:'center'},
-                    {title:'持续时间',field:'noticeDuration',width:150,align:'center'},
+                    {title:'持续时间',field:'noticeDuration',width:100,align:'center'},
 			        {title:'修改时间',field:'updateDateStr',width:150,align:'center'},
 		          {title:'操作',field:'operation',width:150,align:'center',
 		        	  formatter:function(value, row) {

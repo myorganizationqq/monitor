@@ -47,19 +47,6 @@
 						onclick="clean();" style="padding: 0 10px">清空</a> 						
 				</td>	
 			</tr>
-			<tr>
-				<td style="padding-left:20px;padding-top:10px;" colspan="6">		
-					<a href="javascript:void(0);" class="easyui-linkbutton"
-					    style="padding: 0 10px">全部10个</a>
-					&nbsp;
-					<a href="javascript:void(0);" class="easyui-linkbutton"
-					    style="padding: 0 10px">告警5个</a>
-					&nbsp;
-					<a href="javascript:void(0);" class="easyui-linkbutton"
-					    style="padding: 0 10px">危险5个</a>
-					&nbsp;
-				</td>
-			</tr>
 
 		</table>
 		</form>
@@ -71,7 +58,7 @@
 	<div class="line"></div>
 	<!--gap-->
 	<div class="easyui-layout" style="height: 10px"></div>
-	<div class="easyui-layout" style="height: 443px; padding: 10px">
+	<div class="easyui-layout" style="height: 600px; padding: 10px">
 		<table id="getAlarmList" >
         </table>
 	</div>

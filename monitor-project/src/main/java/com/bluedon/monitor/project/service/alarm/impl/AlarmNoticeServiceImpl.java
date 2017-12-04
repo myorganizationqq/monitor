@@ -73,6 +73,12 @@ public class AlarmNoticeServiceImpl extends BaseServiceImpl implements IAlarmNot
                         alarm.setNoticeName("通信业务系统FTP文件");
                     }
 
+                    if(alarm.getNoticeStatus().equals("0")){
+                        alarm.setNoticeStatus("未处理");
+                    }else{
+                        alarm.setNoticeStatus("已处理");
+                    }
+
                     long d = (new Date().getTime() - alarm.getCreateDate().getTime()) / (1000);
                     if (d < 3600) {
                         alarm.setNoticeDuration(String.valueOf(d / 60) + "分钟");
