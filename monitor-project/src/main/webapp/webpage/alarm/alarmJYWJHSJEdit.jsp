@@ -25,6 +25,7 @@
 			<input name="alarmUser" value="${obj.alarmUser }" type="hidden"/>
 			<input name="alarmCronTrigger" value="${obj.alarmCronTrigger }" type="hidden"/>
 			<input name="alarmCronTriggerHour" value="${obj.alarmCronTriggerHour }" type="hidden"/>
+			<input name="alarmCronTriggerStart" value="${obj.alarmCronTriggerStart }" type="hidden"/>
 			<table cellpadding="5" class="newAddOrg" width="680">
 
 				<tr>

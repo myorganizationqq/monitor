@@ -1,8 +1,10 @@
 package com.bluedon.monitor.project.job.alarm;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -34,6 +36,17 @@ public class AlarmJYZXTJob implements Job {
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         Alarm alarm = (Alarm) iAlarmNoticeManagerService.loadById(Alarm.class, 2l);
+
+        AlarmNotice notice = new AlarmNotice();
+        notice.setNoticeName(Alarm.ALARM_TYPE_JYZXT);
+        notice.setCreateDate(new Date());
+        notice.setUpdateDate(new Date());
+        notice.setNoticeStatus("0");
+        notice.setNoticeLevel("危险");
+        notice.setNoticeDuration("22小时");
+        iAlarmNoticeManagerService.add(notice);
+        if(1==1) return;
+
         if (alarm == null) {
             throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm id是否等于2");
         }
@@ -115,7 +128,8 @@ public class AlarmJYZXTJob implements Job {
                 }
             }
         }
-        
+
+
         CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
     }
 

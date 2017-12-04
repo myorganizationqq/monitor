@@ -24,9 +24,11 @@
 				<tr>
 					<td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">告警时间</td>
 					<td width="250" colspan="3">
-						告警执行时间：<input name="alarmCronTriggerHour" type="text" value="${obj.alarmCronTriggerHour}" style="height:25px;width:50px;"
+						告警执行时间：<input name="alarmCronTriggerHour" type="text" value="${obj.alarmCronTriggerHour}" style="height:25px;width:35px;"
 											class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
-					/>点钟执行一次
+					/>时<input name="alarmCronTriggerStart" type="text" value="${obj.alarmCronTriggerStart}" style="height:25px;width:35px;"
+							  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
+					/>分执行
 					</td>
 				</tr>
 

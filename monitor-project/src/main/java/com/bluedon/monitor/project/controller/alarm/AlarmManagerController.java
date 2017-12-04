@@ -148,7 +148,7 @@ public class AlarmManagerController {
 
         OperResult rs = new OperResult();
         try {
-            log.debug("alarm配置操作：修改，id=" + param.getId());
+            log.info("alarm配置操作：修改，id=" + param.getId());
             param.setUpdateDate(new Date());
             alarmService.update(param);
 
@@ -178,7 +178,7 @@ public class AlarmManagerController {
 
         OperResult rs = new OperResult();
         try {
-            log.debug("修改告警通知操作：修改，id=" + param.getId());
+            log.info("修改告警通知操作：修改，id=" + param.getId());
             Alarm alarm = (Alarm) alarmService.loadById(Alarm.class, param.getId());
             alarm.setAlarmUser(param.getAlarmUser());
             alarm.setAlarmEmail(param.getAlarmEmail());
@@ -210,16 +210,18 @@ public class AlarmManagerController {
                 throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
             }
 
-            String alarmCronTrigger = "0 0 " +  param.getAlarmCronTriggerHour() + " * * ?";
-            alarm.setAlarmCronTrigger(alarmCronTrigger);
+            String alarmCronTrigger = "0 "+ param.getAlarmCronTriggerStart()+" " +  param.getAlarmCronTriggerHour() + " * * ?";
 
-            if (alarm.getAlarmStatus().equals("Y") && alarm.getAlarmCronTriggerHour()!=param.getAlarmCronTriggerHour()) {
-                log.debug("Alarm修改定时任务：任务名称" + jobName + "任务周期" + alarmCronTrigger);
+
+            if (alarm.getAlarmStatus().equals("Y") && !alarm.getAlarmCronTrigger().equals(alarmCronTrigger)) {
+                log.info("Alarm修改定时任务：任务名称" + jobName + "任务周期" + alarmCronTrigger);
                 AlarmJobManager.removeJob(sche, jobName);
                 AlarmJobManager.addJob(sche, jobName, jobClass, alarmCronTrigger);
             }
 
+            alarm.setAlarmCronTrigger(alarmCronTrigger);
             alarm.setAlarmCronTriggerHour(param.getAlarmCronTriggerHour());
+            alarm.setAlarmCronTriggerStart(param.getAlarmCronTriggerStart());
             alarmService.update(alarm);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
@@ -275,17 +277,17 @@ public class AlarmManagerController {
             if (alarm.getAlarmStatus().equals("Y")) {
                 alarm.setAlarmStatus("N");
 
-                log.debug("Alarm关闭定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
+                log.info("Alarm关闭定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
                 AlarmJobManager.removeJob(sche, jobName);
             } else {
                 alarm.setAlarmStatus("Y");
 
-                log.debug("Alarm启动定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
+                log.info("Alarm启动定时任务：任务名称" + jobName + "任务周期" + alarm.getAlarmCronTrigger());
                 AlarmJobManager.addJob(sche, jobName, jobClass, alarm.getAlarmCronTrigger());
             }
             alarmService.update(alarm);
 
-            log.debug("修改告警状态操作操作：id=" + param.getId());
+            log.info("修改告警状态操作操作：id=" + param.getId());
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
             rs.setMsg("操作成功");
         } catch (Exception e) {

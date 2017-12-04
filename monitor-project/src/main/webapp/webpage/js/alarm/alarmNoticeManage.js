@@ -5,8 +5,9 @@ $(function(){
 function init(){
 	//获取查询框的值
 	var qParams={
-			//'alarmName':$('#alarmName').val(),
-			//'alarmType':$('#alarmType').combobox("getValue")
+			'createDateStr':$("#beginDate").datebox('getValue'),
+			'updateDateStr':$('#endDate').datebox('getValue'),
+			'noticeName':$('#noticeName').combobox("getValue")
 	};
 
 	//表单信息
@@ -24,17 +25,15 @@ function init(){
 		          {field:'id',hidden:true},
                     {title:'告警级别',field:'noticeLevel',width:100,align:'center'},
                     {title:'告警状态',field:'noticeStatus',width:100,align:'center'},
-                    {title:'设备名称',field:'noticeName',width:100,align:'center'},
-                    {title:'监测指标',field:'noticeType',width:100,align:'center'},
-                    {title:'告警原因',field:'noticeReason',width:100,align:'center'},
+                    {title:'告警类型',field:'noticeName',width:100,align:'center'},
                     {title:'开始时间',field:'createDateStr',width:100,align:'center'},
                     {title:'持续时间',field:'noticeDuration',width:100,align:'center'},
 			        {title:'修改时间',field:'updateDateStr',width:100,align:'center'},
-		          {title:'操作',field:'operation',width:150,align:'center',
+		          {title:'操作',field:'operation',width:200,align:'center',
 		        	  formatter:function(value, row) {
-						  var idStr = 1;
-		        		  var s = ' <a href="#"  onclick="alarmEdit(\'' + idStr  + '\')">配置告警阀值</a> ';
-                          var d = ' <a href="#"  onclick="alarmEditNotice(\'' + idStr + '\')">配置告警通知</a> ';
+						  var id = row.id;
+		        		  var s = ' <a href="#"  onclick="toDetail(\'' + id  + '\')">详情</a> ';
+                          var d = ' <a href="#"  onclick="toEdit(\'' + id + '\')">处理</a> ';
 
 
 		        		  return s +"&nbsp;"+ d;
@@ -64,22 +63,12 @@ function clean(){
 
 
 //修改告警配置
-function alarmEdit(idStr){
-	var idArr = idStr.split(",");
-	var id = idArr[0];
-	var alarmType = idArr[1];
-	var title = "";
-	if(alarmType=='JYZXT'){
-		title = '交易子系统告警配置';
-	}else if(alarmType=='JYWJHSJ'){
-        title = '交易文件和数据告警配置';
-	}else{
-        title = '通信业务系统告警配置';
-	}
+function toDetail(id){
+
     $(this).amsWindow({
         container : 'editWindow',
         type : 'add',
-        url : basePath+'alarm/alarmNoticeManagerController.do?toEdit&id='+id,
+        url : basePath+'alarm/alarmNoticeManagerController.do?toDetail&id='+id,
         title : title,
         width : 730,
         height : 550,
@@ -87,41 +76,16 @@ function alarmEdit(idStr){
     });
 }
 
-//修改告警状态
-function editAlarmStatus(id){
-    $.messager.confirm('系统提示', '修改告警状态？', function(data) {
-        if (data) {
-            $.post(basePath + "alarm/alarmNoticeManagerController.do?editAlarmStatus", {id: id}, function (data) {
-                $.messager.alert('提示', unescape(data.msg));
-                init();
-            }, 'json');
-        }
-    });
-
-}
-
-//修改告警通知配置
-function alarmEditNotice(idStr){
-
-    var idArr = idStr.split(",");
-    var id = idArr[0];
-    var alarmType = idArr[1];
-    var title = "";
-    if(alarmType=='JYZXT'){
-        title = '交易子系统告警通知';
-    }else if(alarmType=='JYWJHSJ'){
-        title = '交易文件和数据告警通知';
-    }else{
-        title = '通信业务系统告警通知';
-    }
+//修改告警配置
+function toEdit(id){
 
     $(this).amsWindow({
-        container : 'editNoticeWindow',
+        container : 'editWindow',
         type : 'add',
-        url : basePath+'alarm/alarmNoticeManagerController.do?toEditNotice&id='+id,
+        url : basePath+'alarm/alarmNoticeManagerController.do?toEdit&id='+id,
         title : title,
-        width : 600,
-        height : 500,
+        width : 730,
+        height : 550,
         top : '10%'
     });
 }

@@ -67,21 +67,6 @@ public class AlarmNoticeManagerController {
     }
 
     /**
-     * 跳转新增页面
-     *
-     * @param req
-     * @return
-     */
-    @RequestMapping(params = "toAdd")
-    public ModelAndView toAdd(Alarm param, HttpServletRequest req) {
-        if (StringUtil.isEmpty(param.getAlarmType())) {
-            throw new IllegalArgumentException("告警配置新增告警配置类型不能为空");
-        }
-
-        return new ModelAndView("alarm/alarm" + param.getAlarmType() + "Edit");
-    }
-
-    /**
      * 跳转编辑页面
      *
      * @param param
