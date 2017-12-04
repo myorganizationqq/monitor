@@ -128,7 +128,7 @@ public class AlarmJYWJHSJJob implements Job {
 
 
             AlarmNotice notice = new AlarmNotice();
-            notice.setNoticeIndex("3个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+            notice.setNoticeIndex("3个指标，"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
             notice.setNoticeReason(content);
             notice.setNoticeName(Alarm.ALARM_TYPE_JYWJHSJ);
             notice.setCreateDate(new Date());

@@ -137,7 +137,7 @@ public class AlarmTXYWXTXXSFJob implements Job {
             }
 
             AlarmNotice notice = new AlarmNotice();
-            notice.setNoticeIndex(result.size()+"个ip"+result.size()*4+"个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+            notice.setNoticeIndex(result.size()+"个ip地址，"+result.size()*4+"个指标，"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
             notice.setNoticeReason(content);
             notice.setNoticeName(Alarm.ALARM_TYPE_TXYWXTXXSF);
             notice.setCreateDate(new Date());

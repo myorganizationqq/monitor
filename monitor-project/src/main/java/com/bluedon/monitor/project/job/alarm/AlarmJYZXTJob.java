@@ -119,7 +119,7 @@ public class AlarmJYZXTJob implements Job {
         }
 
         AlarmNotice notice = new AlarmNotice();
-        notice.setNoticeIndex("30个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+        notice.setNoticeIndex("30个指标，"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
         notice.setNoticeReason(content);
         notice.setNoticeName(Alarm.ALARM_TYPE_JYZXT);
         notice.setCreateDate(new Date());
