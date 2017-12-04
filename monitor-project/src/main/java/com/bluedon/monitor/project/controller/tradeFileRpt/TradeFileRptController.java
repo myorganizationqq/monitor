@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
-import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
+import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.system.model.util.ComboBox;
 import com.bluedon.monitor.system.util.ConstantUtil;
@@ -54,19 +54,24 @@ public class TradeFileRptController {
      * @param rsp
      */
     @RequestMapping(params="getPageList")
-    public void pageList(TradeFileRpt param, PageUtil pageUtil, HttpServletRequest req, HttpServletResponse rsp){
+    public void pageList(TradeFileRptVO param, PageUtil pageUtil, HttpServletRequest req, HttpServletResponse rsp){
 
         log.debug("获取参数:"+ CommonUtil.Object2String(param));
         log.debug("获取分页:"+CommonUtil.Object2String(pageUtil));
+        String beginDate=param.getBeginDate();
+        String endDate=param.getEndDate();
 
-        //参数解码
-     /*   ModelMapper mapper = ModelMapperFactory.getModelMapper(param);
-        Object obj = mapper.decodeModel(null);
-        TradeFileRpt modelParam = null;
-        if(obj instanceof TradeFileRpt){
-            modelParam = (TradeFileRpt)obj;
+        //1.如果开始时间为空,则开始时间默认结束时间
+        if(StringUtils.isBlank(beginDate)){
+            beginDate=endDate;
+            //3.如果结束时间为空,则结束时间默认为开始时间
+        }else if(StringUtils.isBlank(endDate)) {
+            endDate = beginDate;
         }
-*/
+        if(StringUtils.isNotBlank(beginDate)){
+            param.setBeginDate(beginDate.replace("-","")+"01");
+            param.setEndDate(endDate.replace("-","")+"01");
+        }
         //获取分页数据
         pageUtil = this.tradeFileRptService.getPageList(param, pageUtil);
 

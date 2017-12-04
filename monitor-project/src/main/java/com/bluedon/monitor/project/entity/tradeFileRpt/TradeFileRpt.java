@@ -30,6 +30,7 @@ public class TradeFileRpt extends BaseEntity {
     private int duplicateCount;
     /*无法预处理的数据*/
     private int noPretreatmentCount;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {

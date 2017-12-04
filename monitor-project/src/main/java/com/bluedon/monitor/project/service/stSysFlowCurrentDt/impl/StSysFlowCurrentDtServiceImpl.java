@@ -6,6 +6,7 @@ import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.stSysFlowCurrentDt.StSysFlowCurrentDt;
+import com.bluedon.monitor.project.model.stSysFlowCurrentDt.StSysFlowCurrentDtVO;
 import com.bluedon.monitor.project.service.stSysFlowCurrentDt.StSysFlowCurrentDtService;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
@@ -40,11 +41,14 @@ public class StSysFlowCurrentDtServiceImpl implements StSysFlowCurrentDtService{
         return null;
     }
     @Override
-    public PageUtil getPageList(StSysFlowCurrentDt param, PageUtil pageUtil) {
+    public PageUtil getPageList(StSysFlowCurrentDtVO param, PageUtil pageUtil) {
         //查询参数构造
         List<Criterion> paramList = new ArrayList<Criterion>();
         if(!StringUtil.isEmpty(param.getFinishFlag())){
             paramList.add(Restrictions.eq("finishFlag", param.getFinishFlag()));
+        }
+        if(!StringUtil.isEmpty(param.getBeginDate())&&!StringUtil.isEmpty(param.getEndDate())){
+            paramList.add(Restrictions.between("balanceWaterNo",param.getBeginDate(),param.getEndDate()));
         }
         List<Order> orders = new ArrayList<>();
         orders.add(Order.desc("balanceWaterNo"));

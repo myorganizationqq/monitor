@@ -5,6 +5,7 @@ import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
+import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.project.service.transferTable.impl.TransferTableServiceImpl;
 import org.apache.log4j.Logger;
@@ -163,11 +164,14 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
     }
 
     @Override
-    public PageUtil getPageList(TradeFileRpt param, PageUtil pageUtil) {
+    public PageUtil getPageList(TradeFileRptVO param, PageUtil pageUtil) {
         //查询参数构造
         List<Criterion> paramList = new ArrayList<Criterion>();
         if(!StringUtil.isEmpty(param.getFileType())){
             paramList.add(Restrictions.eq("fileType", param.getFileType()));
+        }
+        if(!StringUtil.isEmpty(param.getBeginDate())&&!StringUtil.isEmpty(param.getEndDate())){
+            paramList.add(Restrictions.between("balanceWaterNo",param.getBeginDate(),param.getEndDate()));
         }
         List<Order> orders = new ArrayList<>();
         orders.add(Order.desc("balanceWaterNo"));

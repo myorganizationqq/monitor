@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.service.stSysFlowCurrentDt;
 
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.stSysFlowCurrentDt.StSysFlowCurrentDt;
+import com.bluedon.monitor.project.model.stSysFlowCurrentDt.StSysFlowCurrentDtVO;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public interface StSysFlowCurrentDtService {
      List<StSysFlowCurrentDt> getPageList();
-     PageUtil getPageList(StSysFlowCurrentDt param, PageUtil pageUtil);
+     PageUtil getPageList(StSysFlowCurrentDtVO param, PageUtil pageUtil);
      Map<String,Object> getTime(Map<String,Object> param);
 
      /**

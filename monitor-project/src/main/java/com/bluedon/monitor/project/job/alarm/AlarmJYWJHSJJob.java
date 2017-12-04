@@ -6,11 +6,10 @@ package com.bluedon.monitor.project.job.alarm;
 
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
-import com.bluedon.monitor.common.util.SendMailUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
-import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
+import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.system.entity.TbCommonUser;
@@ -19,11 +18,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +49,7 @@ public class AlarmJYWJHSJJob implements Job {
 
         PageUtil pageUtil = new PageUtil();
         pageUtil.setRows(Integer.MAX_VALUE);
-        pageUtil = tradeFileRptService.getPageList(new TradeFileRpt(), pageUtil);
+        pageUtil = tradeFileRptService.getPageList(new TradeFileRptVO(), pageUtil);
         List <TradeFileRpt> resultList = (List <TradeFileRpt>) pageUtil.getResultList();
 
         for (TradeFileRpt t : resultList) {

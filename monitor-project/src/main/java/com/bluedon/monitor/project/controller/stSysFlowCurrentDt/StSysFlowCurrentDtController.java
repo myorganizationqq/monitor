@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.PageUtil;
-import com.bluedon.monitor.common.util.model.ModelMapper;
-import com.bluedon.monitor.common.util.model.ModelMapperFactory;
-import com.bluedon.monitor.project.entity.stSysFlowCurrentDt.StSysFlowCurrentDt;
+import com.bluedon.monitor.project.model.stSysFlowCurrentDt.StSysFlowCurrentDtVO;
 import com.bluedon.monitor.project.service.stSysFlowCurrentDt.StSysFlowCurrentDtService;
 import com.bluedon.monitor.system.model.util.ComboBox;
 import com.bluedon.monitor.system.util.ConstantUtil;
@@ -56,21 +54,35 @@ public class StSysFlowCurrentDtController {
      * @param rsp
      */
     @RequestMapping(params="getPageList")
-    public void pageList(StSysFlowCurrentDt param, PageUtil pageUtil, HttpServletRequest req, HttpServletResponse rsp){
+    public void pageList(StSysFlowCurrentDtVO param, PageUtil pageUtil, HttpServletRequest req, HttpServletResponse rsp){
 
         log.debug("获取参数:"+ CommonUtil.Object2String(param));
         log.debug("获取分页:"+CommonUtil.Object2String(pageUtil));
 
         //参数解码
-        ModelMapper mapper = ModelMapperFactory.getModelMapper(param);
+       /* ModelMapper mapper = ModelMapperFactory.getModelMapper(param);
         Object obj = mapper.decodeModel(null);
         StSysFlowCurrentDt modelParam = null;
         if(obj instanceof StSysFlowCurrentDt){
             modelParam = (StSysFlowCurrentDt)obj;
+        }*/
+        String beginDate=param.getBeginDate();
+        String endDate=param.getEndDate();
+
+        //1.如果开始时间为空,则开始时间默认结束时间
+        if(StringUtils.isBlank(beginDate)){
+            beginDate=endDate;
+            //3.如果结束时间为空,则结束时间默认为开始时间
+        }else if(StringUtils.isBlank(endDate)) {
+            endDate = beginDate;
+        }
+        if(StringUtils.isNotBlank(beginDate)){
+            param.setBeginDate(beginDate.replace("-","")+"01");
+            param.setEndDate(endDate.replace("-","")+"01");
         }
 
         //获取分页数据
-        pageUtil = this.stSysFlowCurrentDtService.getPageList(modelParam, pageUtil);
+        pageUtil = this.stSysFlowCurrentDtService.getPageList(param, pageUtil);
 
         //返回分页数据
         ToolUtil.getDataGrid(rsp, pageUtil.getResultList(), pageUtil.getTotalRecordNumber());
@@ -115,4 +127,5 @@ public class StSysFlowCurrentDtController {
         Map<String, Object> timeMap = stSysFlowCurrentDtService.getTime(params);
         return JSON.toJSONString(timeMap);
     }
+
 }

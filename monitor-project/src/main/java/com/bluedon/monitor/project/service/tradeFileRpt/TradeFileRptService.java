@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.service.tradeFileRpt;
 
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
+import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,5 @@ public interface TradeFileRptService {
     void update(TradeFileRpt vo);
     List<TradeFileRpt> packageTradeFileRptVOs(String balanceWaterNo);
 
-    PageUtil getPageList(TradeFileRpt param, PageUtil pageUtil);
+    PageUtil getPageList(TradeFileRptVO param, PageUtil pageUtil);
 }

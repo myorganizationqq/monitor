@@ -1,17 +1,48 @@
 var fileTypeArr=[];
 var statArr=[];
+var beginTime=0;
+var endTime=0;
 //默认执行查询方法
 $(document).ready(function() {
     getFileType();
-    doSearch();
+    initDate();
+    //doSearch();
 });
+
+function initDate(){
+    //日期控制扩展选择日期小于等于当前日期，开始日期小于等于结束日期
+    $("#beginDate").datebox({
+        onSelect: function(date){
+            var temp=date.getTime();
+            if((endTime > 0) && (temp > endTime)){
+                $.messager.alert('提示',"不能大于结束时间");
+                $('#beginDate').datebox('setValue', '');
+                return false;
+            }
+            beginTime=temp;
+        }
+    });
+    $("#endDate").datebox({
+        onSelect: function(date){
+            var temp=date.getTime();
+            if(temp < beginTime){
+                $.messager.alert('提示',"不能小于开始时间");
+                $('#endDate').datebox('setValue', '');
+                return false;
+            }
+            endTime=temp;
+        }
+    });
+}
 
 //查询
 function search(){
 
     //获取查询框的值
     var qParams={
-        'fileType':$('#fileType').combobox('getValue')
+        'fileType':$('#fileType').combobox('getValue'),
+        'beginDate':$("#beginDate").datebox('getValue'),
+        'endDate':$("#endDate").datebox('getValue')
     };
     //表单信息
     $("#getList").datagrid({
