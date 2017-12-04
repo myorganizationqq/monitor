@@ -5,9 +5,9 @@ package com.bluedon.monitor.project.job.alarm;
  */
 
 import com.bluedon.monitor.common.util.CommonUtil;
-import com.bluedon.monitor.common.util.DateUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
+import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import com.bluedon.monitor.system.entity.TbCommonUser;
@@ -135,6 +135,15 @@ public class AlarmTXYWXTXXSFJob implements Job {
                     }
                 }
             }
+
+            AlarmNotice notice = new AlarmNotice();
+            notice.setNoticeIndex(result.size()+"个ip"+result.size()*4+"个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+            notice.setNoticeReason(content);
+            notice.setNoticeName(Alarm.ALARM_TYPE_TXYWXTXXSF);
+            notice.setCreateDate(new Date());
+            notice.setUpdateDate(new Date());
+            notice.setNoticeStatus("0");
+            iAlarmNoticeManagerService.add(notice);
             CommonUtil.sendAlarm(head, content, phoneUser,emailUser);
         }
 

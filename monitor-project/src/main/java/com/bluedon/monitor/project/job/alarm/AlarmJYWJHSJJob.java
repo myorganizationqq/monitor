@@ -8,6 +8,7 @@ import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
+import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -125,6 +127,14 @@ public class AlarmJYWJHSJJob implements Job {
             }
 
 
+            AlarmNotice notice = new AlarmNotice();
+            notice.setNoticeIndex("3个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+            notice.setNoticeReason(content);
+            notice.setNoticeName(Alarm.ALARM_TYPE_JYWJHSJ);
+            notice.setCreateDate(new Date());
+            notice.setUpdateDate(new Date());
+            notice.setNoticeStatus("0");
+            iAlarmNoticeManagerService.add(notice);
             CommonUtil.sendAlarm(head, content, phoneUser,emailUser);
 
 

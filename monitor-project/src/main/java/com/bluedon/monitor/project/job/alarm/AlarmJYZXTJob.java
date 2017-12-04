@@ -36,17 +36,6 @@ public class AlarmJYZXTJob implements Job {
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         Alarm alarm = (Alarm) iAlarmNoticeManagerService.loadById(Alarm.class, 2l);
-
-        AlarmNotice notice = new AlarmNotice();
-        notice.setNoticeName(Alarm.ALARM_TYPE_JYZXT);
-        notice.setCreateDate(new Date());
-        notice.setUpdateDate(new Date());
-        notice.setNoticeStatus("0");
-        notice.setNoticeLevel("危险");
-        notice.setNoticeDuration("22小时");
-        iAlarmNoticeManagerService.add(notice);
-        if(1==1) return;
-
         if (alarm == null) {
             throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm id是否等于2");
         }
@@ -129,6 +118,14 @@ public class AlarmJYZXTJob implements Job {
             }
         }
 
+        AlarmNotice notice = new AlarmNotice();
+        notice.setNoticeIndex("30个指标。"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
+        notice.setNoticeReason(content);
+        notice.setNoticeName(Alarm.ALARM_TYPE_JYZXT);
+        notice.setCreateDate(new Date());
+        notice.setUpdateDate(new Date());
+        notice.setNoticeStatus("0");
+        iAlarmNoticeManagerService.add(notice);
 
         CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
     }

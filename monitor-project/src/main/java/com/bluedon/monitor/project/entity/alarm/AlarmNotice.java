@@ -30,9 +30,9 @@ public class AlarmNotice extends BaseEntity{
     private int id;
 
     /**
-     * 告警级别
+     * 告警指标
      */
-    private String noticeLevel;
+    private String noticeIndex;
 
     /**
      * 告警状态
@@ -94,8 +94,8 @@ public class AlarmNotice extends BaseEntity{
     @Transient
     private String noticeDuration;
 
-    public void setNoticeLevel(String noticeLevel) {
-        this.noticeLevel = noticeLevel;
+    public void setNoticeIndex(String noticeIndex) {
+        this.noticeIndex = noticeIndex;
     }
 
     public void setNoticeStatus(String noticeStatus) {
@@ -126,9 +126,9 @@ public class AlarmNotice extends BaseEntity{
         this.noticeDuration = noticeDuration;
     }
 
-    @Column(name = "notice_level")
-    public String getNoticeLevel() {
-        return noticeLevel;
+    @Column(name = "notice_index")
+    public String getNoticeIndex() {
+        return noticeIndex;
     }
     @Column(name = "notice_status")
     public String getNoticeStatus() {
