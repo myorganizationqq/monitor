@@ -16,7 +16,7 @@ function init(){
 		pageNumber:1,           //默认显示第一页
 		rownumbers:true,	    //行号
 		singleSelect:true,      //单选
-		url:basePath+'alarm/alarmNoticeManagerController.do?getAlarmList',  //数据源
+		url:basePath+'alarm/alarmNoticeManagerController.do?getAlarmList&noticeStatus='+noticeStatus,  //数据源
 		queryParams:qParams,//查询框内容
 		fit:true,
 		fitColumns:true,
@@ -25,7 +25,7 @@ function init(){
 		          {field:'id',hidden:true},
             		{title:'告警类型',field:'noticeName',width:150,align:'center'},
                     {title:'告警状态',field:'noticeStatus',width:80,align:'center'},
-			        {title:'异常指标',field:'noticeIndex',width:200,align:'center'},
+			        {title:'监测指标',field:'noticeIndex',width:200,align:'center'},
                     {title:'开始时间',field:'createDateStr',width:150,align:'center'},
                     {title:'持续时间',field:'noticeDuration',width:100,align:'center'},
 			        {title:'修改时间',field:'updateDateStr',width:150,align:'center'},
@@ -66,12 +66,12 @@ function clean(){
 function toDetail(id){
 
     $(this).amsWindow({
-        container : 'editWindow',
+        container : 'detailWindow',
         type : 'add',
         url : basePath+'alarm/alarmNoticeManagerController.do?toDetail&id='+id,
-        title : title,
+        title : "告警详情",
         width : 730,
-        height : 550,
+        height : 400,
         top : '10%'
     });
 }
@@ -83,7 +83,7 @@ function toEdit(id){
         container : 'editWindow',
         type : 'add',
         url : basePath+'alarm/alarmNoticeManagerController.do?toEdit&id='+id,
-        title : title,
+        title : "告警处理",
         width : 730,
         height : 550,
         top : '10%'

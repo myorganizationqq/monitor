@@ -54,7 +54,6 @@ public class AlarmServiceImpl extends BaseServiceImpl implements IAlarmManagerSe
 
 
 		List<Order> order=new ArrayList<Order>();
-		//order.add(Order.asc("createTime"));
 
 		//获取总记录数
 		int count = this.hibernateDao.getCount(Alarm.class, paramList,null);

@@ -44,7 +44,8 @@ public class AlarmNoticeManagerController {
      * @return
      */
     @RequestMapping(params = "toPageList")
-    public ModelAndView toPageList(HttpServletRequest req) {
+    public ModelAndView toPageList(String noticeStatus,HttpServletRequest req) {
+        req.setAttribute("noticeStatus",noticeStatus);
         return new ModelAndView("alarm/alarmNoticeManage");
     }
 
@@ -73,35 +74,15 @@ public class AlarmNoticeManagerController {
      * @param req
      * @return
      */
-    @RequestMapping(params = "toEdit")
-    public ModelAndView toEdit(AlarmNotice param, HttpServletRequest req) {
+    @RequestMapping(params = "toDetail")
+    public ModelAndView toDetail(AlarmNotice param, HttpServletRequest req) {
         if (param.getId() == 0) {
-            throw new IllegalArgumentException("告警配置编辑跳转id不能为空");
+            throw new IllegalArgumentException("告警通知详情跳转id不能为空");
         }
-        AlarmNotice alarm = (AlarmNotice) alarmNoticeService.loadById(Alarm.class, param.getId());
+        AlarmNotice alarm = (AlarmNotice) alarmNoticeService.loadById(AlarmNotice.class, param.getId());
 
         req.setAttribute("obj", alarm);
-        return new ModelAndView("alarm/alarmNoticeEdit");
-
-    }
-
-    /**
-     * 跳转告警通知页面
-     *
-     * @param param
-     * @param req
-     * @return
-     */
-    @RequestMapping(params = "toEditNotice")
-    public ModelAndView toEditNotice(Alarm param, HttpServletRequest req) {
-        if (param.getId() == 0) {
-            throw new IllegalArgumentException("告警通知编辑跳转id不能为空");
-        }
-        Alarm alarm = (Alarm) alarmNoticeService.loadById(Alarm.class, param.getId());
-
-        req.setAttribute("obj", alarm);
-        return new ModelAndView("alarm/alarmNoticeEdit");
-
+        return new ModelAndView("alarm/noticeDetail");
 
     }
 

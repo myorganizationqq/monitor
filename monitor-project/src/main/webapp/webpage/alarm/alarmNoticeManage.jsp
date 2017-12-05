@@ -65,4 +65,8 @@
 </div>
 
 </body>
+<script type="text/javascript">
+
+	var noticeStatus = "${noticeStatus}";
+</script>
 </html>

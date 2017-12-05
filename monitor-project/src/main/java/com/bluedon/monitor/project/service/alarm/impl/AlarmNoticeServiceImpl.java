@@ -48,9 +48,21 @@ public class AlarmNoticeServiceImpl extends BaseServiceImpl implements IAlarmNot
             paramList.add(Restrictions.like("noticeName", param.getNoticeName(), MatchMode.ANYWHERE));
         }
 
+        if (!StringUtil.isEmpty(param.getNoticeStatus())) {
+            paramList.add(Restrictions.eq("noticeStatus", param.getNoticeStatus()));
+        }
+
+        if (!StringUtil.isEmpty(param.getCreateDateStr())) {
+            paramList.add(Restrictions.gt("createDate", DateUtil.strToDate(param.getCreateDateStr(), DateUtil.DATE_STYLE_DATE_1)));
+        }
+
+        if (!StringUtil.isEmpty(param.getUpdateDateStr())) {
+            paramList.add(Restrictions.lt("createDate", DateUtil.strToDate(param.getUpdateDateStr(), DateUtil.DATE_STYLE_DATE_1)));
+        }
+
 
         List <Order> order = new ArrayList <Order>();
-        order.add(Order.asc("updateDate"));
+        order.add(Order.desc("createDate"));
 
         //获取总记录数
         int count = this.hibernateDao.getCount(AlarmNotice.class, paramList, null);
@@ -73,9 +85,9 @@ public class AlarmNoticeServiceImpl extends BaseServiceImpl implements IAlarmNot
                         alarm.setNoticeName("通信业务系统FTP文件");
                     }
 
-                    if(alarm.getNoticeStatus().equals("0")){
-                        alarm.setNoticeStatus("未处理");
-                    }else{
+                    if (alarm.getNoticeStatus().equals("0")) {
+                        alarm.setNoticeStatus("待处理");
+                    } else {
                         alarm.setNoticeStatus("已处理");
                     }
 
