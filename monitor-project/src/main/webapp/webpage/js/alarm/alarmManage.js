@@ -22,9 +22,9 @@ function init(){
 		idField:"id",
 		columns:[[//列
 		          {field:'id',hidden:true},
-		          {title:'告警名称',field:'alarmName',width:100,align:'center'},
+		          {title:'告警名称',field:'alarmName',width:120,align:'center'},
 					{
-						title: '告警状态', field: 'alarmStatus', width: 70, align: 'center',
+						title: '告警状态', field: 'alarmStatus', width: 50, align: 'center',
 						formatter: function (value, row) {
 							var e = "";
 							if (row.alarmStatus == 'Y') {
@@ -36,7 +36,7 @@ function init(){
 						}
 					},
 			      {title:'修改时间',field:'updateDateStr',width:100,align:'center'},
-			      {title:'告警方式',field:'alarmType',width:100,align:'center',
+			      {title:'告警方式',field:'alarmType',width:60,align:'center',
                       formatter: function (value, row) {
                           var e = "";
 
@@ -55,7 +55,7 @@ function init(){
                           return e;
                       }
                   },
-            	  {title:'告警时间',field:'alarmCronTrigger',width:80,align:'center'},
+            	  {title:'告警时间',field:'alarmCronTrigger',width:60,align:'center'},
 		          {title:'操作',field:'operation',width:150,align:'center',
 		        	  formatter:function(value, row) {
 						  var idStr = row.id+","+row.alarmType;
