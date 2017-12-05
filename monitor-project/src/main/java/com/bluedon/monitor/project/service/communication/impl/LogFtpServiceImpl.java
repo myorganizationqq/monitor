@@ -157,7 +157,7 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getStatisticData(String noticeName,String beginDate,String endDate) {
+	public Map<String, Integer> getStatisticData(String noticeName,String beginDate,String endDate) {
 		String sql = "SELECT notice_index FROM alarm_notice WHERE notice_name = 'tN' AND DATE_FORMAT(DATE_ADD(create_date,INTERVAL -1 DAY),'%Y-%m-%d') BETWEEN 'T1' AND 'T2'";
 		List<Map<String, Object>> list = hibernateDao.selectBySql(sql.replace("tN", noticeName).replace("T1", beginDate).replace("T2", endDate));
         HashMap<String, Integer> dataMap = new HashMap<>();
@@ -178,7 +178,7 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
                 }
             }
         }
-		return null;
+		return dataMap;
 	}
 	
 	

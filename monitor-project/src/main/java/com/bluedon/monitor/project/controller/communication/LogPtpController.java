@@ -55,7 +55,7 @@ public class LogPtpController {
 	}
 	
 	@RequestMapping(params = "getPieData")
-	public @ResponseBody Map<String, Object> getPieData(@Param String noticeName,@Param String beginDate,@Param String endDate) {
+	public @ResponseBody Map<String, Integer> getPieData(@Param String noticeName,@Param String beginDate,@Param String endDate) {
 		return logFtpService.getStatisticData(noticeName, beginDate, endDate);
 	}
 	

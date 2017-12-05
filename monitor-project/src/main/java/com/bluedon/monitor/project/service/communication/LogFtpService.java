@@ -21,5 +21,5 @@ public interface LogFtpService extends IBaseService {
 
 	public List<Map<String, Integer>> alarmCount();
 	
-	Map<String, Object> getStatisticData(String noticeName,String beginDate,String endDate);
+	Map<String, Integer> getStatisticData(String noticeName,String beginDate,String endDate);
 }
