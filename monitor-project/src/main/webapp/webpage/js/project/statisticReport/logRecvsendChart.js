@@ -16,7 +16,6 @@ $(document).ready(function() {
 })
 
 function init() {
-	initTotalCountPie('检测对象');
 	setTotalCountData();
 	
 	var flag = $("#flag").val();
@@ -31,7 +30,6 @@ function init() {
 }
 
 function setChartData(url, chartPillar) {
-	console.log('url', url);
 	$.ajax({
 		type : "POST",
 		url : url,
@@ -263,23 +261,28 @@ function setPieData(pieChart, seriesData) {
 
 function setTotalCountData() {
 	$.ajax({
-				type : "POST",
-				url : basePath
-						+ 'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData',
-				dataType : 'json',
-				scriptCharset : 'utf-8',
-				data : {},
-				success : function(result) {
-					var dataArr = new Array();
-					for ( var key in result) {
-						dataArr.push({
-							value : result[key],
-							name : key + ":" + result[key] + "个"
-						})
-					}
-					setPieData(totalCountPie, dataArr);
+		type : "POST",
+		url : basePath + 'communication/logRecvsend.do?getPieData',
+		dataType : 'json',
+	    scriptCharset : 'utf-8',
+		data : {},
+		success : function(result) {
+			var text = '';
+			var dataArr = new Array();
+			for (var key in result) {
+				if(key == 'ip地址' || key == '指标') {
+					text += key + ":" + result[key] + "个\n";
+					continue;
 				}
-			});
+				dataArr.push({
+					value : result[key],
+					name : key + ":" + result[key] + "个"
+				})
+			}
+			initTotalCountPie(text);
+			setPieData(totalCountPie, dataArr);
+		}
+	});
 }
 
 function setPillarData(pillarChart, xArr, dataArr) {

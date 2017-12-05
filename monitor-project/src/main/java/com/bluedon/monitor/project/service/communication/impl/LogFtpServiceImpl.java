@@ -154,6 +154,25 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 		result.add(map1);
 		return result;
 	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getStatisticLogFtp() {
+		String sql = "SELECT notice_index FROM alarm_notice WHERE notice_name = 'TXYWXTFTPWJ' AND CURDATE()=DATE_FORMAT(create_date,'%Y-%m-%d') ORDER BY create_date DESC LIMIT 1;";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+		if(list != null && list.size() > 0) {
+			Map<String, Object> map = new HashMap<>();
+			String noticeIndex = list.get(0).get("notice_index").toString();
+			String[] strArr = noticeIndex.split("，");
+			for(String str : strArr) {
+				String[] val = str.split("：");
+				if(val.length == 2) {
+					map.put(val[0], val[1]);
+				}
+			}
+			return map;
+		}
+		return null;
+	}
 	
 	
 }

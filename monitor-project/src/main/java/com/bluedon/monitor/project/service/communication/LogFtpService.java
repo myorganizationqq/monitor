@@ -20,4 +20,6 @@ public interface LogFtpService extends IBaseService {
 	Map<String, Object> getTopLogFtp(CmLogFtpDT param);
 
 	public List<Map<String, Integer>> alarmCount();
+	
+	Map<String, Object> getStatisticLogFtp();
 }

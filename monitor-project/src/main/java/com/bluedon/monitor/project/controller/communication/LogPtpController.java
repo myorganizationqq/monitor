@@ -54,4 +54,9 @@ public class LogPtpController {
 		return map;
 	}
 	
+	@RequestMapping(params = "getPieData")
+	public @ResponseBody Map<String, Object> getPieData() {
+		return logFtpService.getStatisticLogFtp();
+	}
+	
 }

@@ -58,4 +58,9 @@ public class LogRecvsendController {
 		return map;
 	}
 	
+	@RequestMapping(params = "getPieData")
+	public @ResponseBody Map<String, Object> getPieData() {
+		return logRecvsendService.getStatisticLogRecvsend();
+	}
+	
 }
