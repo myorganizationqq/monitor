@@ -140,7 +140,7 @@ function setTotalCountData(url){
                 if(key  == '正常指标' || key == '异常指标'){
                     dataArr.push({value:result[key],name : key+":"+result[key]+"个"});
                 }else if(key == '指标'){
-                    title=  result[key]+"个指标";
+                    title= "指标:"+result[key]+"个";
                 }
             }
             if (dataArr.length < 2){
