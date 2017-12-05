@@ -87,11 +87,6 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 
 	@Override
 	public PageUtil getPageList(CmLogFtpDT param, PageUtil pageUtil) {
-		if("".equals(param.getDateTime1()) || "".equals(param.getDateTime2())) {
-			Map<String,String> map = CommonUtil.getCurrentAndPreTime();
-			param.setDateTime1(map.get("preDay"));
-			param.setDateTime2(map.get("currentDay"));
-		}
 		List<Map<String, Object>> list = getLogFtpPageList(param, pageUtil);
 
 		// 获取总记录数
