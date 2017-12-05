@@ -147,7 +147,7 @@ public class AlarmTXYWXTFTPWJJob implements Job {
         int yc = alarmContent.split("br").length;
         int zc = zg - yc;
 
-        notice.setNoticeIndex("ip地址："+ips.size()+"，指标："+zg+"，正常指标："+zc+"，异常指标"+yc);
+        notice.setNoticeIndex("ip地址："+ips.size()+"，指标："+zg+"，正常指标："+zc+"，异常指标："+yc);
         notice.setNoticeReason(content);
         notice.setNoticeName(Alarm.ALARM_TYPE_TXYWXTFTPWJ);
         notice.setCreateDate(new Date());
