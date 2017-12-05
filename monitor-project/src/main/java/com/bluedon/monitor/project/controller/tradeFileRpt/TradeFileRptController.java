@@ -143,10 +143,30 @@ public class TradeFileRptController {
 
     @RequestMapping(params = "getTotalCountData")
     @ResponseBody
-    public String getTotalCountData(HttpServletResponse response){
-        Map<String,Integer> map=new HashMap<String,Integer>();
-        map.put("故障",4);
-        map.put("未知",8);
+    public String getTotalCountData(@Param String flag,@Param String beginDate,@Param String endDate){
+        Map<String, Object> params = new HashMap<>();
+        //1.如果开始时间和结束时间都没有选择,就默认查询昨天的流水号数据
+        if(StringUtils.isBlank(beginDate) && StringUtils.isBlank(endDate)){
+            Date yesterday=DateUtil.addDay(new Date(),-1);
+            String dateStr = DateUtil.dateToString(yesterday, "yyyy-MM-dd");
+            beginDate=dateStr;
+            endDate=dateStr;
+            //2.如果开始时间为空,则开始时间默认结束时间
+        }else if(StringUtils.isBlank(beginDate)){
+            beginDate=endDate;
+            //3.如果结束时间为空,则结束时间默认为开始时间
+        }else if(StringUtils.isBlank(endDate)){
+            endDate=beginDate;
+        }
+        params.put("flag",flag);
+        params.put("beginDate",beginDate.replace("-",""));
+        params.put("endDate",endDate.replace("-",""));
+        Map<String,Integer> map=tradeFileRptService.getTotalCountMap(params);
+       /* HashMap<String, Integer> resultMap = new HashMap<>();
+        if (Alarm.ALARM_TYPE_JYZXT.equals(flag)||Alarm.ALARM_TYPE_JYWJHSJ.equals(flag)){
+            resultMap.put("正常指标",map.get("正常指标")==null?0:map.get("正常指标"));
+            resultMap.put("异常指标",map.get("异常指标")==null?0:map.get("异常指标"));
+        }*/
         return JSON.toJSONString(map);
     }
 }

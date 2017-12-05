@@ -8,6 +8,7 @@ import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
 import com.bluedon.monitor.project.service.transferTable.impl.TransferTableServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
@@ -96,6 +97,32 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         }
         return map;
     }
+
+    @Override
+    public Map<String, Integer> getTotalCountMap(Map<String, Object> param) {
+        String hql="select a.notice_index noticeIndex from alarm_notice a where a.notice_name = '"+param.get("flag")+"' and DATE_FORMAT(DATE_ADD(a.create_date,INTERVAL -1 DAY),'%Y%m%d') BETWEEN '"+param.get("beginDate") +"' AND '" +param.get("endDate")+"'";
+        List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
+        HashMap<String, Integer> returnMap = new HashMap<>();
+        for (Map<String, Object> map : list) {
+            String noticeIndex = (String)map.get("noticeIndex");
+            if (StringUtils.isNotBlank(noticeIndex)){
+                String[] split = noticeIndex.split("，");
+                for (String s : split) {
+                    try {
+                        String[] split1 = s.split("：");
+                        String key = split1[0];
+                        int value = Integer.valueOf(split1[1]);
+                        returnMap.put(key,returnMap.get(key)==null?value:returnMap.get(key) +value);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+            }
+        }
+        return returnMap;
+    }
+
     @Override
     public TradeFileRpt getOne(long id) {
         TradeFileRpt tradeFileRpt = hibernateDao.queryById(TradeFileRpt.class, id);
@@ -245,5 +272,4 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
         }
         return tradeFileRpts;
     }
-
 }

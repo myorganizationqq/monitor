@@ -12,18 +12,23 @@ $(window).ready(function () {
 });
 
 function init(){
-    initTotalCountPie('检测对象');
-    setTotalCountData();
     var flag=$("#flag").val();
     var beginDate=getBeginDate();
     var endDate=getEndDate();
+    initTotalCountPie();
     if (1==flag){
+        //饼图设值
+        setTotalCountData(basePath+'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData&beginDate='+beginDate+'&endDate='+endDate+'&flag=JYWJHSJ');
+
         var url=basePath+'project/tradeFileRpt/tradeFileRptController.do?getChartData&beginDate='+beginDate+'&endDate='+endDate+'&wrongType=';
         for (var key in wrongTypeMap){
             var chartPillar=initPillar(key+"Pillar",wrongTypeMap[key]);
             setChartData(url+key,chartPillar);
         }
     }else if (2==flag){
+        //饼图设值
+        setTotalCountData(basePath+'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData&beginDate='+beginDate+'&endDate='+endDate+'&flag=JYZXT')
+
         var chartPillar=initPillar("faultTimePillar","TOP排名 故障时间百分比排名");
         //设数据
         var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData&beginDate='+beginDate+'&endDate='+endDate;
@@ -32,11 +37,11 @@ function init(){
 
 }
 
-function initTotalCountPie(title){
+function initTotalCountPie(){
     totalCountPie = echarts.init(document.getElementById('totalCountPie'));
     option = {
         title:{
-            text:title,
+            text:"指标",
             left:"center",
             top:'45%',
             textStyle:{
@@ -106,7 +111,10 @@ function initTotalCountPie(title){
                         }
                     }
                 },
-                data:[]
+                data:[
+                    {value:0,name:"正常指标0个"},
+                    {value:0,name:"异常指标0个"}
+                     ]
             }
         ]
     };
@@ -114,23 +122,31 @@ function initTotalCountPie(title){
 }
 
 
-function setPieData(pieChart,seriesData){
-    pieChart.setOption({ series : [{data:seriesData}]   });
+function setPieData(pieChart,title,seriesData){
+    pieChart.setOption({ title:{text:title},series : [{data:seriesData}]   });
 }
 
-function setTotalCountData(){
+function setTotalCountData(url){
     $.ajax({
         type: "POST",
-        url: basePath+'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData',
+        url:url,
         dataType:'json',
         scriptCharset: 'utf-8',
         data: {},
         success: function (result) {
             var dataArr=new Array();
+            var title="";
             for(var key in result){
-                dataArr.push({value:result[key],name : key+":"+result[key]+"个"})
+                if(key  == '正常指标' || key == '异常指标'){
+                    dataArr.push({value:result[key],name : key+":"+result[key]+"个"});
+                }else if(key == '指标'){
+                    title=  result[key]+"个指标";
+                }
             }
-            setPieData(totalCountPie,dataArr);
+            if (dataArr.length < 2){
+                return;
+            }
+            setPieData(totalCountPie,title,dataArr);
         }
     });
 }
