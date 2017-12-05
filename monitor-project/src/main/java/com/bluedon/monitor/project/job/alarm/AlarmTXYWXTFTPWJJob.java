@@ -99,7 +99,7 @@ public class AlarmTXYWXTFTPWJJob implements Job {
         for (String s : ss) {
             String content = map.get(s);
             if(!StringUtil.isEmpty(content)){
-                alarmContent += ("<br>"+content);
+                alarmContent += content;
             }
         }
 
@@ -144,7 +144,7 @@ public class AlarmTXYWXTFTPWJJob implements Job {
         AlarmNotice notice = new AlarmNotice();
 
         int zg = ips.size() * 2;
-        int yc = alarmContent.split("br").length;
+        int yc = alarmContent.split("br").length - 1 < 0 ? 0 : alarmContent.split("br").length - 1;
         int zc = zg - yc;
 
         notice.setNoticeIndex("ip地址："+ips.size()+"，指标："+zg+"，正常指标："+zc+"，异常指标："+yc);

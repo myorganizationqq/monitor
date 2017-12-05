@@ -55,6 +55,7 @@ function init(){
                           return e;
                       }
                   },
+            	  {title:'告警时间',field:'alarmCronTrigger',width:80,align:'center'},
 		          {title:'操作',field:'operation',width:150,align:'center',
 		        	  formatter:function(value, row) {
 						  var idStr = row.id+","+row.alarmType;

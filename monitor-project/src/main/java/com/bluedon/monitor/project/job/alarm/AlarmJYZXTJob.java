@@ -49,35 +49,35 @@ public class AlarmJYZXTJob implements Job {
 
         for (StSysFlowCurrentDt t : resultList) {
             if (!StringUtil.isEmpty(t.getRemark())) {
-            	AlarmStringUtil.bbtj(alarm, t, alarmContent);
-            	AlarmStringUtil.bfbdwj(alarm, t, alarmContent);
-            	AlarmStringUtil.bql(alarm, t, alarmContent);
-            	AlarmStringUtil.ccjcqsjtjbb(alarm, t, alarmContent);
-            	AlarmStringUtil.ccyyssybb(alarm, t, alarmContent);
-            	AlarmStringUtil.cpwjrk(alarm, t, alarmContent);
-            	AlarmStringUtil.cshdrkftpwj(alarm, t, alarmContent);
-            	AlarmStringUtil.cshyctdc(alarm, t, alarmContent);
-            	AlarmStringUtil.dcjrickjywj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcjricktkwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctgfcpukwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctgfptkwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctqtxlcpukwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctqtxlptkwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctygcpukwj(alarm, t, alarmContent);
-            	AlarmStringUtil.dcyctygptkwj(alarm, t, alarmContent);
-            	AlarmStringUtil.djczcwbfcfsj(alarm, t, alarmContent);
-            	AlarmStringUtil.drllb(alarm, t, alarmContent);
-            	AlarmStringUtil.fbrzjl(alarm, t, alarmContent);
-            	AlarmStringUtil.jrickdzbb(alarm, t, alarmContent);
-            	AlarmStringUtil.jrickhmd(alarm, t, alarmContent);
-            	AlarmStringUtil.jsmk(alarm, t, alarmContent);
-            	AlarmStringUtil.jsxwygjrickpj(alarm, t, alarmContent);
-            	AlarmStringUtil.klcjfx(alarm, t, alarmContent);
-            	AlarmStringUtil.sjwjxf(alarm, t, alarmContent);
-            	AlarmStringUtil.sjyctj(alarm, t, alarmContent);
-            	AlarmStringUtil.sytjmk(alarm, t, alarmContent);
-            	AlarmStringUtil.xfhmd(alarm, t, alarmContent);
-            	AlarmStringUtil.yctdzbb(alarm, t, alarmContent);
+                AlarmStringUtil.bbtj(alarm, t, alarmContent);
+                AlarmStringUtil.bfbdwj(alarm, t, alarmContent);
+                AlarmStringUtil.bql(alarm, t, alarmContent);
+                AlarmStringUtil.ccjcqsjtjbb(alarm, t, alarmContent);
+                AlarmStringUtil.ccyyssybb(alarm, t, alarmContent);
+                AlarmStringUtil.cpwjrk(alarm, t, alarmContent);
+                AlarmStringUtil.cshdrkftpwj(alarm, t, alarmContent);
+                AlarmStringUtil.cshyctdc(alarm, t, alarmContent);
+                AlarmStringUtil.dcjrickjywj(alarm, t, alarmContent);
+                AlarmStringUtil.dcjricktkwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctgfcpukwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctgfptkwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctqtxlcpukwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctqtxlptkwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctygcpukwj(alarm, t, alarmContent);
+                AlarmStringUtil.dcyctygptkwj(alarm, t, alarmContent);
+                AlarmStringUtil.djczcwbfcfsj(alarm, t, alarmContent);
+                AlarmStringUtil.drllb(alarm, t, alarmContent);
+                AlarmStringUtil.fbrzjl(alarm, t, alarmContent);
+                AlarmStringUtil.jrickdzbb(alarm, t, alarmContent);
+                AlarmStringUtil.jrickhmd(alarm, t, alarmContent);
+                AlarmStringUtil.jsmk(alarm, t, alarmContent);
+                AlarmStringUtil.jsxwygjrickpj(alarm, t, alarmContent);
+                AlarmStringUtil.klcjfx(alarm, t, alarmContent);
+                AlarmStringUtil.sjwjxf(alarm, t, alarmContent);
+                AlarmStringUtil.sjyctj(alarm, t, alarmContent);
+                AlarmStringUtil.sytjmk(alarm, t, alarmContent);
+                AlarmStringUtil.xfhmd(alarm, t, alarmContent);
+                AlarmStringUtil.yctdzbb(alarm, t, alarmContent);
             }
         }
 
@@ -120,10 +120,10 @@ public class AlarmJYZXTJob implements Job {
 
         AlarmNotice notice = new AlarmNotice();
         int zg = 30;
-        int yc = alarmContent.toString().split("br").length;
+        int yc = alarmContent.toString().split("br").length - 1 < 0 ? 0 : alarmContent.toString().split("br").length - 1;
         int zc = zg - yc;
 
-        notice.setNoticeIndex("指标："+zg+"，正常指标："+zc+"，异常指标："+yc);
+        notice.setNoticeIndex("指标：" + zg + "，正常指标：" + zc + "，异常指标：" + yc);
         notice.setNoticeReason(content);
         notice.setNoticeName(Alarm.ALARM_TYPE_JYZXT);
         notice.setCreateDate(new Date());

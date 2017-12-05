@@ -138,10 +138,10 @@ public class AlarmTXYWXTXXSFJob implements Job {
 
         AlarmNotice notice = new AlarmNotice();
         int zg = result.size() * 4;
-        int yc = alarmContent.toString().split("br").length;
+        int yc = alarmContent.toString().split("br").length - 1 < 0 ? 0 : alarmContent.toString().split("br").length - 1;
         int zc = zg - yc;
 
-        notice.setNoticeIndex("ip地址："+result.size()+"，指标："+zg+"，正常指标："+zc+"，异常指标："+yc);
+        notice.setNoticeIndex("ip地址：" + result.size() + "，指标：" + zg + "，正常指标：" + zc + "，异常指标：" + yc);
         notice.setNoticeReason(content);
         notice.setNoticeName(Alarm.ALARM_TYPE_TXYWXTXXSF);
         notice.setCreateDate(new Date());

@@ -72,6 +72,8 @@ public class AlarmServiceImpl extends BaseServiceImpl implements IAlarmManagerSe
 					alarm.setUpdateDateStr(DateUtil.dateToString(alarm.getUpdateDate(), "yyyy-MM-dd HH:hh:ss"));
 				}
 
+					alarm.setAlarmCronTrigger(alarm.getAlarmCronTriggerHour()+"点"+alarm.getAlarmCronTriggerStart()+"分");
+
 			}
 			pageUtil.setResultList(resultList);
 
