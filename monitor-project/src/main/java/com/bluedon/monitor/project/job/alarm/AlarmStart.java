@@ -40,16 +40,16 @@ public class AlarmStart {
             alarmList = (List <Alarm>) pageList.getResultList();
 
             if (alarmList == null && alarmList.size() == 0) {
-                log.debug("spring启动alarm配置列表为空");
+                log.info("spring启动alarm配置列表为空");
                 return;
             }
 
-            log.debug("查询所有alarm告警任务，size：" + alarmList.size());
+            log.info("查询所有alarm告警任务，size：" + alarmList.size());
 
             //定时任务配置
             Scheduler sche = schedulerFactoryBean.getScheduler();
 
-            log.debug("spring启动alarm所有状态为Y的定时任务");
+            log.info("spring启动alarm所有状态为Y的定时任务");
             for (Alarm param : alarmList) {
 
                 if (StringUtil.isEmpty(param.getAlarmType())) {
@@ -74,7 +74,7 @@ public class AlarmStart {
                     throw new IllegalArgumentException("修改告警通知操作alarmType参数不正确");
                 }
 
-                log.debug("tomcat启动 Alarm定时任务：任务名称" + jobName + "任务周期" + param.getAlarmCronTrigger());
+                log.info("tomcat启动 Alarm定时任务：任务名称" + jobName + "任务周期" + param.getAlarmCronTrigger());
 
                 AlarmJobManager.addJob(sche, jobName, jobClass, param.getAlarmCronTrigger());
 

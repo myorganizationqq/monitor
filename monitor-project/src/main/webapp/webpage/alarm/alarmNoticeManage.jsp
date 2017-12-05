@@ -25,7 +25,7 @@
 				<td width="160">
 
 					<select id="noticeName" class="easyui-combobox" data-options="editable:false" panelHeight="auto" style="width:150px">
-						<option value="">---清选择告警类型---</option>
+						<option value="">---请选择告警类型---</option>
 						<option value="JYWJHSJ">交易文件和数据</option>
 						<option value="JYZXT">清算子系统</option>
 						<option value="TXYWXTXXSF">通信业务系统消息收发</option>

@@ -50,7 +50,7 @@ public class AlarmNoticeServiceImpl extends BaseServiceImpl implements IAlarmNot
 
 
         List <Order> order = new ArrayList <Order>();
-        //order.add(Order.asc("createTime"));
+        order.add(Order.asc("updateDate"));
 
         //获取总记录数
         int count = this.hibernateDao.getCount(AlarmNotice.class, paramList, null);

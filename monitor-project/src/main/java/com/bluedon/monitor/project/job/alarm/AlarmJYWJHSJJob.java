@@ -54,9 +54,10 @@ public class AlarmJYWJHSJJob implements Job {
         pageUtil = tradeFileRptService.getPageList(new TradeFileRptVO(), pageUtil);
         List <TradeFileRpt> resultList = (List <TradeFileRpt>) pageUtil.getResultList();
 
+        StringBuffer alarmContent = new StringBuffer();
+
         for (TradeFileRpt t : resultList) {
 
-            StringBuffer alarmContent = new StringBuffer();
 
             if (alarm.getJywjhsj_bhfsjgs_wx() != 0) {
                 if (alarm.getJywjhsj_bhfsjgs_wx() < t.getWrongfulCount()) {
@@ -88,57 +89,58 @@ public class AlarmJYWJHSJJob implements Job {
                 }
             }
 
-            //无告警信息则返回
-            if (StringUtil.isEmpty(alarmContent.toString())) {
-                return;
-            }
-
-            String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
-            String currentDay = CommonUtil.getCurrentAndPreTime().get("currentDay");
-            String head = "交易文件和数据(" + preDay + "-" + currentDay + ")告警";
-
-
-            String content = "时间：" + preDay + "-" + currentDay + "<br><br>" + alarmContent;
-
-            List<String> emailUser = new ArrayList <>();
-            List<String> phoneUser = new ArrayList <>();
-
-            String emailsStr = alarm.getAlarmEmail();
-            String phonesStr = alarm.getAlarmMessage();
-
-            if(!StringUtil.isEmpty(emailsStr)){
-                String [] emails = emailsStr.split(",");
-                for(String email : emails){
-                    TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class,Long.parseLong(email));
-                    if(user!=null && !StringUtil.isEmpty(user.getEmail())){
-                        emailUser.add(user.getEmail());
-                    }
-                }
-            }
-
-            if(!StringUtil.isEmpty(phonesStr)){
-                String [] phones = phonesStr.split(",");
-                for(String phone : phones){
-                    TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class,Long.parseLong(phone));
-                    if(user!=null && !StringUtil.isEmpty(user.getPhone())){
-                        phoneUser.add(user.getPhone());
-                    }
-                }
-            }
-
-
-            AlarmNotice notice = new AlarmNotice();
-            notice.setNoticeIndex("3个指标，"+String.valueOf(alarmContent.toString().split("br").length)+"个异常指标");
-            notice.setNoticeReason(content);
-            notice.setNoticeName(Alarm.ALARM_TYPE_JYWJHSJ);
-            notice.setCreateDate(new Date());
-            notice.setUpdateDate(new Date());
-            notice.setNoticeStatus("0");
-            iAlarmNoticeManagerService.add(notice);
-            CommonUtil.sendAlarm(head, content, phoneUser,emailUser);
-
-
         }
+
+        //无告警信息则返回
+        if (StringUtil.isEmpty(alarmContent.toString())) {
+            return;
+        }
+
+        String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
+        String currentDay = CommonUtil.getCurrentAndPreTime().get("currentDay");
+        String head = "交易文件和数据(" + preDay + "-" + currentDay + ")告警";
+
+
+        String content = "时间：" + preDay + "-" + currentDay + "<br><br>" + alarmContent;
+
+        List <String> emailUser = new ArrayList <>();
+        List <String> phoneUser = new ArrayList <>();
+
+        String emailsStr = alarm.getAlarmEmail();
+        String phonesStr = alarm.getAlarmMessage();
+
+        if (!StringUtil.isEmpty(emailsStr)) {
+            String[] emails = emailsStr.split(",");
+            for (String email : emails) {
+                TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class, Long.parseLong(email));
+                if (user != null && !StringUtil.isEmpty(user.getEmail())) {
+                    emailUser.add(user.getEmail());
+                }
+            }
+        }
+
+        if (!StringUtil.isEmpty(phonesStr)) {
+            String[] phones = phonesStr.split(",");
+            for (String phone : phones) {
+                TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class, Long.parseLong(phone));
+                if (user != null && !StringUtil.isEmpty(user.getPhone())) {
+                    phoneUser.add(user.getPhone());
+                }
+            }
+        }
+
+        AlarmNotice notice = new AlarmNotice();
+        int zg = 3 * resultList.size();
+        int yc = alarmContent.toString().split("br").length;
+        int zc = zg - yc;
+        notice.setNoticeIndex("指标："+zg+"，正常指标："+zc+"，异常指标"+yc);
+        notice.setNoticeReason(content);
+        notice.setNoticeName(Alarm.ALARM_TYPE_JYWJHSJ);
+        notice.setCreateDate(new Date());
+        notice.setUpdateDate(new Date());
+        notice.setNoticeStatus("0");
+        iAlarmNoticeManagerService.add(notice);
+        CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
 
     }
 
