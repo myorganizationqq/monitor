@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -156,21 +157,27 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getStatisticLogFtp() {
-		String sql = "SELECT notice_index FROM alarm_notice WHERE notice_name = 'TXYWXTFTPWJ' AND CURDATE()=DATE_FORMAT(create_date,'%Y-%m-%d') ORDER BY create_date DESC LIMIT 1;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
-		if(list != null && list.size() > 0) {
-			Map<String, Object> map = new HashMap<>();
-			String noticeIndex = list.get(0).get("notice_index").toString();
-			String[] strArr = noticeIndex.split("，");
-			for(String str : strArr) {
-				String[] val = str.split("：");
-				if(val.length == 2) {
-					map.put(val[0], val[1]);
-				}
-			}
-			return map;
-		}
+	public Map<String, Object> getStatisticData(String noticeName,String beginDate,String endDate) {
+		String sql = "SELECT notice_index FROM alarm_notice WHERE notice_name = '%s' AND DATE_FORMAT(DATE_ADD(create_date,INTERVAL -1 DAY),'%Y-%m-%d') BETWEEN '%s' AND '%s'";
+		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, noticeName, beginDate, endDate));
+        HashMap<String, Integer> dataMap = new HashMap<>();
+        for (Map<String, Object> map : list) {
+            String noticeIndex = map.get("notice_index").toString();
+            if (StringUtils.isNotBlank(noticeIndex)){
+                String[] strArr = noticeIndex.split("，");
+                for (String str : strArr) {
+                    try {
+                        String[] val = str.split("：");
+                        String key = val[0];
+                        int value = Integer.valueOf(val[1]);
+                        dataMap.put(key, dataMap.get(key) == null ? value : dataMap.get(key) + value);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+            }
+        }
 		return null;
 	}
 	

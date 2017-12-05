@@ -262,10 +262,14 @@ function setPieData(pieChart, seriesData) {
 function setTotalCountData() {
 	$.ajax({
 		type : "POST",
-		url : basePath + 'communication/logRecvsend.do?getPieData',
+		url : basePath + 'communication/logFtp.do?getPieData',
 		dataType : 'json',
 	    scriptCharset : 'utf-8',
-		data : {},
+		data : {
+			'noticeName': 'TXYWXTXXSF',
+			'beginDate': getBeginDate(),
+			'endDate': getEndDate()
+		},
 		success : function(result) {
 			var text = '';
 			var dataArr = new Array();

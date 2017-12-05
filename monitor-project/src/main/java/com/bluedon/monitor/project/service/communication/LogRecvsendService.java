@@ -22,5 +22,4 @@ public interface LogRecvsendService {
 
 	Map<String, Object> getTopMaxMsgLength(CmLogRecvsendDT param);
 
-	Map<String, Object> getStatisticLogRecvsend();
 }

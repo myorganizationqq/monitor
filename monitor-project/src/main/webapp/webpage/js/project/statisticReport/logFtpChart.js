@@ -251,7 +251,11 @@ function setTotalCountData() {
 		url : basePath + 'communication/logFtp.do?getPieData',
 		dataType : 'json',
 	    scriptCharset : 'utf-8',
-		data : {},
+		data : {
+			'noticeName': 'TXYWXTFTPWJ',
+			'beginDate': getBeginDate(),
+			'endDate': getEndDate()
+		},
 		success : function(result) {
 			var text = '';
 			var dataArr = new Array();
