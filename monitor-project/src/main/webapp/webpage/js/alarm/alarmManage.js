@@ -113,7 +113,7 @@ function alarmEdit(idStr){
         url : basePath+'alarm/alarmManagerController.do?toEdit&id='+id,
         title : title,
         width : 730,
-        height : 550,
+        height : 500,
         top : '10%'
     });
 }
@@ -169,7 +169,7 @@ function allocationToUser(){
 			url : basePath+'manage/system/alarmManagerController.do?toAllocationToUser&roleId='+roleId,
 			title : '角色管理-分配到用户',
 			width : 730,
-			height : 520,
+			height : 500,
 			top : '3%'
 		});
 	}else{
@@ -188,7 +188,7 @@ function allocationMenu(){
 			url : basePath+'manage/system/alarmManagerController.do?toAllocationToMenu&roleId='+roleId,
 			title : '角色管理-分配菜单资源',
 			width : 630,
-			height : 570,
+			height : 500,
 			top : '3%'
 		});
 	}else{
