@@ -245,7 +245,10 @@ function initTotalCountPie(title) {
 					}
 				}
 			},
-			data : []
+			data : [
+				{value: 0, name: "正常指标0个"},
+                {value: 0, name: "异常指标0个"}
+			]
 		} ]
 	};
 	totalCountPie.setOption(option);
@@ -283,8 +286,8 @@ function setTotalCountData() {
 					name : key + ":" + result[key] + "个"
 				})
 			}
-			initTotalCountPie(text);
-			setPieData(totalCountPie, dataArr);
+			initTotalCountPie(text == '' ? '指标' : text);
+			if(text != '') setPieData(totalCountPie, dataArr);
 		}
 	});
 }
