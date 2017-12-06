@@ -57,14 +57,14 @@ function search(){
         columns:[[//列
             {field:'id',checkbox:true,width:30,align:'center',hidden:true},
             {title:'流水号',field:'balanceWaterNo',width:80,align:'center'},
-            {title:'状态',field:'stat',width:100,align:'center',formatter:statFmt},
+            /*{title:'状态',field:'stat',width:100,align:'center',formatter:statFmt},*/
             {title:'文件类型',field:'fileType',width:100,align:'center',formatter:fileTypeFmt},
             {title:'文件数量',field:'fileCount',width:100,align:'center'},
             {title:'处理数量',field:'handleCount',width:100,align:'center'},
             {title:'不合法数据',field:'wrongfulCount',width:100,align:'center'},
             {title:'重复数据',field:'duplicateCount',width:100,align:'center'},
-            {title:'无法预处理数据',field:'noPretreatmentCount',width:100,align:'center'},
-            {title:'告警次数',field:'alarmCount',width:100,align:'center'}
+            {title:'无法预处理数据',field:'noPretreatmentCount',width:100,align:'center'}
+            /*,{title:'告警次数',field:'alarmCount',width:100,align:'center'}*/
         ]],
         onLoadSuccess: function(data){
 

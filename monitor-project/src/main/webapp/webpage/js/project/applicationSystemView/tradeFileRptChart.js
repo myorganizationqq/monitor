@@ -27,11 +27,11 @@ function init(){
         }
     }else if (2==flag){
         //饼图设值
-        setTotalCountData(basePath+'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData&beginDate='+beginDate+'&endDate='+endDate+'&flag=JYZXT')
+        setTotalCountData(basePath+'project/tradeFileRpt/tradeFileRptController.do?getTotalCountData&beginDate='+beginDate+'&endDate='+endDate+'&flag=JYZXT');
 
         var chartPillar=initPillar("faultTimePillar","TOP排名 故障时间百分比排名");
         //设数据
-        var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getDaultTimeData&beginDate='+beginDate+'&endDate='+endDate;
+        var url=basePath+'project/stSysFlowCurrentDt/stSysFlowCurrentDtController.do?getFaultTimeData&beginDate='+beginDate+'&endDate='+endDate;
         setChartData(url,chartPillar);
     }
 

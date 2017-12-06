@@ -105,9 +105,9 @@ public class StSysFlowCurrentDtController {
         ToolUtil.getCombo(response, cList);
     }
 
-    @RequestMapping(params = "getDaultTimeData")
+    @RequestMapping(params = "getFaultTimeData")
     @ResponseBody
-    public String getDaultTimeData(@Param String beginDate,@Param String endDate){
+    public String getFaultTimeData(@Param String beginDate,@Param String endDate){
         Map<String,Object> params=new HashMap();
         //1.如果开始时间和结束时间都没有选择,就默认查询昨天的流水号数据
         if(StringUtils.isBlank(beginDate) && StringUtils.isBlank(endDate)){

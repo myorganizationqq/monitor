@@ -57,12 +57,12 @@ function search(){
             {field:'id',checkbox:true,width:30,align:'center',hidden:true},
             {title:'清算流程',field:'step',width:80,align:'center',hidden:true},
             {title:'清算流程',field:'remark',width:100,align:'center'},
-            {title:'状态',field:'stat',width:50,align:'center'},
+            /*{title:'状态',field:'stat',width:50,align:'center'},*/
             {title:'上个步骤',field:'stepPre',width:100,align:'center'},
             {title:'完成标志',field:'finishFlag',width:100,align:'center',formatter:finishFlagFmt},
             {title:'开始时间',field:'beginTime',width:100,align:'center',formatter:dateFmt},
-            {title:'结束时间',field:'endTime',width:100,align:'center',formatter:dateFmt},
-            {title:'告警',field:'alarm',width:100,align:'center'}
+            {title:'结束时间',field:'endTime',width:100,align:'center',formatter:dateFmt}
+            /*,{title:'告警',field:'alarm',width:100,align:'center'}*/
         ]],
         onLoadSuccess: function(data){
 
