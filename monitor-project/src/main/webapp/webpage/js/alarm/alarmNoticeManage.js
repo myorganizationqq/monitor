@@ -37,8 +37,11 @@ function init() {
                     var s = ' <a href="#"  onclick="toDetail(\'' + id + '\')">详情</a> ';
                     var d = ' <a href="#"  onclick="toEdit(\'' + id + '\')">处理</a> ';
 
-
-                    return s + "&nbsp;" + d;
+                    if(row.noticeStatus=='待处理'){
+                        return s + "&nbsp;" + d;
+                    }else{
+                        return s;
+                    }
                 }
             }
         ]],
@@ -86,7 +89,7 @@ function toEdit(id) {
         type: 'add',
         url: basePath + 'alarm/alarmNoticeManagerController.do?toEdit&id=' + id,
         title: "告警处理",
-        width: 650,
+        width: 700,
         height: 550,
         top: '10%'
     });

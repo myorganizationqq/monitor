@@ -18,7 +18,7 @@
         <input id="id" name="id" value="${obj.id }" type="hidden"/>
 
         <!-- 是否有效 -->
-        <table cellpadding="5" class="newAddOrg" width="680">
+        <table cellpadding="5" class="newAddOrg" width="630">
             <tr>
 
                 <td width="30" align="right" bgcolor="#f1f2f3" class="p_right10">告警原因：</td>
@@ -29,6 +29,14 @@
 
             </tr>
             <tr>
+
+                <td width="30" align="right" bgcolor="#f1f2f3" class="p_right10">处理备注：</td>
+                <td width="300">
+                    ${obj.noticeType}
+
+                </td>
+
+            </tr>
 
 
             <tr>

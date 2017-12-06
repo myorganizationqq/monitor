@@ -18,7 +18,7 @@
         <input name="id" value="${obj.id }" type="hidden"/>
 
         <!-- 是否有效 -->
-        <table cellpadding="5" class="newAddOrg" width="600">
+        <table cellpadding="5" class="newAddOrg" width="630">
             <tr>
 
                 <td width="50" align="right" bgcolor="#f1f2f3" class="p_right10">告警原因：</td>
@@ -47,7 +47,7 @@
                            onclick="closeWin();">&nbsp;&nbsp;关闭&nbsp;&nbsp;</a>
                         &nbsp;&nbsp;
                         <a  href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;"
-                           onclick="saveOrUpdate();">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
+                           onclick="saveOrUpdate();">&nbsp;&nbsp;处理&nbsp;&nbsp;</a>
                     </div>
                 </td>
             </tr>
