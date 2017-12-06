@@ -42,7 +42,7 @@
 			<tr>
 				<td style="padding-left:20px;padding-top:10px;" colspan="6">		
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-					    onclick="alarmAdd('JYZXT');" style="padding: 0 10px">新增交易子系统告警配置</a>
+					    onclick="alarmAdd('JYZXT');" style="padding: 0 10px">新增清算子系统告警配置</a>
 					&nbsp;
 					<a href="javascript:void(0);" class="easyui-linkbutton"
 					   onclick="alarmAdd('JYWJHSJ');" style="padding: 0 10px">新增交易文件和数据告警配置</a>

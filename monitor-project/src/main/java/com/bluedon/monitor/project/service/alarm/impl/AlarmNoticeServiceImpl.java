@@ -76,7 +76,7 @@ public class AlarmNoticeServiceImpl extends BaseServiceImpl implements IAlarmNot
                 if (alarm.getCreateDate() != null) {
                     alarm.setCreateDateStr(DateUtil.dateToString(alarm.getCreateDate(), "yyyy-MM-dd HH:hh:ss"));
                     if (alarm.getNoticeName().equals(Alarm.ALARM_TYPE_JYZXT)) {
-                        alarm.setNoticeName("交易子系统");
+                        alarm.setNoticeName("清算子系统");
                     } else if (alarm.getNoticeName().equals(Alarm.ALARM_TYPE_JYWJHSJ)) {
                         alarm.setNoticeName("交易文件和数据");
                     } else if (alarm.getNoticeName().equals(Alarm.ALARM_TYPE_TXYWXTXXSF)) {
