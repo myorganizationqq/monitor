@@ -24,7 +24,7 @@ public class Alarm {
     public static String ALARM_TYPE_JYWJHSJ = "JYWJHSJ";
 
     /**
-     * 交易子系统告警
+     * 清算子系统告警
      */
     public static String ALARM_TYPE_JYZXT = "JYZXT";
 

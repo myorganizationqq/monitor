@@ -30,55 +30,55 @@ import java.util.List;
 @Service("alarmServiceImpl")
 public class AlarmServiceImpl extends BaseServiceImpl implements IAlarmManagerService {
 
-	//日志记录对象
-	private static final Logger log = Logger.getLogger(LoginLogServiceImpl.class);
-	
-	@Autowired
-	@Qualifier("hibernateDao")
-	private IBaseDao<Alarm> hibernateDao;
+    //日志记录对象
+    private static final Logger log = Logger.getLogger(LoginLogServiceImpl.class);
+
+    @Autowired
+    @Qualifier("hibernateDao")
+    private IBaseDao <Alarm> hibernateDao;
 
 
-	//列表查询
-	@Override
-	public PageUtil getPageList(Alarm param, PageUtil pageUtil) {
+    //列表查询
+    @Override
+    public PageUtil getPageList(Alarm param, PageUtil pageUtil) {
 
-		//查询参数构造
-		List<Criterion> paramList = new ArrayList<Criterion>();
-		if(!StringUtil.isEmpty(param.getAlarmName())){
-			paramList.add(Restrictions.like("alarmName", param.getAlarmName(), MatchMode.ANYWHERE));
-		}
+        //查询参数构造
+        List <Criterion> paramList = new ArrayList <Criterion>();
+        if (!StringUtil.isEmpty(param.getAlarmName())) {
+            paramList.add(Restrictions.like("alarmName", param.getAlarmName(), MatchMode.ANYWHERE));
+        }
 
-		if(!StringUtil.isEmpty(param.getAlarmStatus())){
-			paramList.add(Restrictions.eq("alarmStatus", param.getAlarmStatus()));
-		}
+        if (!StringUtil.isEmpty(param.getAlarmStatus())) {
+            paramList.add(Restrictions.eq("alarmStatus", param.getAlarmStatus()));
+        }
 
 
-		List<Order> order=new ArrayList<Order>();
+        List <Order> order = new ArrayList <Order>();
 
-		//获取总记录数
-		int count = this.hibernateDao.getCount(Alarm.class, paramList,null);
+        //获取总记录数
+        int count = this.hibernateDao.getCount(Alarm.class, paramList, null);
 
-		pageUtil.setTotalRecordNumber(count);
+        pageUtil.setTotalRecordNumber(count);
 
-		if(pageUtil.fetchPaging()){
-			//开始获取分页数据
-			List<Alarm> resultList = hibernateDao.findByPage(Alarm.class,paramList, (pageUtil.getPage()-1)*pageUtil.getRows(), pageUtil.getRows(),order,null);
-			for(Alarm alarm : resultList){
-				if (alarm.getCreateDate() != null) {
-					alarm.setCreateDateStr(DateUtil.dateToString(alarm.getCreateDate(), "yyyy-MM-dd HH:hh:ss"));
-				}
-				if (alarm.getUpdateDate() != null) {
-					alarm.setUpdateDateStr(DateUtil.dateToString(alarm.getUpdateDate(), "yyyy-MM-dd HH:hh:ss"));
-				}
+        if (pageUtil.fetchPaging()) {
+            //开始获取分页数据
+            List <Alarm> resultList = hibernateDao.findByPage(Alarm.class, paramList, (pageUtil.getPage() - 1) * pageUtil.getRows(), pageUtil.getRows(), order, null);
+            for (Alarm alarm : resultList) {
+                if (alarm.getCreateDate() != null) {
+                    alarm.setCreateDateStr(DateUtil.dateToString(alarm.getCreateDate(), "yyyy-MM-dd HH:hh:ss"));
+                }
+                if (alarm.getUpdateDate() != null) {
+                    alarm.setUpdateDateStr(DateUtil.dateToString(alarm.getUpdateDate(), "yyyy-MM-dd HH:hh:ss"));
+                }
 
-					alarm.setAlarmCronTrigger(alarm.getAlarmCronTriggerHour()+"点"+alarm.getAlarmCronTriggerStart()+"分");
+                alarm.setAlarmUser(alarm.getAlarmCronTriggerHour() + "点" + alarm.getAlarmCronTriggerStart() + "分");
 
-			}
-			pageUtil.setResultList(resultList);
+            }
+            pageUtil.setResultList(resultList);
 
-		}
+        }
 
-		return pageUtil;
-	}
+        return pageUtil;
+    }
 
 }

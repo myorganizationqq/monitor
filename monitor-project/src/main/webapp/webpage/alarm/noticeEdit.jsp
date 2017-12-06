@@ -10,22 +10,30 @@
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
     <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/common-validate.js"></script>
 </head>
 <body>
 <div class="tahoma_font  tdstyle"
      style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; overflow: hidden">
     <form id="form_user" method="post">
-        <input id="id" name="id" value="${obj.id }" type="hidden"/>
+        <input name="id" value="${obj.id }" type="hidden"/>
 
         <!-- 是否有效 -->
-        <table cellpadding="5" class="newAddOrg" width="680">
+        <table cellpadding="5" class="newAddOrg" width="600">
             <tr>
 
-                <td width="30" align="right" bgcolor="#f1f2f3" class="p_right10">告警原因：</td>
+                <td width="50" align="right" bgcolor="#f1f2f3" class="p_right10">告警原因：</td>
                 <td width="300">
                     <c:out value="${obj.noticeReason}" escapeXml="false" />
 
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td width="50" align="right" bgcolor="#f1f2f3" class="p_right10">处理备注：</td>
+                <td width="300">
+                    <textarea style="height:200px;width: 400px" name="noticeType"></textarea>
                 </td>
 
             </tr>
@@ -35,11 +43,11 @@
             <tr>
                 <td colspan="2">
                     <div align="right" style="padding-right: 50px;padding-top: 5px;">
-                        <a id="saveOperation" href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;"
-                           onclick="saveOrUpdate();">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
-                        &nbsp;&nbsp;
-                        <a id="closeOperation" href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;"
+                        <a  href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;"
                            onclick="closeWin();">&nbsp;&nbsp;关闭&nbsp;&nbsp;</a>
+                        &nbsp;&nbsp;
+                        <a  href="javascript:void(0)" class="easyui-linkbutton" style="width:50px;"
+                           onclick="saveOrUpdate();">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>
                     </div>
                 </td>
             </tr>
@@ -49,7 +57,31 @@
 </body>
 
 <script type="text/javascript">
+    //关闭
+    function closeWin(){
+        $('#editWindow').window('close');
+    }
 
+    //保存
+    function saveOrUpdate() {
+        var isValid = $("#form_user").form("validate");//表单验证方法
+        //进行录入操作的后台交互
+        $.ajax({
+            url: basePath + 'alarm/alarmNoticeManagerController.do?saveOrUpdate',
+            type: "POST",
+            dataType: "json",
+            data: $("#form_user").serialize(),
+            success: function (d) {
+                if (d.resultCode == 0) {
+                    $.messager.alert("提示", d.msg);
+                    closeWin();
 
+                    $("#getAlarmList").datagrid("reload");
+                } else if (d.resultCode == 1) {
+                    $.messager.alert("提示", d.msg);
+                }
+            }
+        });
+    }
 </script>
 </html>

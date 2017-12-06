@@ -55,7 +55,7 @@ function init(){
                           return e;
                       }
                   },
-            	  {title:'告警时间',field:'alarmCronTrigger',width:60,align:'center'},
+            	  {title:'告警时间',field:'alarmUser',width:60,align:'center'},
 		          {title:'操作',field:'operation',width:150,align:'center',
 		        	  formatter:function(value, row) {
 						  var idStr = row.id+","+row.alarmType;
@@ -101,7 +101,7 @@ function alarmEdit(idStr){
 	var alarmType = idArr[1];
 	var title = "";
 	if(alarmType=='JYZXT'){
-		title = '交易子系统告警配置';
+		title = '清算子系统告警配置';
 	}else if(alarmType=='JYWJHSJ'){
         title = '交易文件和数据告警配置';
 	}else{
@@ -139,7 +139,7 @@ function alarmEditNotice(idStr){
     var alarmType = idArr[1];
     var title = "";
     if(alarmType=='JYZXT'){
-        title = '交易子系统告警通知';
+        title = '清算子系统告警通知';
     }else if(alarmType=='JYWJHSJ'){
         title = '交易文件和数据告警通知';
     }else{
@@ -155,18 +155,6 @@ function alarmEditNotice(idStr){
         height : 500,
         top : '10%'
     });
-}
-
-//删除告警配置
-function alarmDel(id){
-	$.messager.confirm('系统提示', '您确定要执行删除操作吗？', function(data) {
-		if(data){
-			$.post(basePath+"alarm/alarmManagerController.do?delete", {id:id},function(data){
-				$.messager.alert('提示',unescape(data.msg));
-				init();
-			},'json');
-		}
-	});
 }
 
 

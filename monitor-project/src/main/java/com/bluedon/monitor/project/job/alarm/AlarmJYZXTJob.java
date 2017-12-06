@@ -19,7 +19,7 @@ import com.bluedon.monitor.project.service.stSysFlowCurrentDt.StSysFlowCurrentDt
 import com.bluedon.monitor.system.entity.TbCommonUser;
 
 /**
- * 交易子系统告警业务逻辑代码
+ * 清算子系统告警业务逻辑代码
  */
 public class AlarmJYZXTJob implements Job {
 
@@ -37,10 +37,10 @@ public class AlarmJYZXTJob implements Job {
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         Alarm alarm = (Alarm) iAlarmNoticeManagerService.loadById(Alarm.class, 2l);
         if (alarm == null) {
-            throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm id是否等于2");
+            throw new IllegalArgumentException("alarm基础数据异常，请检查清算子系统 alarm id是否等于2");
         }
         if (!alarm.getAlarmType().equals(Alarm.ALARM_TYPE_JYZXT)) {
-            throw new IllegalArgumentException("alarm基础数据异常，请检查交易子系统 alarm type是否为JYZXT");
+            throw new IllegalArgumentException("alarm基础数据异常，请检查清算子系统 alarm type是否为JYZXT");
         }
         //获取数据
         List <StSysFlowCurrentDt> resultList = stSysFlowCurrentDtService.alarmCount();
@@ -88,7 +88,7 @@ public class AlarmJYZXTJob implements Job {
 
         String preDay = CommonUtil.getCurrentAndPreTime().get("preDay");
         String currentDay = CommonUtil.getCurrentAndPreTime().get("currentDay");
-        String head = "交易子系统(" + preDay + "-" + currentDay + ")告警";
+        String head = "清算子系统(" + preDay + "-" + currentDay + ")告警";
 
         String content = "时间：" + preDay + "-" + currentDay + "<br><br>" + alarmContent;
 

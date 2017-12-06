@@ -68,7 +68,7 @@ public class AlarmNoticeManagerController {
     }
 
     /**
-     * 跳转编辑页面
+     * 跳转详情页面
      *
      * @param param
      * @param req
@@ -87,6 +87,25 @@ public class AlarmNoticeManagerController {
     }
 
     /**
+     * 跳转编辑页面
+     *
+     * @param param
+     * @param req
+     * @return
+     */
+    @RequestMapping(params = "toEdit")
+    public ModelAndView toEdit(AlarmNotice param, HttpServletRequest req) {
+        if (param.getId() == 0) {
+            throw new IllegalArgumentException("告警通知详情跳转id不能为空");
+        }
+        AlarmNotice alarm = (AlarmNotice) alarmNoticeService.loadById(AlarmNotice.class, param.getId());
+
+        req.setAttribute("obj", alarm);
+        return new ModelAndView("alarm/noticeEdit");
+
+    }
+
+    /**
      * 保存告警配置信息
      *
      * @param param
@@ -96,14 +115,18 @@ public class AlarmNoticeManagerController {
     public void saveOrUpdate(AlarmNotice param, HttpServletResponse rsp) {
 
         if (param.getId() == 0) {
-            throw new IllegalArgumentException("告警通知编辑跳转id不能为空");
+            throw new IllegalArgumentException("alarmNotice处理操作id不能为空");
         }
 
         OperResult rs = new OperResult();
         try {
-            log.debug("alarm配置操作：修改，id=" + param.getId());
+            log.info("alarmNotice处理操作：修改，id=" + param.getId());
+
+            AlarmNotice alarm = (AlarmNotice) alarmNoticeService.loadById(AlarmNotice.class, param.getId());
+            alarm.setNoticeType(param.getNoticeType());
+            alarm.setNoticeStatus("1");
             param.setUpdateDate(new Date());
-            alarmNoticeService.update(param);
+            alarmNoticeService.update(alarm);
 
             rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
             rs.setData(param);
