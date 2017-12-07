@@ -50,7 +50,15 @@ $(document).ready(function () {
             endTime=temp;
         }
     });
+
+    setYesterDay();
 });
+
+function setYesterDay(){
+    var yesterdayStr=addDate(new Date().getTime(),-1);
+    $('#beginDate').datebox('setValue', yesterdayStr);
+    $('#endDate').datebox('setValue', yesterdayStr);
+}
 
 function getBeginDate(){
     var beginDate=$("#beginDate").datebox('getValue');

@@ -5,11 +5,12 @@ var endTime=0;
 $(document).ready(function() {
     getFinishFlag();
     initDate();
-    //doSearch();
+    doSearch();
 });
 
 //初始化时间控件
 function initDate(){
+
     //日期控制扩展选择日期小于等于当前日期，开始日期小于等于结束日期
     $("#beginDate").datebox({
         onSelect: function(date){
@@ -33,6 +34,10 @@ function initDate(){
             endTime=temp;
         }
     });
+    //设置时间为昨天
+    var yesterdayStr=addDate(new Date().getTime(),-1);
+    $('#beginDate').datebox('setValue', yesterdayStr);
+    $('#endDate').datebox('setValue', yesterdayStr);
 }
 //查询
 function search(){

@@ -66,3 +66,21 @@ Date.prototype.pattern=function(fmt) {
 
     return fmt;
 }
+
+function addDate(date,days){
+    var d=new Date();
+    if(date){
+        d=new Date(date);
+    }
+    d.setDate(d.getDate()+days);
+    var month=d.getMonth()+1;
+    var day = d.getDate();
+    if(month<10){
+        month = "0"+month;
+    }
+    if(day<10){
+        day = "0"+day;
+    }
+    var val = d.getFullYear()+"-"+month+"-"+day;
+    return val;
+}
