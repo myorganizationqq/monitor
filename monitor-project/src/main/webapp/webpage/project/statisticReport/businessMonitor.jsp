@@ -58,7 +58,7 @@
         <iframe id="businessFrame" width="99%" height="100%" frameBorder="no" scrolling="no" onLoad="" src="${requestScope.basePath}project/tradeFileRpt/tradeFileRptController.do?toPageList"></iframe>
     </div>
     
-	<div class="warn">告警统计</div>
+	<!-- <div class="warn">告警统计</div> -->
     
 </div>
 </body>
