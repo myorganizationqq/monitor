@@ -84,7 +84,7 @@
 					<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10"><span class="text_required">*</span>电子邮箱：</td>
 					<td width="300" >
 						<input  name="email" type="text" style="height:25px;width:200px;"
-							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入电子邮箱！',validType:'length[5,30]'"
+							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入电子邮箱！',validType:'email'"
 							   value="${commonUser.email }" />
 					</td>
 				</tr>
@@ -93,7 +93,7 @@
 					<td width="110" align="right" bgcolor="#f1f2f3" class="p_right10"><span class="text_required">*</span>手机号码：</td>
 					<td width="300" >
 						<input  name="phone" type="text" style="height:25px;width:200px;"
-							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入手机号码！',validType:'length[11,11]'"
+							   class="easyui-textbox" data-options="required:true,missingMessage:'请输入手机号码！',validType:'mobile'"
 							   value="${commonUser.phone }" />
 					</td>
 				</tr>

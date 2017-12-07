@@ -10,7 +10,6 @@
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/common-validate.js"></script>
 </head>
 <body>
 	<div class="tahoma_font  tdstyle"
@@ -38,13 +37,13 @@
 			        <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">不合法数据个数</td>
 			        <td width="250" >
 						大于：<input id="jywjhsj_bhfsjgs_gz"  name="jywjhsj_bhfsjgs_gz" type="text" style="height:25px;width:150px;"
-			        	 class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+			        	 class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 			        	 value="${obj.jywjhsj_bhfsjgs_gz }"  />个
 			        </td>
 
 					 <td width="250" >
 						 大于：<input id="jywjhsj_bhfsjgs_wx" name="jywjhsj_bhfsjgs_wx" type="text" style="height:25px;width:150px;"
-								class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+								class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								value="${obj.jywjhsj_bhfsjgs_wx }" />个
 					 </td>
 			      </tr>
@@ -53,13 +52,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">重复数据个数</td>
 					<td width="250" >
 						大于：<input id="jywjhsj_cfsjgs_gz"  name="jywjhsj_cfsjgs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.jywjhsj_cfsjgs_gz }" />个
 					</td>
 
 					<td width="250" >
 						大于：<input id="jywjhsj_cfsjgs_wx" name="jywjhsj_cfsjgs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.jywjhsj_cfsjgs_wx }" />个
 					</td>
 				</tr>
@@ -68,13 +67,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">无法预处理文件个数</td>
 					<td width="250" >
 						大于：<input id="jywjhsj_wfyclwjgs_gz"  name="jywjhsj_wfyclwjgs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.jywjhsj_wfyclwjgs_gz }" />个
 					</td>
 
 					<td width="250" >
 						大于：<input id="jywjhsj_wfyclwjgs_wx" name="jywjhsj_wfyclwjgs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,8]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.jywjhsj_wfyclwjgs_wx }" />个
 					</td>
 				</tr>
@@ -96,7 +95,7 @@
     //保存
     function saveOrUpdate(step){
         var isValid = $("#form_user").form("validate");//表单验证方法
-        if (true){
+        if (isValid){
             //进行录入操作的后台交互
             $.ajax({
                 url:basePath+'alarm/alarmManagerController.do?saveOrUpdate',

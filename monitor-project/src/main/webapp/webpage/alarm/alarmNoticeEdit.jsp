@@ -10,7 +10,6 @@
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/common-validate.js"></script>
 	<style type="text/css"></style>
 </head>
 <body>
@@ -25,9 +24,9 @@
 					<td width="100" align="right" bgcolor="#f1f2f3" class="p_right10">告警时间</td>
 					<td width="250" colspan="3">
 						告警执行时间：<input name="alarmCronTriggerHour" type="text" value="${obj.alarmCronTriggerHour}" style="height:25px;width:35px;"
-											class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
+											class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 					/>时<input name="alarmCronTriggerStart" type="text" value="${obj.alarmCronTriggerStart}" style="height:25px;width:35px;"
-							  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,2]'"
+							  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 					/>分执行
 					</td>
 				</tr>
@@ -110,7 +109,7 @@
     }
     //保存
     function saveOrUpdate(){
-        //var isValid = $("#form_user").form("validate");//表单验证方法
+        var isValid = $("#form_user").form("validate");//表单验证方法
 
         //选中的用户
         var userIds='';
@@ -121,7 +120,7 @@
             userIds=userIds.substring(1);
         }
 
-        if (true){
+        if (isValid){
             //进行录入操作的后台交互
             $.ajax({
                 url:basePath+'alarm/alarmManagerController.do?updateAlarmNotice&alarmUser='+userIds,
@@ -132,7 +131,7 @@
                     if(d.resultCode==0){
                         $.messager.alert("提示",d.msg);
                         closeWin();
-                        $("#role_search_form").datagrid("reload");
+                        $("#getAlarmList").datagrid("reload");
                     } else if(d.resultCode == 1){
                         $.messager.alert("提示",d.msg);
                     }

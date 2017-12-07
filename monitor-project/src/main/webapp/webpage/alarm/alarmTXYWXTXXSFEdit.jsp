@@ -10,7 +10,6 @@
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/public.js"></script>
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/common-validate.js"></script>
 </head>
 <body>
 	<div class="tahoma_font  tdstyle"
@@ -45,13 +44,13 @@
 			        <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">接收最大流量</td>
 			        <td width="250" >
 						小于：<input id="txywxt_jszdll_gz"  name="txywxt_jszdll_gz" type="text" style="height:25px;width:150px;"
-			        	 class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+			        	 class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 			        	 value="${obj.txywxt_jszdll_gz }"  />个
 			        </td>
 
 					 <td width="250" >
 						 小于：<input id="txywxt_jszdll_wx" name="txywxt_jszdll_wx" type="text" style="height:25px;width:150px;"
-								class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								value="${obj.txywxt_jszdll_wx }" />个
 					 </td>
 			      </tr>
@@ -60,13 +59,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">接收最小流量</td>
 					<td width="250" >
 						小于：<input id="txywxt_jszxll_gz"  name="txywxt_jszxll_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_jszxll_gz }" />个
 					</td>
 
 					<td width="250" >
 						小于：<input id="txywxt_jszxll_wx" name="txywxt_jszxll_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_jszxll_wx }" />个
 					</td>
 				</tr>
@@ -75,13 +74,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">成功个数</td>
 					<td width="250" >
 						小于：<input id="txywxt_cggs_gz"  name="txywxt_cggs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_cggs_gz }" />个
 					</td>
 
 					<td width="250" >
 						小于：<input id="txywxt_cggs_wx" name="txywxt_cggs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_cggs_wx }" />个
 					</td>
 				</tr>
@@ -90,13 +89,13 @@
 					<td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">失败个数</td>
 					<td width="250" >
 						大于：<input id="txywxt_sbgs_gz"  name="txywxt_sbgs_gz" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_sbgs_gz }" />个
 					</td>
 
 					<td width="250" >
 						大于：<input id="txywxt_sbgs_wx" name="txywxt_sbgs_wx" type="text" style="height:25px;width:150px;"
-								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'length[1,6]'"
+								  class="easyui-textbox" data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
 								  value="${obj.txywxt_sbgs_wx }" />个
 					</td>
 				</tr>
@@ -119,7 +118,7 @@
     //保存
     function saveOrUpdate(step){
         var isValid = $("#form_user").form("validate");//表单验证方法
-        if (true){
+        if (isValid){
             //进行录入操作的后台交互
             $.ajax({
                 url:basePath+'alarm/alarmManagerController.do?saveOrUpdate',

@@ -202,11 +202,11 @@ public class CommonUtil {
         String[] arr = d.split("-");
         DateTime dateTime1 = new DateTime(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), 0, 0, 0);
         DateTime dateTime2 = dateTime1.minusHours(24);
-        //String T1 = DateUtil.dateToString(dateTime1.toDate(), DateUtil.DATE_STYLE_TIME_1);
-        // String T2 = DateUtil.dateToString(dateTime2.toDate(), DateUtil.DATE_STYLE_TIME_1);
+        String T1 = DateUtil.dateToString(dateTime1.toDate(), DateUtil.DATE_STYLE_TIME_1);
+        String T2 = DateUtil.dateToString(dateTime2.toDate(), DateUtil.DATE_STYLE_TIME_1);
 
-        String T2 = "2017-10-1 00:00:00";
-        String T1 = "2017-12-1 00:00:00";
+        T2 = "2017-10-1 00:00:00";
+        T1 = "2017-12-1 00:00:00";
         Map <String, String> map = new HashMap <>();
         map.put("currentDay", T1);
         map.put("preDay", T2);
@@ -223,11 +223,11 @@ public class CommonUtil {
     public static void sendAlarm(String head, String content, List<String> phones, List<String> emails) {
 
         for (String phone : phones) {
-            System.out.println("发送短信给" + phone);
+            log.info("发送短信给" + phone);
         }
 
         for (String email : emails) {
-            System.out.println("发送邮件给" + email);
+            log.info("发送邮件给" + email);
             SendMailUtil.getInstance().doSendHtmlEmail(head, content, email);
         }
     }

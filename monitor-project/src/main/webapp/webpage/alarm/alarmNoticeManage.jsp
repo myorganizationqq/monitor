@@ -58,7 +58,7 @@
 	<div class="line"></div>
 	<!--gap-->
 	<div class="easyui-layout" style="height: 10px"></div>
-	<div class="easyui-layout" style="height: 600px; padding: 10px">
+	<div class="easyui-layout" style="height: 500px; padding: 10px">
 		<table id="getAlarmList" >
         </table>
 	</div>

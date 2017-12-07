@@ -42,9 +42,11 @@ public class AlarmJYZXTJob implements Job {
         if (!alarm.getAlarmType().equals(Alarm.ALARM_TYPE_JYZXT)) {
             throw new IllegalArgumentException("alarm基础数据异常，请检查清算子系统 alarm type是否为JYZXT");
         }
+
         //获取数据
         List <StSysFlowCurrentDt> resultList = stSysFlowCurrentDtService.alarmCount();
 
+        //告警信息
         StringBuffer alarmContent = new StringBuffer();
 
         for (StSysFlowCurrentDt t : resultList) {
@@ -92,32 +94,7 @@ public class AlarmJYZXTJob implements Job {
 
         String content = "时间：" + preDay + "-" + currentDay + "<br><br>" + alarmContent;
 
-        List <String> emailUser = new ArrayList <>();
-        List <String> phoneUser = new ArrayList <>();
-
-        String emailsStr = alarm.getAlarmEmail();
-        String phonesStr = alarm.getAlarmMessage();
-
-        if (!StringUtil.isEmpty(emailsStr)) {
-            String[] emails = emailsStr.split(",");
-            for (String email : emails) {
-                TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class, Long.parseLong(email));
-                if (user != null && !StringUtil.isEmpty(user.getEmail())) {
-                    emailUser.add(user.getEmail());
-                }
-            }
-        }
-
-        if (!StringUtil.isEmpty(phonesStr)) {
-            String[] phones = phonesStr.split(",");
-            for (String phone : phones) {
-                TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class, Long.parseLong(phone));
-                if (user != null && !StringUtil.isEmpty(user.getPhone())) {
-                    phoneUser.add(user.getPhone());
-                }
-            }
-        }
-
+        //告警表插入告警数据
         AlarmNotice notice = new AlarmNotice();
         int zg = 30;
         int yc = alarmContent.toString().split("br").length - 1 < 0 ? 0 : alarmContent.toString().split("br").length - 1;
@@ -131,6 +108,38 @@ public class AlarmJYZXTJob implements Job {
         notice.setNoticeStatus("0");
         iAlarmNoticeManagerService.add(notice);
 
+        List <String> emailUser = new ArrayList <>();
+        List <String> phoneUser = new ArrayList <>();
+
+        String emailsStr = alarm.getAlarmEmail();
+        String phonesStr = alarm.getAlarmMessage();
+        String alarmUser = alarm.getAlarmUser();
+
+        //是否发送告警通知
+        if (StringUtil.isEmpty(emailsStr) && StringUtil.isEmpty(phonesStr)) {
+            return;
+        }
+
+        //查询告警通知对象的phone 和 email
+        String[] userIds = alarmUser.split(",");
+        for (String userId : userIds) {
+            TbCommonUser user = (TbCommonUser) iAlarmNoticeManagerService.loadById(TbCommonUser.class, Long.parseLong(userId));
+            if (user != null && !StringUtil.isEmpty(user.getEmail())) {
+                emailUser.add(user.getEmail());
+            }
+            if (user != null && !StringUtil.isEmpty(user.getPhone())) {
+                phoneUser.add(user.getPhone());
+            }
+        }
+
+        //发送告警通知
+        if(StringUtil.isEmpty(emailsStr)){
+            emailUser.clear();
+        }
+
+        if(StringUtil.isEmpty(phonesStr)){
+            phoneUser.clear();
+        }
         CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
     }
 

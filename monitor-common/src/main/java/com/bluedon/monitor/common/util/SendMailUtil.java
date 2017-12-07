@@ -28,7 +28,7 @@ public class SendMailUtil {
 	private String SEND_PWD = "szijobucmbpdbcfh";
 	// 建立会话
 	private MimeMessage message;
-	private Session s;
+	private Session session;
 
 	private static SendMailUtil sendMailUtil = new SendMailUtil();
 
@@ -46,12 +46,12 @@ public class SendMailUtil {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 
-		s =  Session.getDefaultInstance(props, new Authenticator(){
+		session =  Session.getDefaultInstance(props, new Authenticator(){
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(SEND_UNAME, SEND_PWD);
 			}});
-		s.setDebug(true);
-		message = new MimeMessage(s);
+		session.setDebug(false);
+		message = new MimeMessage(session);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class SendMailUtil {
 			// 邮件内容,也可以使纯文本"text/plain"
 			message.setContent(content, "text/html;charset=GBK");
 			message.saveChanges();
-			Transport transport = s.getTransport("smtp");
+			Transport transport = session.getTransport("smtp");
 			// smtp验证，就是你用来发邮件的邮箱用户名密码
 			transport.connect(VALUE_SMTP, SEND_UNAME, SEND_PWD);
 			// 发送
