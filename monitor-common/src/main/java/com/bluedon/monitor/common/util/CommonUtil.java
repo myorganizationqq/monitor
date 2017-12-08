@@ -213,24 +213,4 @@ public class CommonUtil {
         return map;
     }
 
-    /**
-     * 发送邮件和短信息
-     * @param head  邮件头
-     * @param content 内容
-     * @param phones 手机号码
-     * @param emails 邮箱
-     */
-    public static void sendAlarm(String head, String content, List<String> phones, List<String> emails) {
-
-        for (String phone : phones) {
-            log.info("发送短信给" + phone);
-        }
-
-        for (String email : emails) {
-            log.info("发送邮件给" + email);
-            SendMailUtil.getInstance().doSendHtmlEmail(head, content, email);
-        }
-    }
-
-
 }

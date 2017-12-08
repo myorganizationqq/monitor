@@ -10,7 +10,9 @@ import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.communication.LogFtpService;
+import com.bluedon.monitor.project.util.SendMailUtil;
 import com.bluedon.monitor.system.entity.TbCommonUser;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -25,6 +27,9 @@ import java.util.*;
 public class AlarmTXYWXTFTPWJJob implements Job {
 
     public static String JOB_NAME = "alarm_txywxtftpwj_job";
+
+    //日志记录对象
+    private static final Logger log = Logger.getLogger(AlarmTXYWXTFTPWJJob.class);
 
     @Autowired
     @Qualifier("alarmNoticeServiceImpl")
@@ -162,7 +167,17 @@ public class AlarmTXYWXTFTPWJJob implements Job {
         if(StringUtil.isEmpty(phonesStr)){
             phoneUser.clear();
         }
-        CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
+
+        for (String phone : phoneUser) {
+            log.info("发送短信给" + phone);
+        }
+
+        SendMailUtil mail = null;
+        for (String email : emailUser) {
+            log.info("发送邮件给" + email);
+            mail = new SendMailUtil();
+            mail.doSendHtmlEmail(head, content, email);
+        }
 
     }
 }

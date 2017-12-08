@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
+import com.bluedon.monitor.project.util.SendMailUtil;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -24,6 +26,9 @@ import com.bluedon.monitor.system.entity.TbCommonUser;
 public class AlarmJYZXTJob implements Job {
 
     public static String JOB_NAME = "alarm_jyzxt_job";
+
+    //日志记录对象
+    private static final Logger log = Logger.getLogger(AlarmJYZXTJob.class);
 
     @Autowired
     @Qualifier("alarmNoticeServiceImpl")
@@ -140,7 +145,17 @@ public class AlarmJYZXTJob implements Job {
         if(StringUtil.isEmpty(phonesStr)){
             phoneUser.clear();
         }
-        CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
+
+        for (String phone : phoneUser) {
+            log.info("发送短信给" + phone);
+        }
+
+        SendMailUtil mail = null;
+        for (String email : emailUser) {
+            log.info("发送邮件给" + email);
+            mail = new SendMailUtil();
+            mail.doSendHtmlEmail(head, content, email);
+        }
     }
 
 }

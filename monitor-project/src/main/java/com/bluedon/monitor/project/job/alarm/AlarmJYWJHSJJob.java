@@ -13,7 +13,9 @@ import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
 import com.bluedon.monitor.project.model.tradeFileRpt.TradeFileRptVO;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
 import com.bluedon.monitor.project.service.tradeFileRpt.TradeFileRptService;
+import com.bluedon.monitor.project.util.SendMailUtil;
 import com.bluedon.monitor.system.entity.TbCommonUser;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -30,6 +32,9 @@ import java.util.List;
 public class AlarmJYWJHSJJob implements Job {
 
     public static String JOB_NAME = "alarm_jywjhsj_job";
+
+    //日志记录对象
+    private static final Logger log = Logger.getLogger(AlarmJYWJHSJJob.class);
 
     @Autowired
     @Qualifier("alarmNoticeServiceImpl")
@@ -149,8 +154,17 @@ public class AlarmJYWJHSJJob implements Job {
         if (StringUtil.isEmpty(phonesStr)) {
             phoneUser.clear();
         }
-        CommonUtil.sendAlarm(head, content, phoneUser, emailUser);
 
+        for (String phone : phoneUser) {
+            log.info("发送短信给" + phone);
+        }
+
+        SendMailUtil mail = null;
+        for (String email : emailUser) {
+            log.info("发送邮件给" + email);
+            mail = new SendMailUtil();
+            mail.doSendHtmlEmail(head, content, email);
+        }
     }
 
 }
