@@ -40,7 +40,7 @@ public class TransferTableJob implements Job{
         //每天跑昨天的数据
         Date beforeDate = DateUtil.addDay(new Date(), -1);
         String balanceWaterNo=DateUtil.dateToString(beforeDate,"yyyyMMdd")+"01";
-        //balanceWaterNo="2017111501";
+        //balanceWaterNo="2017091601";
         String sql = " BALANCE_WATER_NO = "+ balanceWaterNo;
         for (TransferTable transferTable : list) {
             transferTable.setExtraSql(sql);

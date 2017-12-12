@@ -256,7 +256,7 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
      * @return
      */
     private List<TradeFileRpt> getTradeFileRptsFormLogFile(Map<String, Object> params) {
-        String hql ="select  a.balance_water_no balanceWaterNo,a.file_type fileType,count(distinct a.file_name) fileCount\n" +
+        String hql ="select  a.balance_water_no balanceWaterNo,a.file_type fileType,count(distinct a.file_name) fileCount,sum(IFNULL(a.file_record,0)) handleCount\n" +
                 "            from st_log_file_dt a\n" +
                 "         where a.balance_water_no = " +params.get("balanceWaterNo")+
                 "         group by a.file_type,a.BALANCE_WATER_NO\n" +
@@ -268,6 +268,7 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
             tradeFileRpt.setBalanceWaterNo(String.valueOf(stringObjectMap.get("balanceWaterNo")));
             tradeFileRpt.setFileType(String.valueOf(stringObjectMap.get("fileType")));
             tradeFileRpt.setFileCount(Integer.valueOf(String.valueOf(stringObjectMap.get("fileCount"))));
+            tradeFileRpt.setHandleCount(Integer.valueOf(String.valueOf(stringObjectMap.get("handleCount"))));
             tradeFileRpts.add(tradeFileRpt);
         }
         return tradeFileRpts;
