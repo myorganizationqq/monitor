@@ -1,6 +1,7 @@
-var typeArr={};
+var typeArr=[];
 //默认执行查询方法
 $(document).ready(function() {
+    getTypeArr();
     doSearch();
 });
 
@@ -114,6 +115,9 @@ function delData() {
 }
 
 function typeFmt(value,row){
+    if(value==''){
+       return '';
+    }
     if (typeArr.length == 0){
         getTypeArr();
     }
@@ -134,8 +138,9 @@ function fmt(typeArr,value){
 
 function getTypeArr() {
     $.ajax({
+        type:"get",
+        data: "json",
         url:basePath+"project/network/networkEquipmentController.do?getType",
-        type:JSON,
         success:function (data) {
             typeArr=eval(data);
         }

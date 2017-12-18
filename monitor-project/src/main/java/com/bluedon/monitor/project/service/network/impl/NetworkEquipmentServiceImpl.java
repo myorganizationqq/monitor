@@ -47,6 +47,8 @@ public class NetworkEquipmentServiceImpl implements NetworkEquipmentService{
         NetworkEquipment networkEquipment = hibernateDao.queryById(NetworkEquipment.class, vo.getId());
         vo.setCreateDate(networkEquipment.getCreateDate());
         vo.setCreateBy(networkEquipment.getCreateBy());
+        //把查出来的obj从一级缓存中删掉
+        hibernateDao.getSession().evict(networkEquipment);
         vo.setUpdateDate(new Date());
         hibernateDao.update(vo);
     }
