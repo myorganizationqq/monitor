@@ -122,8 +122,15 @@ public class ConstantUtil {
 			put("TCD","金融ic卡交易文件");
 		}
 	};
-	
-	
+
+	public final static Map<String,String> NEWWORK_EQUIPMENT_TYPE = new HashMap<String, String>(){
+		{
+			put("","请选择");
+			put("JHJ","交换机");
+			put("FHQ","防火墙");
+			put("FBD","防病毒");
+		}
+	};
 	
 	
 	
