@@ -10,7 +10,9 @@ function search(){
 
     //获取查询框的值
     var qParams={
-        'type':$('#type').combobox('getValue')
+        'type':$('#type').combobox('getValue'),
+        'equipmentName':$('#equipmentName').val(),
+        'equipmentVersion':$('#equipmentVersion').val()
     };
     //表单信息
     $("#getList").datagrid({
@@ -26,7 +28,7 @@ function search(){
             {field:'id',checkbox:true,width:30,align:'center'},
             {title:'区域',field:'scope',width:80,align:'center'},
             {title:'设备名称',field:'equipmentName',width:100,align:'center'},
-            {title:'设备型号',field:'equipmentVersion',width:50,align:'center'},
+            {title:'设备型号',field:'equipmentVersion',width:100,align:'center'},
             {title:'ip',field:'ip',width:100,align:'center'},
             {title:'子网掩码',field:'subnetMark',width:100,align:'center'},
             {title:'网关',field:'gateway',width:80,align:'center',hidden:true},
@@ -34,10 +36,10 @@ function search(){
             {title:'说明',field:'remark',width:50,align:'center'},
             {title:'类型',field:'type',width:100,align:'center',formatter:typeFmt},
             {title:'cpu',field:'cpu',width:100,align:'center'},
-            {title:'内存',field:'memory',width:100,align:'center'},
+            {title:'内存',field:'memory',width:20,align:'center'},
             {title:'创建时间',field:'createDate',width:100,align:'center',formatter:dateFmt},
             {
-                title: '操作', field: 'operation', width: 150, align: 'center',
+                title: '操作', field: 'operation', width: 50, align: 'center',
                 formatter: function (value, row) {
                     var id = row.id;
                     var d = ' <a href="#"  onclick="toEditPage(\'' + id + '\')">修改</a> ';

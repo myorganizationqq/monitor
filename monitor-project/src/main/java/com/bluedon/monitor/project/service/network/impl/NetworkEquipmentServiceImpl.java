@@ -7,6 +7,7 @@ import com.bluedon.monitor.project.entity.network.NetworkEquipment;
 import com.bluedon.monitor.project.service.network.NetworkEquipmentService;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,12 @@ public class NetworkEquipmentServiceImpl implements NetworkEquipmentService{
         List<Criterion> paramList = new ArrayList<Criterion>();
         if(!StringUtil.isEmpty(param.getType())){
             paramList.add(Restrictions.eq("type", param.getType()));
+        }
+        if(!StringUtil.isEmpty(param.getEquipmentName())){
+            paramList.add(Restrictions.like("equipmentName", param.getEquipmentName(), MatchMode.ANYWHERE));
+        }
+        if(!StringUtil.isEmpty(param.getEquipmentVersion())){
+            paramList.add(Restrictions.like("equipmentVersion", param.getEquipmentVersion(), MatchMode.START));
         }
         List<Order> orders = new ArrayList<>();
         orders.add(Order.desc("createDate"));

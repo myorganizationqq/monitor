@@ -26,8 +26,16 @@
                                 data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
 				        	url:'${requestScope.basePath }project/network/networkEquipmentController.do?getType'"></select>
                     </td>
-
-
+                    <td width="60" style="padding-right:10px;"><label>名称：</label></td>
+                    <td width="160">
+                        <input id="equipmentName" name="equipmentName" type="text" style="height:25px;width:150px;"
+                               class="easyui-textbox" data-options="required:false,validType:'maxLength[255]'" />
+                    </td>
+                    <td width="60" style="padding-right:10px;"><label>型号：</label></td>
+                    <td width="160">
+                        <input id="equipmentVersion" name="equipmentVersion" type="text" style="height:25px;width:150px;"
+                               class="easyui-textbox" data-options="required:false,validType:'maxLength[255]'" />
+                    </td>
 
                     <td></td>
                 </tr>
