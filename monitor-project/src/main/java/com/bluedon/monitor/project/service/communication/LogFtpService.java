@@ -11,7 +11,7 @@ import com.bluedon.monitor.system.service.IBaseService;
 public interface LogFtpService extends IBaseService {
 	String getLatestFtpDatetime();
 	
-	List<TransferTable> getTableList();
+	List<TransferTable> getTableList(int stat);
 	
 	List<Map<String, Object>> getLogFtpPageList(CmLogFtpDT param, PageUtil pageUtil);
 	
