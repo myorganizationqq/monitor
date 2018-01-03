@@ -1,15 +1,22 @@
 package com.bluedon.monitor.project.common;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.util.PropertiesUtil;
-import org.apache.commons.lang.StringUtils;
-
-import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
 
 /**
  * @author JiangFeng on 2017/11/9.
@@ -111,6 +118,7 @@ public class Oracle2Mysql {
 		mysqlConn.close();// 一定要记住关闭连接，不然mysql回应为too many connection自我保护而断开。
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void oracle2mysql(List<TransferTable> transferTables) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SS");
 		TimeZone t = sdf.getTimeZone();
@@ -142,7 +150,49 @@ public class Oracle2Mysql {
 		Long endTime = System.currentTimeMillis();
 		System.out.println("用时：" + sdf.format(new Date(endTime - startTime)));
 	}
-
+	
+	@SuppressWarnings("deprecation")
+	public static List<Map<String, String>> getOpPrmDevCodeListData(TransferTable transferTable, ConnectVO connectVO) {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		List<Map<String, String>> list = new ArrayList<>();
+		oracleConn = Oracle_con.createIfNon(oracleConn, connectVO);
+		String sql = "SELECT " + transferTable.getTableColumn() + " FROM OP_PRM_DEV_CODE WHERE DEV_TYPE_ID = '03' AND RECORD_FLAG = '0'";
+		try {
+			preparedStatement = oracleConn.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Map<String, String> result = new HashMap<>();
+				result.put("LINE_ID", resultSet.getString("LINE_ID"));
+				result.put("DEVICE_ID", resultSet.getString("DEVICE_ID"));
+				result.put("STATION_ID", resultSet.getString("STATION_ID"));
+				result.put("IP_ADDRESS", resultSet.getString("IP_ADDRESS"));
+				result.put("DEV_TYPE_ID", resultSet.getString("DEV_TYPE_ID"));
+				list.add(result);
+			}
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();// 关闭ResultSet
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				preparedStatement.close();// 关闭Statement
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				oracleConn.close();// 关闭Connection
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public static void oralce2MysqlByPDBCM() throws Exception {
 		ConnectVO oracleConnectVO = new ConnectVO(PropertiesUtil.getValue("oracle.driverClassName"),
