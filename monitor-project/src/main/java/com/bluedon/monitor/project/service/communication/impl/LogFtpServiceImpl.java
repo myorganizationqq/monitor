@@ -35,8 +35,8 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<TransferTable> getTableList() {
-		return hibernateDao.queryForList("SELECT t FROM TransferTable t WHERE t.stat = 0", new Object[]{}, null);
+	public List<TransferTable> getTableList(int stat) {
+		return hibernateDao.queryForList("SELECT t FROM TransferTable t WHERE t.stat = ?", new Object[]{stat}, null);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -181,6 +181,5 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
         }
 		return dataMap;
 	}
-	
-	
+
 }
