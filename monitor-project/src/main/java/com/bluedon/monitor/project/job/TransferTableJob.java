@@ -34,13 +34,14 @@ public class TransferTableJob implements Job{
     private TradeFileRptService tradeFileRptService;
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        Map<String, Integer> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("stat",1);
+        //params.put("impTableName","st_log_balance");
         List<TransferTable> list = transferTableService.getList(params);
         //每天跑昨天的数据
         Date beforeDate = DateUtil.addDay(new Date(), -1);
         String balanceWaterNo=DateUtil.dateToString(beforeDate,"yyyyMMdd")+"01";
-        //balanceWaterNo="2017091601";
+        //balanceWaterNo="2017111301";
         String sql = " BALANCE_WATER_NO = "+ balanceWaterNo;
         for (TransferTable transferTable : list) {
             transferTable.setExtraSql(sql);

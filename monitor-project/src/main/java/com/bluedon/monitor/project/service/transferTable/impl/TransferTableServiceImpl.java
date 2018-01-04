@@ -31,6 +31,10 @@ public class TransferTableServiceImpl implements TransferTableService{
             if(params.get("tableType") != null){
                 hql+=" and a.tableType = :tableType ";
             }
+            if(params.get("impTableName") != null){
+                hql+=" and a.impTableName = :impTableName ";
+            }
+
         }
         hql+=" order by a.impTableName";
         List<TransferTable> list = null;

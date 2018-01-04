@@ -1,22 +1,13 @@
 package com.bluedon.monitor.project.common;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.bluedon.monitor.project.entity.transferTable.TransferTable;
 import com.bluedon.monitor.project.util.PropertiesUtil;
+import org.apache.commons.lang.StringUtils;
+
+import java.sql.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author JiangFeng on 2017/11/9.
@@ -63,7 +54,7 @@ public class Oracle2Mysql {
 				// 设置的每次提交大小为10000
 				if (i % 10000 == 0) {
 					executeManySql(findList, transferTable);
-					findList.removeAll(findList);
+					findList.clear();
 					System.out.println(transferTable.getImpTableName() + ":" + i);
 				}
 			}
@@ -150,7 +141,7 @@ public class Oracle2Mysql {
 		Long endTime = System.currentTimeMillis();
 		System.out.println("用时：" + sdf.format(new Date(endTime - startTime)));
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static List<Map<String, String>> getOpPrmDevCodeListData(TransferTable transferTable, ConnectVO connectVO) {
 		ResultSet resultSet = null;
@@ -192,7 +183,7 @@ public class Oracle2Mysql {
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static void oralce2MysqlByPDBCM() throws Exception {
 		ConnectVO oracleConnectVO = new ConnectVO(PropertiesUtil.getValue("oracle.driverClassName"),
