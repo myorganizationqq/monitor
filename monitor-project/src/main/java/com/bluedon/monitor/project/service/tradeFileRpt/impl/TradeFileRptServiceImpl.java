@@ -226,7 +226,7 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
     private List<Map<String, Object>> getErrorCount(Map<String, Object> params) {
         List<Map<String, Object>> errorCountList;
         String hql="SELECT a.ERR_CODE errCode,count(1) count from "+params.get("tableName")+" a\n" +
-                "         LEFT JOIN  ST_LOG_FILE_dt b\n" +
+                "         LEFT JOIN  st_log_file_dt b\n" +
                 "         ON a.FILE_NAME = b.FILE_NAME\n" +
                 "         WHERE a.balance_water_no = "+params.get("balanceWaterNo")+" AND  b.FILE_TYPE = '"+params.get("fileType")+"'\n" +
                 "        group by a.ERR_CODE";
@@ -242,7 +242,7 @@ private static Logger log=Logger.getLogger(TradeFileRptServiceImpl.class);
     private int getNoPretreatmentCount(Map<String, Object> params) {
         int noPretreatmentCount;
         String hql="SELECT count(1) count FROM  st_error_record_dt a\n" +
-                "         LEFT JOIN  ST_LOG_FILE_dt b\n" +
+                "         LEFT JOIN  st_log_file_dt b\n" +
                 "         ON a.FILE_NAME = b.FILE_NAME\n" +
                 "        WHERE a.balance_water_no = "+params.get("balanceWaterNo")+" AND b.FILE_TYPE = '"+params.get("fileType")+"'";
         List<Map<String,Object>> list = hibernateDao.selectBySql(hql);
