@@ -85,7 +85,7 @@
                 </td>
             </tr>
 
-            <tr>
+            <%--<tr>
                 <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">cpu</td>
                 <td width="250">
                     <input id="cpu" name="cpu" type="text" style="height:25px;width:150px;"
@@ -99,7 +99,7 @@
                            data-options="required:true,missingMessage:'请输入整数！',validType:'integer'"
                            value="${obj.memory }"/>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">备注说明</td>
                 <td width="250">
@@ -107,7 +107,17 @@
                            class="easyui-textbox" data-options="required:false,validType:'maxLength[255]'"
                            value="${obj.remark }" />
                 </td>
+                <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">操作系统</td>
+                <td width="250">
+                    <select id="osType" name="osType" class="easyui-combobox" style="width:150px;"
+                            data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
+				        	url:'${requestScope.basePath }project/network/networkEquipmentController.do?getOsType',
+				        	onLoadSuccess:function(data){
+	        			        $('#osType').combobox('setValue','${obj.osType}');
+	        	            }">
 
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td colspan="4">

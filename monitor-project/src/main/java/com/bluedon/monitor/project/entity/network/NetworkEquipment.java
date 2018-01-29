@@ -49,11 +49,14 @@ public class NetworkEquipment extends BaseEntity{
     /*类型*/
     @Column(name = "type")
     private String type;
-    @Column(name = "cpu")
+    /*操作系统*/
+    @Column(name = "os_type")
+    private int osType;
+   /* @Column(name = "cpu")
     private String cpu;
-    /**内存*/
+    *//**内存*//*
     @Column(name = "memory")
-    private int memory;
+    private int memory;*/
     @Column(name = "create_date")
     private Date createDate;
     @Column(name = "create_by")
@@ -143,20 +146,12 @@ public class NetworkEquipment extends BaseEntity{
         this.type = type;
     }
 
-    public String getCpu() {
-        return cpu;
+    public int getOsType() {
+        return osType;
     }
 
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public int getMemory() {
-        return memory;
-    }
-
-    public void setMemory(int memory) {
-        this.memory = memory;
+    public void setOsType(int osType) {
+        this.osType = osType;
     }
 
     public Date getCreateDate() {

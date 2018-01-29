@@ -119,6 +119,22 @@ public class NetworkEquipmentController {
         }
         ToolUtil.getCombo(response, cList);
     }
+
+    @RequestMapping(params = "getOsType")
+    @Description("获取操作系统")
+    public void getOsType(HttpServletResponse response){
+        Map<Integer, String> map = ConstantUtil.OS_TYPE;
+        List<ComboBox> cList=new ArrayList<ComboBox>();
+
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            ComboBox c = new ComboBox();
+            c.setId(entry.getKey().toString());
+            c.setText(entry.getValue());
+            cList.add(c);
+        }
+        ToolUtil.getCombo(response, cList);
+    }
+
     @RequestMapping(params = "del")
     @Description("批量删除")
     public void del(@Param long[] idArr,HttpServletResponse response){

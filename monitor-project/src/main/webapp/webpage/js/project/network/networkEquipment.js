@@ -1,4 +1,5 @@
 var typeArr=[];
+var osTypeArr=[];
 //默认执行查询方法
 $(document).ready(function() {
     getTypeArr();
@@ -34,9 +35,10 @@ function search(){
             {title:'网关',field:'gateway',width:80,align:'center',hidden:true},
             {title:'主机名',field:'hostName',width:100,align:'center'},
             {title:'说明',field:'remark',width:50,align:'center'},
-            {title:'类型',field:'type',width:100,align:'center',formatter:typeFmt},
-            {title:'cpu',field:'cpu',width:100,align:'center'},
-            {title:'内存',field:'memory',width:20,align:'center'},
+            {title:'类型',field:'type',width:50,align:'center',formatter:typeFmt},
+            {title:'操作系统',field:'osType',width:50,align:'center',formatter:osTypeFmt},
+            /*{title:'cpu',field:'cpu',width:100,align:'center'},
+            {title:'内存',field:'memory',width:20,align:'center'},*/
             {title:'创建时间',field:'createDate',width:100,align:'center',formatter:dateFmt},
             {
                 title: '操作', field: 'operation', width: 50, align: 'center',
@@ -126,6 +128,16 @@ function typeFmt(value,row){
     return fmt(typeArr,value);
 }
 
+function osTypeFmt(value,row){
+    if(value==''){
+        return '';
+    }
+    if (osTypeArr.length == 0){
+        getOsTypeArr();
+    }
+    return fmt(osTypeArr,value);
+}
+
 //
 function fmt(typeArr,value){
     var str = value;
@@ -145,6 +157,17 @@ function getTypeArr() {
         url:basePath+"project/network/networkEquipmentController.do?getType",
         success:function (data) {
             typeArr=eval(data);
+        }
+    });
+}
+
+function getOsTypeArr() {
+    $.ajax({
+        type:"get",
+        data: "json",
+        url:basePath+"project/network/networkEquipmentController.do?getOsType",
+        success:function (data) {
+            osTypeArr=eval(data);
         }
     });
 }

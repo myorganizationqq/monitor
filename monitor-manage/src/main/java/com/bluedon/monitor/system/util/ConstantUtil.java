@@ -131,6 +131,12 @@ public class ConstantUtil {
 			put("FBD","防病毒");
 		}
 	};
+    /*操作系统*/
+	public final static Map<Integer,String> OS_TYPE = new HashMap<Integer, String>(){
+		{
+			put(1,"Linux");
+		}
+	};
 	
 	
 	
