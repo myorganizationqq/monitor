@@ -48,12 +48,6 @@ function init() {
 							align : 'center'
 						},
 						{
-							title : '文件名称',
-							field : 'FILENAME',
-							width : 70,
-							align : 'center'
-						},
-						{
 							title : 'FTP类型',
 							field : 'OPER_CODE',
 							width : 100,
