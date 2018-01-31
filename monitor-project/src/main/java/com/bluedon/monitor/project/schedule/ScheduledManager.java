@@ -21,7 +21,7 @@ import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import com.bluedon.monitor.project.util.PropertiesUtil;
 
 @Component("scheduledManager")
-@Lazy(value = false)
+@Lazy(value = true)
 public class ScheduledManager {
 	// 日志记录对象
 	private static final Logger log = Logger.getLogger(ScheduledManager.class);
@@ -40,7 +40,7 @@ public class ScheduledManager {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("deprecation")
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void dealDataTask() throws Exception {
 		log.info(simpleDateFormat.format(new Date()) + " ：开始执行任务cm_log_ftp、cm_log_recv_send...");
 		
@@ -68,7 +68,7 @@ public class ScheduledManager {
 	}
 	
 	@SuppressWarnings("deprecation")
-	@Scheduled(cron = "0 0/2 * * * ?")
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void dealLCCDataTask() throws Exception {
 		log.info(simpleDateFormat.format(new Date()) + " ：开始执行任务op_prm_dev_code、op_prm_lcc_line、op_prm_line_tram...");
 		
