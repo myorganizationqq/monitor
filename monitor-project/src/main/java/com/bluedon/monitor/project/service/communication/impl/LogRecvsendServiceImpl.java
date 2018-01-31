@@ -38,13 +38,13 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT a.LINK_IP,MAX(a.MSG_LENGTH) MSG_LENGTH,"
+		String sql = "SELECT a.LINK_IP,a.line_name,MAX(a.MSG_LENGTH) MSG_LENGTH,"
 						+ "MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
 						+ "MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
 					+ "FROM "
 					+ "("
-						+ "SELECT w.LINK_IP,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
-						+ "FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT "
+						+ "SELECT w.LINK_IP,p.line_name,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
+						+ "FROM cm_log_recv_send_dt w, op_prm_lcc_dt p WHERE w.LINK_IP=p.lcc_ip AND (w.RESULT=0 OR w.RESULT=1) GROUP BY w.LINK_IP,w.RESULT "
 					+ ")a "
 					+ "WHERE a.LINK_IP IS NOT NULL AND a.LINK_IP LIKE '%linkIp%' AND a.SERVER_CODE LIKE '%serverCode%'"
 					+ " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') "
@@ -67,17 +67,17 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT a.LINK_IP,MAX(a.MSG_LENGTH) MSG_LENGTH,"
-						+ "MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
-						+ "MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
-					+ "FROM "
-					+ "("
-						+ "SELECT w.LINK_IP,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
-						+ "FROM cm_log_recv_send_dt w WHERE w.RESULT=0 OR w.RESULT=1 GROUP BY w.LINK_IP,w.RESULT "
-					+ ")a "
-					+ "WHERE a.LINK_IP IS NOT NULL AND a.LINK_IP LIKE '%linkIp%' AND a.SERVER_CODE LIKE '%serverCode%'"
-					+ " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') "
-					+ "GROUP BY a.LINK_IP";
+		String sql = "SELECT a.LINK_IP,a.line_name,MAX(a.MSG_LENGTH) MSG_LENGTH,"
+				+ "MAX(CASE a.RESULT WHEN 0 THEN a.num ELSE 0 END) SUCCESS,"
+				+ "MAX(CASE a.RESULT WHEN 1 THEN a.num ELSE 0 END) FAILURE "
+			+ "FROM "
+			+ "("
+				+ "SELECT w.LINK_IP,p.line_name,w.RESULT,COUNT(0)num,w.MSG_LENGTH,w.SERVER_CODE,w.RECD_DATETIME "
+				+ "FROM cm_log_recv_send_dt w, op_prm_lcc_dt p WHERE w.LINK_IP=p.lcc_ip AND (w.RESULT=0 OR w.RESULT=1) GROUP BY w.LINK_IP,w.RESULT "
+			+ ")a "
+			+ "WHERE a.LINK_IP IS NOT NULL AND a.LINK_IP LIKE '%linkIp%' AND a.SERVER_CODE LIKE '%serverCode%'"
+			+ " AND (a.RECD_DATETIME BETWEEN 'T1' AND 'T2') "
+			+ "GROUP BY a.LINK_IP";
 
 		sql = sql.replace("linkIp", param.getLinkIp() == null ? "" : param.getLinkIp())
 				.replace("serverCode", param.getServerCode() == null ? "" : param.getServerCode())
@@ -135,12 +135,12 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RESULT=%s AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		String sql = "SELECT p.line_name,COUNT(1) NUM FROM cm_log_recv_send_dt r,op_prm_lcc_dt p WHERE r.LINK_IP=p.lcc_ip AND r.LINK_IP IS NOT NULL AND r.RESULT=%s AND r.RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY r.LINK_IP ORDER BY NUM DESC LIMIT 5;";
 		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getResult(), param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
-            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            String linkIp = String.valueOf(objMap.get("line_name"));
             int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
             map.put(linkIp, num);
         }
@@ -154,12 +154,12 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT LINK_IP,COUNT(1) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		String sql = "SELECT p.line_name,COUNT(1) NUM FROM cm_log_recv_send_dt r,op_prm_lcc_dt p WHERE r.LINK_IP=p.lcc_ip AND r.LINK_IP IS NOT NULL AND r.RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY r.LINK_IP ORDER BY NUM DESC LIMIT 5;";
 		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
-            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            String linkIp = String.valueOf(objMap.get("line_name"));
             int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
             map.put(linkIp, num);
         }
@@ -173,12 +173,12 @@ public class LogRecvsendServiceImpl implements LogRecvsendService {
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT LINK_IP,MAX(MSG_LENGTH) NUM FROM cm_log_recv_send_dt WHERE LINK_IP IS NOT NULL AND RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY LINK_IP ORDER BY NUM DESC LIMIT 5;";
+		String sql = "SELECT p.line_name,MAX(MSG_LENGTH) NUM FROM cm_log_recv_send_dt r,op_prm_lcc_dt p WHERE r.LINK_IP=p.lcc_ip AND r.LINK_IP IS NOT NULL AND r.RECD_DATETIME BETWEEN '%s' AND '%s' GROUP BY r.LINK_IP ORDER BY NUM DESC LIMIT 5;";
 		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> objMap : list) {
-            String linkIp = String.valueOf(objMap.get("LINK_IP"));
+            String linkIp = String.valueOf(objMap.get("line_name"));
             int num = Integer.valueOf(String.valueOf(objMap.get("NUM")));
             map.put(linkIp, num);
         }

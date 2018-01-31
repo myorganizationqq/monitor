@@ -35,6 +35,7 @@ public class CmLogFtpDT extends BaseEntity {
 	private int failureCount;
 	private String dateTime1;
 	private String dateTime2;
+	private String lineName;
 
 	public CmLogFtpDT() {
 	}
@@ -143,6 +144,13 @@ public class CmLogFtpDT extends BaseEntity {
 	public void setDateTime2(String dateTime2) {
 		this.dateTime2 = dateTime2;
 	}
-	
+
+	@Transient
+	public String getLineName() {
+		return lineName;
+	}
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
 	
 }

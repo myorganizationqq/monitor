@@ -47,17 +47,17 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT w.FTP_IP,w.FILENAME,COUNT(0) NUM,"
+		String sql = "SELECT w.FTP_IP,p.line_name,COUNT(0) NUM,"
 				   + "CASE WHEN w.OPER_CODE=1 THEN '下载' ELSE '上传' END OPER_CODE,"
 				   + "CASE WHEN w.RESULT=1 THEN '成功' ELSE '失败' END RESULT "
-				   + "FROM cm_log_ftp_dt w "
-				   + "WHERE w.FTP_IP LIKE '%ftpIp%' AND w.FILENAME LIKE '%fileName%'"
+				   + "FROM cm_log_ftp_dt w, op_prm_lcc_dt p "
+				   + "WHERE w.FTP_IP = p.lcc_ip AND w.FTP_IP LIKE '%ftpIp%' AND p.line_name LIKE '%lineName%'"
 				   + " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') "
 				   + "GROUP BY w.FTP_IP,w.RESULT,w.OPER_CODE LIMIT start, length;";
 		
 		Integer start = (pageUtil.getPage() - 1) * pageUtil.getRows();
 		
-		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("fileName", param.getFileName()==null ? "" : param.getFileName())
+		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("lineName", param.getLineName()==null ? "" : param.getLineName())
 				 .replace("T1", param.getDateTime1()).replace("T2", param.getDateTime2())
 				 .replace("start", start.toString()).replace("length", pageUtil.getRows()+"");
 		
@@ -71,15 +71,15 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT w.FTP_IP,w.FILENAME,COUNT(0) NUM,"
+		String sql = "SELECT w.FTP_IP,p.line_name,COUNT(0) NUM,"
 				   + "CASE WHEN w.OPER_CODE=1 THEN '下载' ELSE '上传' END OPER_CODE,"
 				   + "CASE WHEN w.RESULT=1 THEN '成功' ELSE '失败' END RESULT "
-				   + "FROM cm_log_ftp_dt w "
-				   + "WHERE w.FTP_IP LIKE '%ftpIp%' AND w.FILENAME LIKE '%fileName%'"
+				   + "FROM cm_log_ftp_dt w, op_prm_lcc_dt p "
+				   + "WHERE w.FTP_IP = p.lcc_ip AND w.FTP_IP LIKE '%ftpIp%' AND p.line_name LIKE '%lineName%'"
 				   + " AND (w.START_DATETIME BETWEEN 'T1' AND 'T2') "
 				   + "GROUP BY w.FTP_IP,w.RESULT,w.OPER_CODE";
 		
-		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("fileName", param.getFileName()==null ? "" : param.getFileName())
+		sql = sql.replace("ftpIp", param.getFtpIp()==null ? "" : param.getFtpIp()).replace("lineName", param.getLineName()==null ? "" : param.getLineName())
 				 .replace("T1", param.getDateTime1()).replace("T2", param.getDateTime2());
 		
 		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
@@ -108,12 +108,12 @@ public class LogFtpServiceImpl extends BaseServiceImpl implements LogFtpService 
 			param.setDateTime1(map.get("preDay"));
 			param.setDateTime2(map.get("currentDay"));
 		}
-		String sql = "SELECT FTP_IP,COUNT(1) NUM FROM cm_log_ftp_dt WHERE result=%s AND FTP_DATETIME BETWEEN '%s' AND '%s' GROUP BY FTP_IP ORDER BY NUM DESC LIMIT 5;";
+		String sql = "SELECT p.line_name,COUNT(1) NUM FROM cm_log_ftp_dt f,op_prm_lcc_dt p WHERE p.lcc_ip = f.FTP_IP AND f.result=%s AND f.FTP_DATETIME BETWEEN '%s' AND '%s' GROUP BY f.FTP_IP ORDER BY NUM DESC LIMIT 5;";
 		List<Map<String, Object>> list = hibernateDao.selectBySql(String.format(sql, param.getResult(), param.getDateTime1(), param.getDateTime2()));
 		
 		Map<String, Object> map = new HashMap<>();
         for (Map<String, Object> stringObjectMap : list) {
-            String ftpIp = String.valueOf(stringObjectMap.get("FTP_IP"));
+            String ftpIp = String.valueOf(stringObjectMap.get("line_name"));
             int num = Integer.valueOf(String.valueOf(stringObjectMap.get("NUM")));
             map.put(ftpIp, num);
         }

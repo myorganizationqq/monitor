@@ -24,9 +24,9 @@
 					<input type="t" class="easyui-textbox" id="ftpIp"
 						style="width: 150px" data-options="" fit="true" />
 				</td>
-				<td width="60" style="padding-left:20px;"><label>文件名称：</label></td>
+				<td width="60" style="padding-left:20px;"><label>LCC名称：</label></td>
 				<td width="160">
-					<input type="t" class="easyui-textbox" id="fileName"
+					<input type="t" class="easyui-textbox" id="lineName"
 						style="width: 150px" data-options="" fit="true" />
 				</td>
 				<td width="60" style="padding-left:20px;"><label>开始时间：</label></td>
