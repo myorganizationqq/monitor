@@ -49,7 +49,7 @@ public class NetworkEquipment extends BaseEntity{
     /*类型*/
     @Column(name = "type")
     private String type;
-    /*操作系统*/
+    /*系统or厂商*/
     @Column(name = "os_type")
     private int osType;
    /* @Column(name = "cpu")
