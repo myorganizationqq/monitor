@@ -7,4 +7,6 @@ package com.bluedon.monitor.project.service.network;
  */
 public interface SnmpAllService {
     void saveNetIO();
+    void saveCpuStat();
+    void saveMemStat();
 }

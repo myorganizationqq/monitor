@@ -150,6 +150,8 @@
 
 	<!-- snmp交换机网络相关的job-->
 	<bean id="netIOJob" class="com.bluedon.monitor.project.job.snmp.NetIOJob" />
+	<bean id="cpuStatJob" class="com.bluedon.monitor.project.job.snmp.CpuStatJob" />
+	<bean id="memStatJob" class="com.bluedon.monitor.project.job.snmp.MemStatJob" />
 	<bean id="netIOJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<ref bean="netIOJob"></ref>
@@ -161,10 +163,42 @@
 			<value>false</value>
 		</property>
 	</bean>
+	<bean id="cpuStatJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="cpuStatJob"></ref>
+		</property>
+		<property name="targetMethod">
+			<value>executeJob</value>
+		</property>
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+	<bean id="memStatJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="memStatJob"></ref>
+		</property>
+		<property name="targetMethod">
+			<value>executeJob</value>
+		</property>
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
 
 	<bean id="netIOTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail"  ref="netIOJobMethod"></property>
-		<property name="cronExpression" value="0/60 * * * * ?"></property>
+		<property name="cronExpression" value="0 0/1 * * * ?"></property>
+	</bean>
+
+	<bean id="cpuStatTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail"  ref="cpuStatJobMethod"></property>
+		<property name="cronExpression" value="0 0/15 * * * ?"></property>
+	</bean>
+
+	<bean id="memStatTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail"  ref="memStatJobMethod"></property>
+		<property name="cronExpression" value="0 0/15 * * * ?"></property>
 	</bean>
 	<!-- ======================== 调度触发器 ======================== -->
 	<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -180,6 +214,8 @@
 			<list>
 				<ref bean="CronTriggerBean"/>
 				<ref bean="netIOTrigger" />
+				<ref bean="cpuStatTrigger"></ref>
+				<ref bean="memStatTrigger" />
 			</list>
 		</property>
 	</bean>

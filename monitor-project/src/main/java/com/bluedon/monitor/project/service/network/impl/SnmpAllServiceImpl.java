@@ -2,9 +2,7 @@ package com.bluedon.monitor.project.service.network.impl;
 
 import com.bluedon.monitor.common.dao.HibernateDao;
 import com.bluedon.monitor.project.common.Mysql_con;
-import com.bluedon.monitor.project.entity.network.NetioStatMinute;
-import com.bluedon.monitor.project.entity.network.NetworkEquipment;
-import com.bluedon.monitor.project.entity.network.SnmpInfo;
+import com.bluedon.monitor.project.entity.network.*;
 import com.bluedon.monitor.project.service.network.NetworkEquipmentService;
 import com.bluedon.monitor.project.service.network.SnmpAllService;
 import com.bluedon.monitor.project.service.network.SnmpInfoService;
@@ -44,10 +42,7 @@ public class SnmpAllServiceImpl implements SnmpAllService {
     private static Logger logger =Logger.getLogger(SnmpAllServiceImpl.class);
     @Override
     public void saveNetIO() {
-        Map<String, Object> map = new HashMap<>();
-        //启用状态的
-        map.put("state",1);
-        List<SnmpInfo> list = snmpInfoService.getList(map);
+        List<SnmpInfo> list = getAvailableSnmpInfos();
         for (SnmpInfo snmpInfo : list) {
             long serverInfoId = snmpInfo.getServerInfoId();
             //这里注意不能先删除有snmp的网络设备
@@ -155,28 +150,28 @@ public class SnmpAllServiceImpl implements SnmpAllService {
                         netioStatMinute.setIfoutoctets(v);
                     }
                     if (snmpResultIfInUcastPkts.isSuccess()){
-                        long v = getIntValue(snmpResultIfInUcastPkts, i);
+                        long v = getLongVal(snmpResultIfInUcastPkts, i);
                         netioStatMinute.setIfinucastpkts(v);
                     }
                     if (snmpResultIfOutUcastPkts.isSuccess()){
-                        long v = getIntValue(snmpResultIfOutUcastPkts, i);
+                        long v = getLongVal(snmpResultIfOutUcastPkts, i);
                         netioStatMinute.setIfoutucastpkts(v);
                     }
 
                     if (snmpResultIfInDiscards.isSuccess()){
-                        long v = getIntValue(snmpResultIfInDiscards, i);
+                        long v = getLongVal(snmpResultIfInDiscards, i);
                         netioStatMinute.setIfInDiscards(v);
                     }
                     if (snmpResultIfOutDiscards.isSuccess()){
-                        long v = getIntValue(snmpResultIfOutDiscards, i);
+                        long v = getLongVal(snmpResultIfOutDiscards, i);
                         netioStatMinute.setIfOutDiscards(v);
                     }
                     if (snmpResultIfInErrors.isSuccess()){
-                        long v = getIntValue(snmpResultIfInErrors, i);
+                        long v = getLongVal(snmpResultIfInErrors, i);
                         netioStatMinute.setIfinerrors(v);
                     }
                     if (snmpResultIfOutErrors.isSuccess()){
-                        long v = getIntValue(snmpResultIfOutErrors, i);
+                        long v = getLongVal(snmpResultIfOutErrors, i);
                         netioStatMinute.setIfouterrors(v);
                     }
                     //过滤掉没有进出流量的端口
@@ -186,13 +181,102 @@ public class SnmpAllServiceImpl implements SnmpAllService {
                 }
                 //hibernateDao.batchInsert(netioStatMinutes,1000);
                 try {
-                    executeManySql(netioStatMinutes);
+                    saveNetios(netioStatMinutes);
                 } catch (SQLException e) {
                     logger.error(e.toString());
                     continue;
                 }
             }
         }
+    }
+
+
+    /**
+     * 查询并保存snmp表可用列的cpu使用率信息
+     */
+    @Override
+    public void saveCpuStat() {
+        final List<SnmpInfo> snmpInfos = getAvailableSnmpInfos();
+        for (SnmpInfo snmpInfo : snmpInfos) {
+            final long serverInfoId = snmpInfo.getServerInfoId();
+            final NetworkEquipment networkEquipment = networkEquipmentService.get(serverInfoId);
+            //华三
+            if (networkEquipment.getOsType() == 2){
+                final Date startDate = new Date();
+                double val = getCpuOrMemVal(snmpInfo, OidConstant.H3C.ssCpuUser.getValue());
+                final CpuStatMinute cpuStatMinute = new CpuStatMinute();
+                cpuStatMinute.setStatBeginTm(startDate);
+                cpuStatMinute.setCreateDate(startDate);
+                cpuStatMinute.setStatEndTm(new Date());
+                cpuStatMinute.setUser(val);
+                cpuStatMinute.setServerInfoId(serverInfoId);
+                hibernateDao.save(cpuStatMinute);
+            }
+        }
+    }
+
+    /**
+     * 查询并保存snmp表可用列的mem使用率信息
+     */
+    @Override
+    public void saveMemStat() {
+        final List<SnmpInfo> snmpInfos = getAvailableSnmpInfos();
+        for (SnmpInfo snmpInfo : snmpInfos) {
+            final long serverInfoId = snmpInfo.getServerInfoId();
+            final NetworkEquipment networkEquipment = networkEquipmentService.get(serverInfoId);
+            //华三
+            if (networkEquipment.getOsType() == 2){
+                final Date startDate = new Date();
+                double val = getCpuOrMemVal(snmpInfo, OidConstant.H3C.memUser.getValue());
+                final MemStatMinute memStatMinute = new MemStatMinute();
+                memStatMinute.setStatBeginTm(startDate);
+                memStatMinute.setCreateDate(startDate);
+                memStatMinute.setStatEndTm(new Date());
+                memStatMinute.setUserageRate(val);
+                memStatMinute.setServerInfoId(serverInfoId);
+                hibernateDao.save(memStatMinute);
+            }
+        }
+    }
+
+    /**
+     *根据oid拿到单个指标多个子节点的平均数
+     * @param snmpInfo snmp信息
+     * @param oid oid
+     * @return 保留两位小数点的double
+     */
+    private double getCpuOrMemVal(SnmpInfo snmpInfo, String oid) {
+        final SnmpResult snmpResult = SnmpData.snmpAsynWalk(snmpInfo, oid);
+        double val = 0D;
+        if (snmpResult.isSuccess()) {
+            int count = 0;
+            double sum = 0D;
+            final int num = snmpResult.getDetailResults().size();
+            for (int i = 0; i < num; i++) {
+                final double value = getLongVal(snmpResult, i);
+                if (value > 0) {
+                    count++;
+                    sum += value;
+                }
+            }
+            if (count > 0) {
+                //保留两位小数
+                final BigDecimal bigDecimal = new BigDecimal(count);
+                val=new BigDecimal(sum).divide(bigDecimal,2,BigDecimal.ROUND_HALF_UP).doubleValue();
+            }
+        }
+        return val;
+    }
+
+    /**
+     * 查询状态为1的可用的snmp列表
+     * @return
+     */
+    private List<SnmpInfo> getAvailableSnmpInfos() {
+        Map<String, Object> map = new HashMap<>();
+        //启用状态的
+        map.put("state",1);
+        return snmpInfoService.getList(map);
     }
 
     /**
@@ -213,7 +297,7 @@ public class SnmpAllServiceImpl implements SnmpAllService {
      * @param i
      * @return
      */
-    private long getIntValue(SnmpResult snmpResultIfInUcastPkts, int i) {
+    private long getLongVal(SnmpResult snmpResultIfInUcastPkts, int i) {
         String message = snmpResultIfInUcastPkts.getDetailResults().get(i).getMessage();
         long v=0;
         try {
@@ -264,8 +348,12 @@ public class SnmpAllServiceImpl implements SnmpAllService {
         return aDouble;
     }
 
-
-    private  void executeManySql(List<NetioStatMinute> findList) throws SQLException {
+    /**
+     * 批量保存netioStatMinutes
+     * @param netioStatMinutes
+     * @throws SQLException
+     */
+    private  void saveNetios(List<NetioStatMinute> netioStatMinutes) throws SQLException {
 
         Connection mysqlConn = Mysql_con.createIfNon(null);
         mysqlConn.setAutoCommit(false);
@@ -277,7 +365,7 @@ public class SnmpAllServiceImpl implements SnmpAllService {
         }
         pstSql += StringUtils.join(tempList, ",") + ")";
         PreparedStatement pst = (PreparedStatement) mysqlConn.prepareStatement(pstSql);
-        for (NetioStatMinute netioStatMinute : findList) {
+        for (NetioStatMinute netioStatMinute : netioStatMinutes) {
             pst.setLong(1,netioStatMinute.getServerInfoId());
             pst.setString(2,netioStatMinute.getNetioname());
             pst.setLong(3,netioStatMinute.getIfmtu());
