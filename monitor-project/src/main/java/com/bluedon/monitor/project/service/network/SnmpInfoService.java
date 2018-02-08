@@ -20,4 +20,5 @@ public interface SnmpInfoService {
     PageUtil getPageList(SnmpInfo param, PageUtil pageUtil);
     void deleteBatch(long[] ids);
     List<SnmpInfo> getList(Map<String,Object> params);
+    int getCount(Object[] ids);
 }

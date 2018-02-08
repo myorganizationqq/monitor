@@ -4,10 +4,12 @@ import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.network.NetworkEquipment;
 import com.bluedon.monitor.project.service.network.NetworkEquipmentService;
+import com.bluedon.monitor.project.service.network.SnmpInfoService;
 import com.bluedon.monitor.system.model.util.ComboBox;
 import com.bluedon.monitor.system.model.util.OperResult;
 import com.bluedon.monitor.system.util.ConstantUtil;
 import com.bluedon.monitor.system.util.ToolUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,8 @@ public class NetworkEquipmentController {
 
     @Autowired
     private NetworkEquipmentService networkEquipmentService;
-
+    @Autowired
+    private SnmpInfoService snmpInfoService;
     private  Logger log = Logger.getLogger(NetworkEquipmentController.class);
 
     @RequestMapping(params = "toEdit")
@@ -140,10 +143,18 @@ public class NetworkEquipmentController {
     @RequestMapping(params = "del")
     @Description("批量删除")
     public void del(@Param long[] idArr,HttpServletResponse response){
-        networkEquipmentService.deleteBatch(idArr);
+        //long[] 转成Long[]
+        Long[] ids = ArrayUtils.toObject(idArr);
+        int count = snmpInfoService.getCount(ids);
         OperResult operResult = new OperResult();
-        operResult.setResultCode(ConstantUtil.RESULT_SUCCESS);
-        operResult.setMsg("删除成功");
+        if (count == 0){
+            networkEquipmentService.deleteBatch(idArr);
+            operResult.setResultCode(ConstantUtil.RESULT_SUCCESS);
+            operResult.setMsg("删除成功");
+        }else{
+            operResult.setResultCode(ConstantUtil.RESULT_FAILED);
+            operResult.setMsg("删除失败,请先删除此批设备的snmp信息记录!");
+        }
         ToolUtil.getData(response,operResult);
     }
 }

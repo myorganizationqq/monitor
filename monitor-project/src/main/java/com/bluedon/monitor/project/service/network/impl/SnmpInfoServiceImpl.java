@@ -96,6 +96,20 @@ public class SnmpInfoServiceImpl implements SnmpInfoService{
         hibernateDao.batchDelete(snmpInfos,10000);
     }
 
+    /**
+     * 查询这些网络设备下配置了snmp信息的数量
+     * @param ids
+     * @return
+     */
+    @Override
+    public int getCount(Object[] ids) {
+        //查询参数构造
+        List<Criterion> paramList = new ArrayList<Criterion>();
+        paramList.add(Restrictions.in("serverInfoId",ids));
+        final Integer count = hibernateDao.getCount(SnmpInfo.class, paramList, null);
+        return count;
+    }
+
     @Override
     public List<SnmpInfo> getList(Map params) {
         String hql="select  new SnmpInfo(a.id,a.serverInfoId, a.serverIp, a.port, a.version, a.user, a.passwd,a.state)  from SnmpInfo a";

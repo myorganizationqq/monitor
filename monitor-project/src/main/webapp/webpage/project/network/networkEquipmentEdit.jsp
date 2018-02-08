@@ -74,11 +74,11 @@
                 </td>
                 <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">类型</td>
                 <td width="250">
-                    <select id="type" name="type" class="easyui-combobox" style="width:150px;"
+                    <select id="type_id" name="type" class="easyui-combobox" style="width:150px;"
                             data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
 				        	url:'${requestScope.basePath }project/network/networkEquipmentController.do?getType',
 				        	onLoadSuccess:function(data){
-	        			        $('#type').combobox('setValue','${obj.type}');
+	        			        $('#type_id').combobox('setValue','${obj.type}');
 	        	            }">
 
                     </select>
