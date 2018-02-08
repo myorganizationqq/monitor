@@ -5,25 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.bluedon.monitor.common.dao.IBaseDao;
-import com.bluedon.monitor.project.entity.communication.CmLogFtpDT;
 import com.bluedon.monitor.project.service.netio.NetioService;
 import com.bluedon.monitor.system.service.BaseServiceImpl;
 
 @Service
 public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 	@Autowired
-	@Qualifier("hibernateDao")
-	private IBaseDao<CmLogFtpDT> hibernateDao;
+	protected JdbcTemplate jdbcTemplate;
 
-	@SuppressWarnings("unchecked")
 	public Map<String, Object> queryDataByTime(String time) {
-		// 最近2小时（2H）、最近24小时（24H）、最近7天（7D）、最近30天（30D）
 		String sql = "SELECT * FROM netio_stat_minute WHERE create_date >= NOW() - INTERVAL 7 DAY LIMIT 7;";
-		List<Map<String, Object>> list = hibernateDao.selectBySql(sql);
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		Map<String, Object> map = new HashMap<>();
 		String[] dateArr = new String[ list.size() ];
 		double[] ifinoctetsArr = new double[ list.size() ];
@@ -52,5 +47,21 @@ public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 		return map;
 	}
 	
+	/**
+	 * 查询1分钟数据
+	 * @param serverInfoId
+	 * @return
+	 */
+	public List<Map<String, Object>> queryData(String serverInfoId) {
+//		String sql = "SELECT * FROM netio_stat_minute WHERE server_info_id = ? create_date >= NOW()-INTERVAL 1 MINUTE";
+		String sql = "SELECT * FROM netio_stat_minute WHERE server_info_id = ? AND create_date >= '2018-02-07 10:00:00'";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { serverInfoId });
+		return list;
+	}
+
+	@Override
+	public Map<String, Object> querySNMPInfo(String serverInfoId) {
+		return jdbcTemplate.queryForMap("SELECT * FROM snmp_info WHERE server_info_id = ?", new Object[] { serverInfoId });
+	}
 
 }
