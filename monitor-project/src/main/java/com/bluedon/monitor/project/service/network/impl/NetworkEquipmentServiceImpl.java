@@ -13,9 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author JiangFeng
@@ -92,11 +90,38 @@ public class NetworkEquipmentServiceImpl implements NetworkEquipmentService{
 
     @Override
     public void deleteBatch(long[] ids) {
-        ArrayList<NetworkEquipment> equipments = new ArrayList<>();
+        List<NetworkEquipment> equipments = new ArrayList<>();
         for (long id : ids) {
             NetworkEquipment networkEquipment = hibernateDao.queryById(NetworkEquipment.class, id);
             equipments.add(networkEquipment);
         }
         hibernateDao.batchDelete(equipments,1000);
+    }
+
+    @Override
+    public Map<Long, String> getServerInfoIds() {
+        Map<Long, String> map = new HashMap<>();
+        String sql="select id id,equipment_name equipmentName from network_equipment order by type asc";
+        List<Map<String,Object>> list = hibernateDao.selectBySql(sql);
+        for (Map<String, Object> strObjMap : list) {
+            map.put(Long.valueOf(strObjMap.get("id").toString()),strObjMap.get("equipmentName").toString());
+        }
+        return map;
+    }
+
+    @Override
+    public List<String> getIpById(long id) {
+        List<String> ips = null;
+        String sql="select ip from network_equipment where id="+id ;
+        List<Map<String,String>> list = hibernateDao.selectBySql(sql);
+        for (Map<String, String> stringStringMap : list) {
+            String ip = stringStringMap.get("ip");
+            String[] split = ip.split(",");
+            ips = Arrays.asList(split);
+        }
+        if (ips ==null){
+            ips=new ArrayList<>();
+        }
+        return ips;
     }
 }

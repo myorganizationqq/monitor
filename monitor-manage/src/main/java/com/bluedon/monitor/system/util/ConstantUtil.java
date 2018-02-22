@@ -135,9 +135,16 @@ public class ConstantUtil {
 	public final static Map<Integer,String> OS_TYPE = new HashMap<Integer, String>(){
 		{
 			put(1,"Linux");
+			put(2,"H3C");
 		}
 	};
-	
+
+	public final static Map<String,String> SNMP_VERSION = new HashMap<String, String>(){
+		{
+			put("1","1");
+			put("2c","2c");
+		}
+	};
 	
 	
 	

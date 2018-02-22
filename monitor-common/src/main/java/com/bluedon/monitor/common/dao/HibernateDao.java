@@ -470,7 +470,7 @@ public class HibernateDao<T> implements IBaseDao<T>{
 				// 保存对象
 				session.save(t);
 				// 批插入的对象立即写入数据库并释放内存
-				if (i % commitSize == 0) {
+				if (i>0 && (i % commitSize == 0)) {
 					session.flush();
 					session.clear();
 				}
@@ -506,7 +506,7 @@ public class HibernateDao<T> implements IBaseDao<T>{
 				// 删除对象
 				session.delete(t);
 				// 批插入的对象立即写入数据库并释放内存
-				if (i % commitSize == 0) {
+				if (i>0 && i % commitSize == 0) {
 					session.flush();
 					session.clear();
 				}

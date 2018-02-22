@@ -3,6 +3,7 @@ var osTypeArr=[];
 //默认执行查询方法
 $(document).ready(function() {
     getTypeArr();
+    getOsTypeArr();
     doSearch();
 });
 
@@ -36,7 +37,7 @@ function search(){
             {title:'主机名',field:'hostName',width:100,align:'center'},
             {title:'说明',field:'remark',width:50,align:'center'},
             {title:'类型',field:'type',width:50,align:'center',formatter:typeFmt},
-            {title:'操作系统',field:'osType',width:50,align:'center',formatter:osTypeFmt},
+            {title:'系统or厂商',field:'osType',width:50,align:'center',formatter:osTypeFmt},
             /*{title:'cpu',field:'cpu',width:100,align:'center'},
             {title:'内存',field:'memory',width:20,align:'center'},*/
             {title:'创建时间',field:'createDate',width:100,align:'center',formatter:dateFmt},
@@ -138,12 +139,12 @@ function osTypeFmt(value,row){
     return fmt(osTypeArr,value);
 }
 
-//
-function fmt(typeArr,value){
+//选择框共用的fmt
+function fmt(arr,value){
     var str = value;
     for(var i in typeArr){
-        if(typeArr[i].id == value){
-            str= typeArr[i].text;
+        if(arr[i].id == value){
+            str= arr[i].text;
             break;
         }
     }

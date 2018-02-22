@@ -4,6 +4,7 @@ import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.project.entity.network.NetworkEquipment;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author JiangFeng
@@ -18,4 +19,6 @@ public interface NetworkEquipmentService {
     NetworkEquipment get(long id);
     PageUtil getPageList(NetworkEquipment param, PageUtil pageUtil);
     void deleteBatch(long[] ids);
+    Map<Long,String> getServerInfoIds();
+    List<String> getIpById(long id);
 }

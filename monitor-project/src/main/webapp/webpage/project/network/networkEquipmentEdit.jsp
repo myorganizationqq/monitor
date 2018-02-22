@@ -74,11 +74,11 @@
                 </td>
                 <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">类型</td>
                 <td width="250">
-                    <select id="type" name="type" class="easyui-combobox" style="width:150px;"
+                    <select id="type_id" name="type" class="easyui-combobox" style="width:150px;"
                             data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
 				        	url:'${requestScope.basePath }project/network/networkEquipmentController.do?getType',
 				        	onLoadSuccess:function(data){
-	        			        $('#type').combobox('setValue','${obj.type}');
+	        			        $('#type_id').combobox('setValue','${obj.type}');
 	        	            }">
 
                     </select>
@@ -107,7 +107,7 @@
                            class="easyui-textbox" data-options="required:false,validType:'maxLength[255]'"
                            value="${obj.remark }" />
                 </td>
-                <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">操作系统</td>
+                <td width="150" align="center" bgcolor="#f1f2f3" class="p_right10">系统or厂商</td>
                 <td width="250">
                     <select id="osType" name="osType" class="easyui-combobox" style="width:150px;"
                             data-options="valueField:'id',textField:'text',panelHeight:'auto',editable:false,
