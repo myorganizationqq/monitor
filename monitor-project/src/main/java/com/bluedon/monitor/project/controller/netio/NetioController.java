@@ -30,7 +30,7 @@ public class NetioController {
 		return "project/netio/businessMonitor";
 	}
 	
-	// 应用系统视图菜单
+	//应用系统视图菜单
 	@RequestMapping("/appSystem.do")
 	public String appSystem() {
 		return "project/applicationSystemView/applicationSystemView";
