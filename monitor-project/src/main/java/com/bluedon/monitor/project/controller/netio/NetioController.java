@@ -30,6 +30,11 @@ public class NetioController {
 		return "project/netio/businessMonitor";
 	}
 	
+	@RequestMapping("/appSystem.do")
+	public String appSystem() {
+		return "project/applicationSystemView/applicationSystemView";
+	}
+	
 	@RequestMapping("/getChartData")
 	public @ResponseBody Map<String, Object> getChartData(@Param String time) {
 		return netioService.queryDataByTime(time);
