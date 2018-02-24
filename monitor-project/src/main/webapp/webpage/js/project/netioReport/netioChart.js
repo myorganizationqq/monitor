@@ -4,15 +4,18 @@ $(document).ready(function() {
 
 function getData() {
 	$.ajax({
-		type : "POST",
-		url : basePath + 'netio/getChartData.do',
+		type : 'POST',
+		url : basePath + 'netio/getChartData.do?serverInfoId=' + $('#serverInfoId').text(),
 		dataType : 'json',
 	    scriptCharset : 'utf-8',
 		data : {
 		},
 		success : function(result) {
+			console.log(result);
 			setDataFlow(result);
 			setDataPacket(result);
+			setDataCpu(result);
+			setDataMem(result);
 		}
 	});
 }
@@ -21,13 +24,13 @@ function setDataFlow(result) {
 	var dataFlowOption = {
 		title : {
 			text : '数据流量',
-			subtext : '（kbps）'
+			subtext : '（M）'
 		},
 		tooltip : {
 			trigger : 'axis'
 		},
 		legend : {
-			data : [ '网络发送速率', '网络接收速率' ],
+			data : [ '流出数据', '流入数据' ],
 			y : 'bottom'
 		},
 		calculable : true,
@@ -43,11 +46,11 @@ function setDataFlow(result) {
 			}
 		} ],
 		series : [ {
-			name : '网络发送速率',
+			name : '流出数据',
 			type : 'line',
 			data : result.ifinoctetsArr,
 		}, {
-			name : '网络接收速率',
+			name : '流入数据',
 			type : 'line',
 			data : result.ifoutoctetsArr,
 		} ]
@@ -106,4 +109,68 @@ function setDataPacket(result) {
 	};
 	var dataPacket = echarts.init(document.getElementById('dataPacket'));
 	dataPacket.setOption(dataPacketOption);
+}
+
+function setDataCpu(result) {
+	var dataCpuOption = {
+		title : {
+			text : 'cpu使用率',
+			subtext : '（个/s）'
+		},
+		tooltip : {
+			trigger : 'axis'
+		},
+		legend : {
+			data : [ '使用率' ],
+			y : 'bottom'
+		},
+		calculable : true,
+		xAxis : [ {
+			type : 'category',
+			boundaryGap : false,
+			data : result.cpuData.dateArr
+		} ],
+		yAxis : [ {
+			type : 'value'
+		} ],
+		series : [ {
+			name : '使用率',
+			type : 'line',
+			data : result.cpuData.systemArr
+		}]
+	};
+	var dataCpu = echarts.init(document.getElementById('dataCpu'));
+	dataCpu.setOption(dataCpuOption);
+}
+
+function setDataMem(result) {
+	var dataMemOption = {
+		title : {
+			text : '内存使用率',
+			subtext : '（个/s）'
+		},
+		tooltip : {
+			trigger : 'axis'
+		},
+		legend : {
+			data : [ '使用率' ],
+			y : 'bottom'
+		},
+		calculable : true,
+		xAxis : [ {
+			type : 'category',
+			boundaryGap : false,
+			data : result.memData.dateArr
+		} ],
+		yAxis : [ {
+			type : 'value'
+		} ],
+		series : [ {
+			name : '使用率',
+			type : 'line',
+			data : result.memData.userageRateArr
+		}]
+	};
+	var dataMem = echarts.init(document.getElementById('dataMem'));
+	dataMem.setOption(dataMemOption);
 }
