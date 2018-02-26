@@ -1,4 +1,4 @@
 <script>
-    window.location.href = "../project/applicationSystemView/applicationSystemView.jsp";
+    window.location.href = "/netio/appSystem.do";
 </script>
 
