@@ -9,5 +9,7 @@ public interface NetioService extends IBaseService {
 	Map<String, Object> queryDataByTime(String time);
 	List<Map<String, Object>> queryData(String serverInfoId);
 	Map<String, Object> querySNMPInfo(String serverInfoId);
+	Map<String, Object> queryCPUData(String serverInfoId);
+	Map<String, Object> queryMemData(String serverInfoId);
 	
 }

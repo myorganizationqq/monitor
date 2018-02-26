@@ -24,6 +24,7 @@
 		td { text-align: center; }
 		.bold { font-weight: bold; }
 		.container-div { height:100%; padding-top:10px; overflow:auto; }
+		.chart-div { background:#fff; border:1px solid #ccc; padding-left:40px; border-radius:3px; }
 	</style>
 </head>
 <body>
@@ -35,7 +36,7 @@
                 <table class="deviceTb">
                 	<tr>
                 		<td>服务器ID</td>
-                		<td>${device.server_info_id}</td>
+                		<td id="serverInfoId">${device.server_info_id}</td>
                 	</tr>
                 	<tr>
                 		<td>IP地址</td>
@@ -67,17 +68,17 @@
                 	<table class="interfaceTb">
 	                	<tr>
 	                		<td class="bold">接口信息</td>
-	                		<td class="bold">接收流量</td>
-	                		<td class="bold">发送流量</td>
+	                		<td class="bold">接收流量（M/s）</td>
+	                		<td class="bold">发送流量（M/s）</td>
 	                	</tr>
 	                	<c:forEach items="${list}" var="entry">
 	                		<tr>
 		                		<td>${entry.netioname}</td>
 		                		<td>
-		                			<fmt:formatNumber value="${entry.ifinoctets}" pattern="##.##" minFractionDigits="2"/>
+		                			<fmt:formatNumber value="${entry.ifinoctets/1024}" pattern="##.##" minFractionDigits="2"/>
 		                		</td>
 		                		<td>
-		                			<fmt:formatNumber value="${entry.ifoutoctets}" pattern="##.##" minFractionDigits="2"/>
+		                			<fmt:formatNumber value="${entry.ifoutoctets/1024}" pattern="##.##" minFractionDigits="2"/>
 		                		</td>
 		                	</tr>
 	                	</c:forEach>
@@ -87,11 +88,22 @@
         </div>
         
         <div class="col-sm-6" style="padding-left: 8px">
-            <div style="background:#fafafa;border:1px solid #ccc;padding-left:40px;">
+            <div class="chart-div">
                 <div id="dataFlow" style="min-height:172px"></div>
             </div>
-            <div style="background:#fafafa;border:1px solid #ccc;margin-top: 10px;padding-left:40px;">
+            
+            <div class="chart-div" style="margin-top:10px;">
                 <div id="dataPacket" style="min-height:172px"></div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6" style="padding-left:8px; width:564px;">
+            <div class="chart-div">
+                <div id="dataCpu" style="min-height:172px;"></div>
+            </div>
+            
+            <div class="chart-div" style="margin-top:10px;">
+                <div id="dataMem" style="min-height:172px"></div>
             </div>
         </div>
     </div>
