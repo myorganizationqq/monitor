@@ -28,10 +28,16 @@ public class NetioController {
 		return "project/netio/businessMonitor";
 	}
 	
-	//应用系统视图菜单
+	// 应用系统视图菜单
 	@RequestMapping("/appSystem.do")
 	public String appSystem() {
 		return "project/applicationSystemView/applicationSystemView";
+	}
+	
+	// 应用系统报表
+	@RequestMapping("/systemReport.do")
+	public String systemReport() {
+		return "project/statisticReport/appSystemReport";
 	}
 	
 	@RequestMapping("/getChartData")
