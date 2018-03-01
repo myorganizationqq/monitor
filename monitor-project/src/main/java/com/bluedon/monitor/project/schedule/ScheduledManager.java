@@ -21,7 +21,7 @@ import com.bluedon.monitor.project.service.communication.LogRecvsendService;
 import com.bluedon.monitor.project.util.PropertiesUtil;
 
 @Component("scheduledManager")
-@Lazy(value = true)
+@Lazy(value = false)
 public class ScheduledManager {
 	// 日志记录对象
 	private static final Logger log = Logger.getLogger(ScheduledManager.class);
