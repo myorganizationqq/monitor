@@ -42,11 +42,12 @@ function search(){
             {title:'内存',field:'memory',width:20,align:'center'},*/
             {title:'创建时间',field:'createDate',width:100,align:'center',formatter:dateFmt},
             {
-                title: '操作', field: 'operation', width: 50, align: 'center',
+                title: '操作', field: 'operation', width: 150, align: 'center',
                 formatter: function (value, row) {
                     var id = row.id;
-                    var d = ' <a href="#"  onclick="toEditPage(\'' + id + '\')">修改</a> ';
-                    return d;
+                    var html = '<a href="#" onclick="toEditPage(\'' + id + '\')">修改</a> | ';
+                    html += '<a href="#" onclick="toChartPage(\'' + id + '\')">视图展示</a>';
+                    return html;
                 }
             }
         ]],
@@ -171,4 +172,8 @@ function getOsTypeArr() {
             osTypeArr=eval(data);
         }
     });
+}
+
+function toChartPage(id) {
+	location.href = basePath + "netio/index.do?serverInfoId=" + id;
 }

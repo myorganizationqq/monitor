@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,22 +22,32 @@ public class NetioController {
 	
 	@RequestMapping("/index.do")
 	public String index(String serverInfoId, HttpServletRequest request) {
-		serverInfoId = "27";
 		List<Map<String, Object>> list = netioService.queryData(serverInfoId);
 		request.setAttribute("list", list);
 		request.setAttribute("device", netioService.querySNMPInfo(serverInfoId));
 		return "project/netio/businessMonitor";
 	}
 	
-	//应用系统视图菜单
+	// 应用系统视图菜单
 	@RequestMapping("/appSystem.do")
 	public String appSystem() {
 		return "project/applicationSystemView/applicationSystemView";
 	}
 	
+	// 应用系统报表
+	@RequestMapping("/systemReport.do")
+	public String systemReport() {
+		return "project/statisticReport/appSystemReport";
+	}
+	
 	@RequestMapping("/getChartData")
-	public @ResponseBody Map<String, Object> getChartData(@Param String time) {
-		return netioService.queryDataByTime(time);
+	public @ResponseBody Map<String, Object> getChartData(String time, String serverInfoId) {
+		Map<String, Object> map = netioService.queryDataByTime(time); // 数据流量、数据包
+		Map<String, Object> cpuData = netioService.queryCPUData(serverInfoId);
+		Map<String, Object> memData = netioService.queryMemData(serverInfoId);
+		map.put("cpuData", cpuData);
+		map.put("memData", memData);
+		return map;
 	}
 	
 }

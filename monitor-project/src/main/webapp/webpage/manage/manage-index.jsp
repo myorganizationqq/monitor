@@ -69,7 +69,7 @@ function change(orgId,roleId){
 <div class="easyui-layout main" fit="true" > 
   
   <!--框架头部-->
-  <div data-options="region:'north'" style="height:52px;  overflow:hidden; width:99%; " id="north_blk">
+  <div data-options="region:'north'" style="height:1px;  overflow:hidden; width:99%; " id="north_blk">
     <div id="header">
       <div class="nav">
         <div class="logo"><a ><img src="${requestScope.basePath }webpage/image/sysimages/logo1.png" /></a></div>

@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/amsWindow.js"></script>
 <script type="text/javascript">
 $(function(){
-	
+	check();
 });
 function check(){
 	 var isValid = valid();//表单验证方法
@@ -47,18 +47,6 @@ function valid(){
 		$.messager.alert("提示","请输入密码！");
 		return false;
 	}
-
-	/* var orgId=$("#orgId").combobox("getValue");
-	if(orgId==null || orgId==""){
-		$.messager.alert("提示","请选择单位！");
-		return false;
-	}
-	
-	var userType=$("input[name='userType']:checked").val();
-	if(userType==null || userType==""){
-		$.messager.alert("提示","请选择用户类别！");
-		return false;
-	} */
 	
 	return true;
 }
@@ -102,8 +90,10 @@ function chooseWin(){
 </style>
 </head>
 <body>
-<div style="height:100px; "></div>
-<div style="height:500px; width:500px; margin:0 auto;">
+<div style="height:100px; ">
+	&nbsp;&nbsp;<b>加载中......</b>
+</div>
+<div style="height:500px; width:500px; margin:0 auto; display: none">
   <form id="loginForm" method="post" action="${requestScope.basePath }manage/system/loginController.do?login">
   	<input id="orgId" name="orgId" type="hidden" />
   	<input id="roleId" name="roleId" type="hidden" />
@@ -127,32 +117,7 @@ function chooseWin(){
 	      	 	 style="height:25px;width:200px;" class="easyui-textbox"  value="123456"/>
        		</td>
         </tr>
-       <%--  <tr style="height:35px;">    
-        	<td>
-       			<label class="l_n ">单位:</label>
-       		</td>     
-       		<td>
-       			<select id="orgId" name="orgId" class="easyui-combobox" style="height:25px;width:200px;"   
-	        		data-options="valueField:'id',textField:'text',
-	        		url:'${requestScope.basePath }manage/system/orgManagerController.do?getEnabledOrgList',
-	        		onLoadSuccess:function(data){
-	        			$('#orgId').combobox('setValue','151');
-	        		}"></select> 
-       		</td> 
-        </tr>
-        <tr style="height:35px;">        
-       		<td colspan="2" align="center">
-	       		<input name="userType" value="1" type="radio" /><label class="l_r ">教师 </label>&nbsp;&nbsp;&nbsp;
-	       		<input name="userType" value="2" type="radio" /><label class="l_r ">学生</label>&nbsp;&nbsp;&nbsp;
-	       		<input name="userType" value="3" type="radio" /><label class="l_r ">家长</label>&nbsp;&nbsp;&nbsp;
-	       		<input name="userType" value="4" type="radio" checked/><label class="l_r ">管理员   </label>    			  
-       		</td> 
-        </tr> --%>
-        <!-- <tr>        
-       		<td>
-       			验证码
-       		</td> 
-        </tr>     --> 
+
         <tr>       
             <td colspan="2">
 	            <div align="center" style="padding-top: 5px;" > 
