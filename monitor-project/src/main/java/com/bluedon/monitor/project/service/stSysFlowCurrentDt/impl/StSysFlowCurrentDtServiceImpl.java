@@ -71,7 +71,7 @@ public class StSysFlowCurrentDtServiceImpl implements StSysFlowCurrentDtService{
     @Override
     public Map<String, Object> getTime(Map<String, Object> param) {
         Map<String, Object> timeMap = new HashMap<>();
-        String sql="select a.STEP step,a.REMARK remark,IFNULL(SUM(UNIX_TIMESTAMP(a.END_TIME)-UNIX_TIMESTAMP(a.BEGIN_TIME)),0) timeDiff FROM st_sys_flow_current_dt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" GROUP BY a.STEP ORDER BY timeDiff DESC";
+        String sql="select a.STEP step,a.REMARK remark,IFNULL(SUM(UNIX_TIMESTAMP(a.END_TIME)-UNIX_TIMESTAMP(a.BEGIN_TIME)),0) timeDiff FROM st_sys_flow_current_dt a where a.BALANCE_WATER_NO BETWEEN "+param.get("beginBalanceWaterNo")+" and "+param.get("endBalanceWaterNo")+" GROUP BY a.STEP,a.REMARK ORDER BY timeDiff DESC";
         List<Map<String,Object>> list = hibernateDao.selectBySql(sql);
         int temp=0;
         for (Map<String,Object> map : list) {
