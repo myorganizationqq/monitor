@@ -17,10 +17,10 @@ public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 	protected JdbcTemplate jdbcTemplate;
 
 	public Map<String, Object> queryDataByTime(String time) {
-		String sql = "SELECT * FROM netio_stat_minute WHERE create_date >= NOW() - INTERVAL 17 DAY LIMIT 7;";
+		String sql = "SELECT * FROM netio_stat_minute WHERE create_date >= NOW() - INTERVAL 30 DAY LIMIT 7;";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		if(list == null || list.size() == 0) return null;
 		Map<String, Object> map = new HashMap<>();
+		if(list == null || list.size() == 0) return map;
 		String[] dateArr = new String[ list.size() ];
 		double[] ifinoctetsArr = new double[ list.size() ];
 		double[] ifoutoctetsArr = new double[ list.size() ];
