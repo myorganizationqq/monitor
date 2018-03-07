@@ -17,9 +17,10 @@ public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 	protected JdbcTemplate jdbcTemplate;
 
 	public Map<String, Object> queryDataByTime(String time) {
-		String sql = "SELECT * FROM netio_stat_minute WHERE create_date >= NOW() - INTERVAL 17 DAY LIMIT 7;";
+		String sql = "SELECT * FROM netio_stat_minute WHERE create_date >= NOW() - INTERVAL 30 DAY LIMIT 7;";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		Map<String, Object> map = new HashMap<>();
+		if(list == null || list.size() == 0) return map;
 		String[] dateArr = new String[ list.size() ];
 		double[] ifinoctetsArr = new double[ list.size() ];
 		double[] ifoutoctetsArr = new double[ list.size() ];
@@ -103,11 +104,12 @@ public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 //		String sql = "SELECT user,system,stat_begin_tm FROM cpu_stat_minute WHERE server_info_id = ? AND stat_begin_tm >= NOW() - INTERVAL 30 MINUTE;";
 		Map<String, Object> map = new HashMap<>();
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { serverInfoId });
+		if(list == null || list.size() == 0) return null;
 		String[] dateArr = new String[ list.size() ];
 		double[] systemArr = new double[ list.size() ];
 		int i = 0;
 		for (Map<String, Object> data : list) {
-            String createDate = String.valueOf(data.get("create_date"));
+			String createDate = String.valueOf(data.get("create_date"));
             double system = Double.parseDouble(data.get("system").toString());
             dateArr[i] = createDate.substring(14, 19);
             systemArr[i] = system;
@@ -128,6 +130,7 @@ public class NetioServiceImpl extends BaseServiceImpl implements NetioService {
 //		String sql = "SELECT userage_rate,stat_begin_tm FROM mem_stat_minute WHERE server_info_id = ? AND stat_begin_tm >= NOW() - INTERVAL 30 MINUTE;";
 		Map<String, Object> map = new HashMap<>();
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { serverInfoId });
+		if(list == null || list.size() == 0) return null;
 		String[] dateArr = new String[ list.size() ];
 		double[] userageRateArr = new double[ list.size() ];
 		int i = 0;

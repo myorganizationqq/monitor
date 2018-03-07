@@ -174,6 +174,17 @@ function getOsTypeArr() {
     });
 }
 
-function toChartPage(id) {
-	location.href = basePath + "netio/index.do?serverInfoId=" + id;
+function toChartPage(serverInfoId) {
+	$.ajax({
+        type: "POST",
+        data: "JSON",
+        url: basePath + "netio/getSnmpInfo.do?serverInfoId=" + serverInfoId,
+        success: function (data) {
+            if(data.state == 0) {
+            	alert("此设备已停用！");
+            	return;
+            }
+            location.href = basePath + "netio/index.do?serverInfoId=" + serverInfoId;
+        }
+    });
 }
