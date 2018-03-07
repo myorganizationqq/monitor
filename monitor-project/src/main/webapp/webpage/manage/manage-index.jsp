@@ -4,6 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<style type="text/css">
+
+		.panel-header{
+			display: none;
+		}
+	</style>
 <meta charset="UTF-8">
 <title>Monitor</title>
 <jsp:include page="header.jsp"></jsp:include> 
@@ -66,73 +73,23 @@ function change(orgId,roleId){
 </style>
 </head>
 <body class="bg">
-<div class="easyui-layout main" fit="true" > 
+<div class="easyui-layout main" fit="true" >
+
   
   <!--框架头部-->
-  <div data-options="region:'north'" style="height:1px;  overflow:hidden; width:99%; " id="north_blk">
+  <div data-options="region:'north'" style="height:100px;  overflow:hidden; width:99%; " id="north_blk">
     <div id="header">
       <div class="nav">
-        <div class="logo"><a ><img src="${requestScope.basePath }webpage/image/sysimages/logo1.png" /></a></div>
+        <div class="logo"><a ><img src="${requestScope.basePath }webpage/image/sysimages/logo_v04.png" /></a></div>
         <div class="SetBord"> 
         	<a onclick="openPath('manage/system/loginController.do?logout')" class="exit">
         		<img src="${requestScope.basePath }webpage/image/sysimages/exit.png" /> 安全退出 &nbsp;
         	</a>
-        	<span class="useArea">
+        	<span class="useArea" style="font-size: larger;color: rgb(255,255,255)">
         		<!-- #4abae3 -->
-	        	 您好, <em style="color:#f27a22">${!empty userInfo?userInfo.realName:""}</em>,欢迎使用！      	 
-	
-	        	<c:choose>
-	        		<c:when test="${!empty userInfo && userInfo.orgs.size()>1}">
-	        			<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_orgMenu" iconCls="icon-lock">
-		        	 		${!empty userInfo?userInfo.orgName:""}
-		        	 	</a>
-		        	 	<div id="layout_north_orgMenu" style="width: 200px; display: none;">
-							<c:if test="${!empty userInfo && userInfo.orgs.size()>1}">
-								<c:forEach items="${userInfo.orgs }" var="org">
-									<c:if test="${userInfo.orgId != org.id }">
-										<div onclick="changeOrg('${org.id }')">切换至：${org.orgName }</div>
-										<div class="menu-sep"></div>
-									</c:if>			
-								</c:forEach>							
-							</c:if>							
-						</div>	        		
-	        		</c:when>
-	        		<c:otherwise>
-	        			<a href="javascript:void(0);" class="easyui-menubutton" iconCls="icon-lock">
-	        	 			${!empty userInfo?userInfo.orgName:""}
-	        	 		</a>	        		
-	        		</c:otherwise>
-	        	</c:choose>	        	
 
-	        	<c:choose>
-	        		<c:when test="${!empty userInfo && userInfo.orgRoles.size()>1}">
-	        			<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_roleMenu" iconCls="icon-lock">
-		        	 		${!empty userInfo?userInfo.roleName:""}
-		        	 	</a>
-		        	 	<div id="layout_north_roleMenu" style="width: 200px; display: none;">
-							<c:if test="${!empty userInfo && userInfo.orgRoles.size()>1}">
-								<c:forEach items="${userInfo.orgRoles }" var="role">
-									<c:if test="${userInfo.roleId != role.id }">
-										<div onclick="change('${userInfo.orgId }','${role.id }')">切换至：${role.rolename }</div>
-										<div class="menu-sep"></div>
-									</c:if>			
-								</c:forEach>							
-							</c:if>							
-						</div>	        		
-	        		</c:when>
-	        		<c:otherwise>	
-	        			<c:choose>
-		        			<c:when test="${!empty userInfo && !empty userInfo.roleName}">
-	        					<a href="javascript:void(0);" class="easyui-menubutton" iconCls="icon-lock">
-	        						${userInfo.roleName }
-	        					</a>	
-	        				</c:when>
-	        				<c:otherwise>
-	        					您在该单位下未分配角色！
-	        				</c:otherwise>
-	        			</c:choose>        			 		        		
-	        		</c:otherwise>
-	        	</c:choose>	   	
+				${roleName }
+
         	</span> 
         </div>
       </div>
@@ -143,18 +100,15 @@ function change(orgId,roleId){
   <div id="LeftM" data-options="region:'west',split:false" title=" " style="width:200px;border-right:5px solid #e6eef8; overflow-y:auto; overflow-x:hidden">
     <div id="showMenuDiv" style="width:194px">
       <ul class="easyui-tree" data-options="animate:true"  id="lefttree" style="overflow-y:auto;overflow-x:auto;">
-	     
-	   		<!-- 菜单静态加载 -->
-	   		<%-- <jsp:include page="menu-static.jsp"></jsp:include>     	 --%>
-	   	
+
 	   		<!-- 菜单动态加载 -->
-      			<jsp:include page="menu-dynamic.jsp"></jsp:include> 
+      			<jsp:include page="menu-dynamic.jsp"></jsp:include>
 
       </ul>
     </div>
-  </div>    
-  
-  
+  </div>
+
+
   <!--main-->
   <div data-options="region:'center',border:false"   id="rightCompoent"  >
     <IFRAME id="mainFrame"  name="mainFrame" src="${requestScope.basePath }webpage/manage/myworkset.jsp" frameBorder=no  width="99%" height="100%"  scrolling="no" onLoad="" > </IFRAME>
@@ -174,7 +128,7 @@ function change(orgId,roleId){
 		leftWidth=$('#LeftM').outerWidth(true)
  	 	$('.layout-split-west').height(winHeight-80)
 	});
-	
+
 	function init() {
 		winWidth = $(window).width();
 		winHeight = $(window).height();

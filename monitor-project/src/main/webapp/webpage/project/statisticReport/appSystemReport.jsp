@@ -17,7 +17,6 @@
         <iframe id="businessMonitorFrame" frameBorder="no" width="100%" height="100%" scrolling="yes" onLoad="" src="${requestScope.basePath}webpage/project/statisticReport/businessMonitor.jsp"></iframe>
     </div>
     
-    <div title="清算应用程序性能监控" style="padding:10px"></div>
 </div>
 </body>
 </html>

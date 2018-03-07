@@ -2,6 +2,7 @@ package com.bluedon.monitor.project.controller.alarm;
 
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
+import com.bluedon.monitor.project.common.RichApmDBUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.job.alarm.*;
 import com.bluedon.monitor.project.service.alarm.IAlarmManagerService;
@@ -22,6 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -305,26 +310,36 @@ public class AlarmManagerController {
      * @param model
      */
     @RequestMapping(params = "getSelectingUsers")
-    public void getSelectingUsers(UserManagerModel param, HttpServletRequest req, HttpServletResponse rsp) {
-        param.setIsValid(1);//有效
+    public void getSelectingUsers(UserManagerModel param, HttpServletRequest req, HttpServletResponse rsp) throws SQLException {
 
-        List <TbCommonUser> list = this.userManagerService.getUserListByParam(param);
+        List <TbCommonUser> list = new ArrayList <>();
+        Connection conn = RichApmDBUtil.getConnection();
+        PreparedStatement preparedStatement = conn.prepareStatement("select * from user ");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        TbCommonUser userInfo = null;
+        while(resultSet.next()){
+            userInfo = new TbCommonUser();
+            userInfo.setId(resultSet.getLong(1));
+            userInfo.setRealName(resultSet.getString("name"));
+            list.add(userInfo);
+        }
 
         List <TbCommonUser> selectList = new ArrayList <>();
         Alarm alarm = (Alarm) alarmService.loadById(Alarm.class, param.getId());
         String ids = alarm.getAlarmUser();
         if (!StringUtil.isEmpty(ids)) {
             String[] users = ids.split(",");
-            TbCommonUser u = null;
             for (String user : users) {
-                u = (TbCommonUser) userManagerService.loadById(TbCommonUser.class, Long.parseLong(user));
-                selectList.add(u);
+                for(TbCommonUser uTemp : list){
+                    if(uTemp.getId().toString().equals(user)){
+                        selectList.add(uTemp);
+                    }
+                }
 
             }
-
             list.removeAll(selectList);//移除已经选中的元素
         }
-
 
         ToolUtil.getCombo(rsp, list);
     }
@@ -335,18 +350,32 @@ public class AlarmManagerController {
      * @param model
      */
     @RequestMapping(params = "getSelectedUsers")
-    public void getSelectedUsers(UserManagerModel param, HttpServletRequest req, HttpServletResponse rsp) {
-        param.setIsValid(1);//有效
+    public void getSelectedUsers(UserManagerModel param, HttpServletRequest req, HttpServletResponse rsp) throws SQLException {
 
         List <TbCommonUser> selectList = new ArrayList <>();
         Alarm alarm = (Alarm) alarmService.loadById(Alarm.class, param.getId());
         String ids = alarm.getAlarmUser();
+
+        Connection conn = RichApmDBUtil.getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         if (!StringUtil.isEmpty(ids)) {
             String[] users = ids.split(",");
             TbCommonUser u = null;
             for (String user : users) {
-                u = (TbCommonUser) userManagerService.loadById(TbCommonUser.class, Long.parseLong(user));
-                selectList.add(u);
+
+                preparedStatement = conn.prepareStatement("select * from user where id= "+Long.parseLong(user));
+                resultSet = preparedStatement.executeQuery();
+                if(resultSet!=null){
+                    if(resultSet.next()==true){
+                        u = new TbCommonUser();
+                        u.setId(resultSet.getLong(1));
+                        u.setRealName(resultSet.getString("name"));
+                        selectList.add(u);
+                    }
+                }
+
 
             }
         }

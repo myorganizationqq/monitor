@@ -36,7 +36,6 @@
 		<!-- 配置登陆拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/manage/system/loginController.do"></mvc:exclude-mapping>
 			<bean class="com.bluedon.monitor.project.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 

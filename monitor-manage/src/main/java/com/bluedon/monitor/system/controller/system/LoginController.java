@@ -12,6 +12,7 @@ import com.bluedon.monitor.system.util.NumberComparator;
 import com.bluedon.monitor.system.util.ToolUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -72,176 +74,87 @@ public class LoginController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping(params = "checkuser")
-	public void checkuser(LoginUserModel param,HttpServletRequest req,HttpServletResponse rsp) {
-		OperResult rs = new OperResult();
-		Object data=null;
-		boolean result=true;
-		String msg="";
-		HttpSession session=req.getSession();
-		//查询用户是否存在
-		param.setIsValid(1);//有效
-		param.setCheckType(ConstantUtil.CHECK_LOGINNAME);//检查登录名
-		List<TbCommonUser> userList=this.userManagerService.getUserListByParam(param);
-		if(userList.size()==0){//用户不存在
-			result=false;
-			msg="输入的用户名不存在！";			
-		}else{			
-			param.setCheckType(ConstantUtil.CHECK_LOGINPWS);//密码校验
-			//param.setPassword(Encrypt3DesUtil.getEncString(param.getPassword()));//加密
-			param.setPassword(param.getPassword());//加密
-			userList=this.userManagerService.getUserListByParam(param);
 
 
-
-			if(userList.size()==1){
-				TbCommonUser user=userList.get(0);
-				
-				//设置用户信息
-				CurrentUserInfo userInfo=new CurrentUserInfo();
-				userInfo.setUserId(user.getId());//保存用户id
-				userInfo.setLoginName(user.getLoginName());
-				userInfo.setRealName(user.getRealName());
-				userInfo.setUserType(user.getUserType());
-				
-				
-				//根据用户id查询该用户的机构集合 并设置
-				List<TbCommonOrg> orgList=orgManagerService.getOrgListByUserId(user.getId());
-				userInfo.setOrgs(orgList);
-								
-				//根据用户id查询该用户的角色集合 并设置
-				//角色设置
-				List<TbCommonRole> roleList=roleManagerService.getRoleListByUserId(user.getId());
-				userInfo.setRoles(roleList);				
-					
-				//当该用户只有一个组织机构和一个角色时，直接设置当前登录的机构和角色
-				if(orgList.size()==1 && roleList.size()==1){
-					userInfo.setOrgId(orgList.get(0).getId());
-					userInfo.setRoleId(roleList.get(0).getId());
-				}
-				//返回前台内容
-				Map<String,Object> map=new HashMap<String,Object>();
-				map.put("orgs", orgList);
-				map.put("roles", roleList);	
-				data=JSONObject.fromObject(map).toString();
-				
-				//保存相关的session
-				session.setAttribute(ConstantUtil.CURRENT_USER_INFO, userInfo);												
-			}else{
-				//提示用户信息输入有误
-				result=false;
-				msg="密码输入有误，请重新输入！";
-			}				
-					
-		}		
-		
-        if(result){//成功
-        	rs.setResultCode(ConstantUtil.RESULT_SUCCESS);
-        	if(data!=null){
-        		rs.setData(data);
-        	}
-        	
-        }else{ //失败 输出提示信息
-        	rs.setResultCode(ConstantUtil.RESULT_FAILED);
-        	rs.setMsg(msg);       	
-        }
-        ToolUtil.getData(rsp, rs);
-	}
-	
 	//登录
 	@RequestMapping(params = "login")
-	public ModelAndView login(HttpServletRequest req) {
-		String type=req.getParameter("loginType");
-		//获取封装的用户信息
-		CurrentUserInfo userInfo=ConstantUtil.getCurrentUserInfo();
-		Long orgId=null;
-		Long roleId=null;
-		if(userInfo!=null){//已经验证过登录信息的
-						
-			if(type!=null){//登录				
-				//插入登录日志  调用日志接口
-				LoginUserModel param=new LoginUserModel();
-				param.setLoginName(userInfo.getLoginName());
-				log.debug(userInfo.getRealName()+"登录成功！");
-				
-				if(type.equals("0")){//直接登录
-					orgId=userInfo.getOrgId();
-					roleId=userInfo.getRoleId();
-				}else if(type.equals("1")){//选择单位和角色登录
-					String orgIdStr=req.getParameter("orgId");
-					String roleIdStr=req.getParameter("roleId");
-					if(!StringUtil.isEmpty(orgIdStr)){
-						orgId=Long.parseLong(orgIdStr);
-						userInfo.setOrgId(orgId);
-					}
-					if(!StringUtil.isEmpty(roleIdStr)){
-						roleId=Long.parseLong(roleIdStr);
-						userInfo.setRoleId(roleId);
-					}				
-				}
-				
-				Long userId=userInfo.getUserId();	
-				//组织机构信息设置			
-				TbCommonOrg org=orgManagerService.getOrg(orgId);
-				userInfo.setOrgCode(org.getOrgCode());
-				userInfo.setOrgName(org.getOrgName());
-				userInfo.setOrgFullName(org.getFullName());
-				
-				//部门信息设置
-				//根据机构和用户查询部门
-				Map<String,Object> params=new HashMap<String,Object>();
-				params.put("userId", userId);
-				params.put("orgId", orgId);
-				TbCommonUserOrg userOrg=this.userOrgManagerService.getUserOrg(params);
-				Long departId=userOrg.getDepartId();//部门id
-				if(departId!=null){
-					TbCommonDepart depart=departManagerService.getDepart(departId);
-					userInfo.setDepartCode(depart.getDepartCode());
-					userInfo.setDepartName(depart.getDepartName());
-				}
-				
-				//角色信息设置	
-				if(roleId!=null){
-					TbCommonRole role=roleManagerService.getRole(roleId);
-					userInfo.setRoleCode(role.getRolecode());
-					userInfo.setRoleName(role.getRolename());
-					userInfo.setRoleType(role.getRoleType());	
-				}
+	public ModelAndView login(HttpServletRequest req,HttpServletResponse response) {
+		//richapm跳转判断角色
+		String roleParam = req.getParameter("roleParam");
 
-				//用户登录单位的所有角色列表
-				List<TbCommonRole> roleList=this.roleManagerService.getRoleListByUserIdAndOrgId(userId, orgId);
-				userInfo.setOrgRoles(roleList);
-				
-				//设置session
-				req.getSession().setAttribute(ConstantUtil.CURRENT_USER_INFO, userInfo);
-				
-				//用户信息
-				req.setAttribute("userInfo", userInfo);
-				
-				return new ModelAndView("manage/manage-index");			
-
-			}else{//session未过期 直接请求登录的url
-				if(userInfo.getOrgId()!=null){
-					//用户信息
-					req.setAttribute("userInfo", userInfo);
-					return new ModelAndView("manage/manage-index");	
-				}else{
-					return new ModelAndView("manage/login/login");
-				}				
-			}		
-		}else{
-			//session过期 登录页面
-			return new ModelAndView("manage/login/login");
+		if(StringUtil.isEmpty(roleParam)){
+			return new ModelAndView("manage/login/logout");
 		}
+		//获取封装的用户信息
+		CurrentUserInfo sessionUserInfo=ConstantUtil.getCurrentUserInfo();
+
+
+			req.getSession().setAttribute("roleParam",roleParam);
+			LoginUserModel param = new LoginUserModel();
+			param.setIsValid(1);//有效
+			param.setCheckType(ConstantUtil.CHECK_LOGINNAME);//检查登录名
+			param.setLoginName("admin");
+			param.setPassword("123456");
+			param.setCheckType(ConstantUtil.CHECK_LOGINPWS);//密码校验
+			List<TbCommonUser> userList=this.userManagerService.getUserListByParam(param);
+
+			TbCommonUser user = userList.get(0);
+
+			//设置用户信息
+			CurrentUserInfo userInfo = new CurrentUserInfo();
+			userInfo.setUserId(user.getId());//保存用户id
+			userInfo.setLoginName(user.getLoginName());
+			userInfo.setRealName(user.getRealName());
+			userInfo.setUserType(user.getUserType());
+
+			//角色信息设置
+			if(roleParam.equals("qscxjk")){
+				userInfo.setRoleCode("qscxjk");
+				userInfo.setRoleName("清算程序监控");
+				userInfo.setRoleType(4);
+				userInfo.setRoleId(1L);
+			}else{
+				userInfo.setRoleCode("wlsbjk");
+				userInfo.setRoleName("网络设备监控");
+				userInfo.setRoleType(4);
+				userInfo.setRoleId(2L);
+			}
+
+			req.setAttribute("roleName",userInfo.getRoleName());
+
+			//保存相关的session
+			req.getSession().setAttribute(ConstantUtil.CURRENT_USER_INFO, userInfo);
+
+			req.setAttribute("roleParam", roleParam);
+			return new ModelAndView("manage/manage-index");
+
+
+
 	}
 	
 	//获取菜单
 	@RequestMapping(params = "getMenu")
-	public void getMenus(HttpServletRequest req,HttpServletResponse rsp){			
+	public void getMenus(HttpServletRequest req,HttpServletResponse rsp){
+		String roleParam = (String)req.getSession().getAttribute("roleParam");
+
 		List<TbCommonFunction> allList=new ArrayList<TbCommonFunction>();
 		
 		//获取封装的用户信息
 		CurrentUserInfo userInfo=ConstantUtil.getCurrentUserInfo();
+
+		//角色信息设置
+		if(roleParam.equals("qscxjk")){
+			userInfo.setRoleCode("qscxjk");
+			userInfo.setRoleName("清算程序监控");
+			userInfo.setRoleType(4);
+			userInfo.setRoleId(1L);
+		}else{
+			userInfo.setRoleCode("wlsbjk");
+			userInfo.setRoleName("网络设备监控");
+			userInfo.setRoleType(4);
+			userInfo.setRoleId(2L);
+		}
+
 		if(userInfo!=null){
 			//菜单动态加载	
 		
@@ -274,17 +187,28 @@ public class LoginController {
 	
 	//退出
 	@RequestMapping(params = "logout")
-	public ModelAndView logout(HttpServletRequest req) {
+	public ModelAndView logout(HttpServletRequest req,HttpServletResponse response) {
+
 		HttpSession session=req.getSession();
 		//获取用户
 		CurrentUserInfo userInfo=ConstantUtil.getCurrentUserInfo();
-		//清除session
-		session.removeAttribute(ConstantUtil.CURRENT_USER_INFO);
-		
 
-		log.debug(userInfo.getRealName()+"退出成功！");
-		
-		return new ModelAndView("manage/login/logout");	
+		if(userInfo!=null){
+			//清除session
+			session.removeAttribute(ConstantUtil.CURRENT_USER_INFO);
+		}
+
+		Cookie[] cookies=req.getCookies();
+
+			for(int i=0;i<cookies.length;i++){
+				Cookie cookie = new Cookie(cookies[i].getName(),null);
+				cookie.setMaxAge(0);
+				cookie.setPath("/");//根据你创建cookie的路径进行填写
+				response.addCookie(cookie);
+			}
+
+
+		return new ModelAndView("manage/login/logout");
 	}
 	
 	
@@ -335,7 +259,7 @@ public class LoginController {
 		
 		Long orgId=null;
 		Long roleId=null;
-		
+
 		String orgIdStr=req.getParameter("orgId");
 		String roleIdStr=req.getParameter("roleId");
 		if(!StringUtil.isEmpty(orgIdStr)){

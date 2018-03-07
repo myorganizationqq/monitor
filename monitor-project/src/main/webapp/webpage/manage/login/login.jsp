@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${requestScope.basePath }webpage/js/manage/amsWindow.js"></script>
 <script type="text/javascript">
 $(function(){
-	check();
+    $("#loginForm").submit();
 });
 function check(){
 	 var isValid = valid();//表单验证方法
@@ -115,6 +115,9 @@ function chooseWin(){
        		<td>
        			<input id="password" name="password" type="password"
 	      	 	 style="height:25px;width:200px;" class="easyui-textbox"  value="123456"/>
+
+				<input  name="roleParam" type="password"
+					   style="height:25px;width:200px;" class="easyui-textbox"  value="${roleParam}"/>
        		</td>
         </tr>
 
