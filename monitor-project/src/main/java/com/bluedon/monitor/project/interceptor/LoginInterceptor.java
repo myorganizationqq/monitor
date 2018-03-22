@@ -4,15 +4,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bluedon.monitor.project.controller.netio.NetioController;
-import com.bluedon.monitor.project.util.JedisUtil;
-import com.bluedon.monitor.project.util.PropertiesUtil;
+import com.bluedon.monitor.common.util.PropertiesUtil;
 import org.apache.log4j.Logger;
-import org.springframework.util.SerializationUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import redis.clients.jedis.Jedis;
 
 
 public class LoginInterceptor implements HandlerInterceptor {
@@ -33,23 +29,37 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     }
 
+    /**
+     * 通过跟路径是否有cookie account 判断richapm是否登录，没有则拦截一体化监控所有请求并跳转至richapm登录页面
+     *
+     * @param request
+     * @param response
+     * @param object
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object object) throws Exception {
 
         Cookie[] cookies = request.getCookies();
 
-        String cookieSid = null;
+        if(cookies==null) return true;
+
+        String cookieAccount = null;
 
         for (int i = 0; i < cookies.length; i++) {
 
-            if (cookies[i].getName().equals("sid")) {
-                cookieSid = cookies[i].getValue();
+            if (cookies[i].getName().equals("account")) {
+                cookieAccount = cookies[i].getValue();
             }
         }
 
-        if (StringUtils.isEmpty(cookieSid)) {
-            response.sendRedirect("http://10.90.2.117/sys/login");
+        if (StringUtils.isEmpty(cookieAccount)) {
+            java.io.PrintWriter out = response.getWriter();
+
+            out.println("<html><script>window.open('http://10.90.2.117/sys/login','_top')</script></html>");
+
             return false;
         }
 
