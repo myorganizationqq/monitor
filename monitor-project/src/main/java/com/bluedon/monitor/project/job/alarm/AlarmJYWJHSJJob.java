@@ -7,6 +7,7 @@ package com.bluedon.monitor.project.job.alarm;
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.PageUtil;
 import com.bluedon.monitor.common.util.StringUtil;
+import com.bluedon.monitor.project.common.SendMsgUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.alarm.AlarmNotice;
 import com.bluedon.monitor.project.entity.tradeFileRpt.TradeFileRpt;
@@ -155,9 +156,8 @@ public class AlarmJYWJHSJJob implements Job {
             phoneUser.clear();
         }
 
-        for (String phone : phoneUser) {
-            log.info("发送短信给" + phone);
-        }
+        //发送短信给
+        SendMsgUtil.sendMessage(phoneUser, content);
 
         SendMailUtil mail = null;
         for (String email : emailUser) {

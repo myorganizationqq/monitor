@@ -19,7 +19,7 @@ public class SendMsgUtil {
 
 	public static void main(String[] args) {
 		List<String> phoneUser = new ArrayList<>();
-		String content = "冯志辉在测试短信发送，收到信息给我截图，谢谢！";
+		String content = "冯志辉正在测试短信发送，收到信息给我截图，谢谢！";
 		phoneUser.add("15976531601");
 		phoneUser.add("13610176397");
 		sendMessage(phoneUser, content);

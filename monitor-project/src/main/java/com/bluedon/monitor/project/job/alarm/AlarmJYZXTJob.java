@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.bluedon.monitor.common.util.CommonUtil;
 import com.bluedon.monitor.common.util.StringUtil;
+import com.bluedon.monitor.project.common.SendMsgUtil;
 import com.bluedon.monitor.project.entity.alarm.Alarm;
 import com.bluedon.monitor.project.entity.stSysFlowCurrentDt.StSysFlowCurrentDt;
 import com.bluedon.monitor.project.service.alarm.IAlarmNoticeManagerService;
@@ -146,9 +147,8 @@ public class AlarmJYZXTJob implements Job {
             phoneUser.clear();
         }
 
-        for (String phone : phoneUser) {
-            log.info("发送短信给" + phone);
-        }
+        //发送短信给
+        SendMsgUtil.sendMessage(phoneUser, content);
 
         SendMailUtil mail = null;
         for (String email : emailUser) {
