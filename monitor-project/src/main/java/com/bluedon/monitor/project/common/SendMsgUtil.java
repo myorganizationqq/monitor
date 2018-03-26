@@ -19,20 +19,20 @@ public class SendMsgUtil {
 
 	public static void main(String[] args) {
 		List<String> phoneUser = new ArrayList<>();
-		String content = "冯志辉正在测试短信发送，收到信息给我截图，谢谢！";
+		String content = "5次短信轰炸！冯志辉正在测试接口发送短信，谢谢！";
 		phoneUser.add("15976531601");
-		phoneUser.add("13610176397");
+		phoneUser.add("13822214933");
 		sendMessage(phoneUser, content);
 	}
 	
 	/**
-	 * 发送短信
+	 * 发送短信     注意：127.0.0.1:8060这是固定的，此代码只能在装了中间件的服务器运行
 	 * @param phoneUser
 	 * @param content
 	 */
 	public static void sendMessage(List<String> phoneUser, String content) {
 		// 发送中文时需要指定encoding为U
-		String urlStr = "http://10.90.50.52:8090/send?password=1&text=%s&recipient=%s&encoding=U";
+		String urlStr = "http://127.0.0.1:8060/send?password=1&text=%s&recipient=%s&encoding=U";
 		String phoneNum = "";
 		for (String phone : phoneUser) {
 			phoneNum += phone + ",";
@@ -45,6 +45,7 @@ public class SendMsgUtil {
 			URLConnection URLconnection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) URLconnection;
 			int responseCode = httpConnection.getResponseCode();
+			log.info("responseCode: " + responseCode);
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				log.info("发送成功！");
 				InputStream urlStream = httpConnection.getInputStream();
